@@ -1,0 +1,28 @@
+######### rTorrent & ruTorrent installation script ###########
+### Install SSH server & screen if not already installed #####
+
+apt-get update && apt-get -y install ssh screen
+
+### Now, SSH into the server ( ssh user@serverip ) and run these commands ###
+### Or you can continue in the local terminal if you prefer               ###
+
+cd /root/
+rm -rf /root/rt-src/
+wget rtorrent-install-LATEST.tar.gz 
+tar -zxf rtorrent-install-LATEST.tar.gz
+cd rt-src 
+chmod 755 rtorrent-install.sh
+clear && cat INSTALL
+
+### If you didn't already create a user, you need to do this now. ###
+adduser <username>
+
+### Now, you can run the script directly in the SSH or in a screen ###
+### Directly in the SSH, run this command ###
+time bash /root/rt-src/rtorrent-install.sh
+
+### If you need to run in a screen session, use this command command ###
+screen -dmS aaa time bash /root/rt-src/rtorrent-install.sh
+screen -r aaa
+### Hit CTRL+A to attach and CTRL+D to detach        ###
+### To resume, type: screen -r aaa                   ###
