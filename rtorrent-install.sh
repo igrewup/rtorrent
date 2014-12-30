@@ -1,0 +1,257 @@
+#!/bin/bash
+
+source $(dirname $0)/incl.sh
+
+# Checking if user is root.
+
+if [[ $EUID -ne 0 ]]; then
+  echo
+  echo "This script must be run as root" 1>&2
+  echo
+  exit 1
+fi
+
+# Checking if system is running Debian.
+
+if [ "$OS1" != "Debian" ]; then
+	echo
+	echo "You are not running Debian. This script will now exit." 1>&2
+	echo
+	exit 1
+fi
+
+# Checking if system is running Debian.
+
+if [ "$OS2" != "wheezy" ]; then
+	echo
+	echo "Unfortunately, you are not running Debian codename (wheezy)"
+	echo "You are running Debian codename $OS2. This script will now exit." 1>&2
+	echo
+	exit 1
+fi
+
+####################### EVERYTHING LOOKS GOOD, START THE SCRIPT ###############################
+
+clear
+
+function getString
+{
+  local ISPASSWORD=$1
+  local LABEL=$2
+  local RETURN=$3
+  local DEFAULT=$4
+  local NEWVAR1=a
+  local NEWVAR2=b
+  local YESYES=YESyes
+  local NONO=NOno
+  local YESNO=$YESYES$NONO
+
+  while [ ! $NEWVAR1 = $NEWVAR2 ] || [ -z "$NEWVAR1" ];
+  do
+    clear
+
+    if [ "$ISPASSWORD" == "YES" ]; then
+      read -s -p "$DEFAULT" -p "$LABEL" NEWVAR1
+    else
+      read -e -i "$DEFAULT" -p "$LABEL" NEWVAR1
+    fi
+    if [ -z "$NEWVAR1" ]; then
+      NEWVAR1=a
+      continue
+    fi
+
+    if [ ! -z "$DEFAULT" ]; then
+      if grep -q "$DEFAULT" <<< "$YESNO"; then
+        if grep -q "$NEWVAR1" <<< "$YESNO"; then
+          if grep -q "$NEWVAR1" <<< "$YESYES"; then
+            NEWVAR1=YES
+          else
+            NEWVAR1=NO
+          fi
+        else
+          NEWVAR1=a
+        fi
+      fi
+    fi
+
+    if [ "$NEWVAR1" == "$DEFAULT" ]; then
+      NEWVAR2=$NEWVAR1
+    else
+      if [ "$ISPASSWORD" == "YES" ]; then
+        echo
+        read -s -p "Retype: " NEWVAR2
+      else
+        read -p "Retype: " NEWVAR2
+      fi
+      if [ -z "$NEWVAR2" ]; then
+        NEWVAR2=b
+        continue
+      fi
+    fi
+
+
+    if [ ! -z "$DEFAULT" ]; then
+      if grep -q "$DEFAULT" <<< "$YESNO"; then
+        if grep -q "$NEWVAR2" <<< "$YESNO"; then
+          if grep -q "$NEWVAR2" <<< "$YESYES"; then
+            NEWVAR2=YES
+          else
+            NEWVAR2=NO
+          fi
+        else
+          NEWVAR2=a
+        fi
+      fi
+    fi
+    echo "---> $NEWVAR2"
+
+  done
+  eval $RETURN=\$NEWVAR1
+}
+
+
+# License
+
+echo
+echo
+echo "Your system is running $OS1 ($OS2) which is support by this script."
+echo
+read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
+echo
+echo
+
+# Prompting for system user.
+
+cut -d":" -f1 /etc/passwd > /tmp/users.list
+DIRS=`ls -l /home | egrep '^d' | awk '{print $9}'`
+
+for DIR in $DIRS
+do
+# Remove usernames that exist in /home
+sed -i "/$DIR/d" /tmp/users.list
+done
+
+
+check=0
+user=nobody
+while [ $check -eq 0 ]; do
+
+# Script to see if User exists
+
+echo -n "Check if username is valid: "
+read user
+
+if grep "$user" /tmp/users.list > /dev/null; then
+   echo "You can't use '$user' as a user!"
+elif id -u $user >/dev/null 2>&1; then
+#elif [ id $user ]; then
+	echo "ID=$user"
+	check=1
+
+else
+	echo "This user does not exist, try a different user."
+fi
+
+done
+
+rm /tmp/users.list
+
+echo "$user is a valid and available username"
+
+homedir=$(cat /etc/passwd | grep "$user": | cut -d: -f6)
+
+#those passwords will be changed in the next steps
+PASSWORD1=a
+PASSWORD2=b
+
+# Install other software & services
+
+getString NO  "Set password for $user: " PASSWORD1
+getString NO  "SSH port (usually 22): " NEWSSHPORT1 22
+### INSTALL VSFTPD
+getString NO  "Install VSFTPD (yes/no)?: " INSTALLVSFTPD1 NO
+if [ "$INSTALLVSFTPD1" = "YES" ]; then
+getString NO  "VSFTPD port (usually 21): " NEWFTPPORT1 21
+fi
+### INSTALL OPENVPN
+getString NO  "Install OpenVPN (yes/no)?: " INSTALLOPENVPN1 NO
+if [ "$INSTALLOPENVPN1" = "YES" ]; then
+getString NO  "OpenVPN port (usually ??): " OPENVPNPORT1 22220
+fi
+### INSTALL WEBMIN
+getString NO  "Install Webmin (yes/no)?: " INSTALLWEBMIN1 NO
+if [ "$INSTALLWEBMIN1" = "YES" ]; then
+getString NO  "Webmin port (default: 10000)?: " WEBMINPORT1 10000
+fi
+
+clear
+
+echo "Your settings:"
+echo
+echo "USERNAME: $user"
+echo "PASSWORD: $PASSWORD1"
+echo "SSH port: $NEWSSHPORT1"
+echo
+if [ "$INSTALLVSFTPD1" = "YES" ]; then
+echo "Install VSFTPD: $INSTALLVSFTPD1"
+echo "VSFTPD port: $NEWFTPPORT1"
+fi
+if [ "$INSTALLOPENVPN1" = "YES" ]; then
+echo "Install OPENVPN: $INSTALLOPENVPN1"
+echo "OPENVPN port: $OPENVPNPORT1"
+fi
+if [ "$INSTALLWEBMIN1" = "YES" ]; then
+echo "Install WEBMIN: $INSTALLWEBMIN1"
+echo "WEBMIN port: $WEBMINPORT1"
+fi
+echo
+echo
+read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
+echo
+
+getString NO  "DO YOU WANT TO CONTINUE WITH INSTALLATION? (yes/no): " INSTALL NO
+
+### START INSTALLATION = YES ##
+if [ "$INSTALL" = "YES" ]; then
+
+clear
+
+sed -i "s/Port.*/Port $NEWSSHPORT1/g" /etc/ssh/sshd_config
+#sed -i "s/PermitRootLogin.*/PermitRootLogin no/g" /etc/ssh/sshd_config
+#sed -i "s/#Protocol 2/Protocol 2/g" /etc/ssh/sshd_config
+#sed -i "s/X11Forwarding.*/X11Forwarding no/g" /etc/ssh/sshd_config
+
+#groupadd sshdusers
+#groupadd sftponly
+#echo "" | tee -a /etc/ssh/sshd_config > /dev/null
+#echo "UseDNS no" | tee -a /etc/ssh/sshd_config > /dev/null
+#echo "AllowGroups sshdusers" >> /etc/ssh/sshd_config
+#mkdir -p /usr/share/terminfo/l/
+#cp /lib/terminfo/l/linux /usr/share/terminfo/l/
+#echo '/usr/lib/openssh/sftp-server' >> /etc/shells
+#echo "Match Group sftponly" >> /etc/ssh/sshd_config
+#echo "ChrootDirectory %h" >> /etc/ssh/sshd_config
+#echo "ForceCommand internal-sftp" >> /etc/ssh/sshd_config
+#echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config
+#service ssh restart
+
+### END OF OPENSSH MODIFICATIONS ###
+
+if [ "$INSTALLVSFTPD1" = "YES" ]; then
+  bash ./install_vsftpd
+fi
+
+if [ "$INSTALLOPENVPN1" = "YES" ]; then
+  bash ./install_openvpn
+fi
+
+if [ "$INSTALLWEBMIN1" = "YES" ]; then
+  bash ./install_webmin
+fi
+
+else
+	echo "Aborting installation"
+	exit 1
+fi ### END INSTALLATION ###
+
+echo "End of script"
