@@ -8,9 +8,8 @@ apt-get update && apt-get -y install ssh screen
 
 cd /root/
 rm -rf /root/rtorrent/
-wget rtorrent-install-LATEST.tar.gz 
-tar -zxf rtorrent-install-LATEST.tar.gz
-cd rt-src 
+git clone git://github.com/igrewup/rtorrent.git
+cd rtorrent
 chmod 755 rtorrent-install.sh
 clear && cat INSTALL
 
@@ -19,10 +18,10 @@ adduser <username>
 
 ### Now, you can run the script directly in the SSH or in a screen ###
 ### Directly in the SSH, run this command ###
-time bash /root/rt-src/rtorrent-install.sh
+time bash ./rtorrent-install.sh
 
 ### If you need to run in a screen session, use this command command ###
-screen -dmS aaa time bash /root/rt-src/rtorrent-install.sh
+screen -dmS aaa time bash ./rtorrent-install.sh
 screen -r aaa
 ### Hit CTRL+A to attach and CTRL+D to detach        ###
 ### To resume, type: screen -r aaa                   ###
