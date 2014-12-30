@@ -7,7 +7,7 @@ apt-get update && apt-get -y install ssh screen
 ### Or you can continue in the local terminal if you prefer               ###
 
 cd /root/
-rm -rf /root/rt-src/
+rm -rf /root/rtorrent/
 wget rtorrent-install-LATEST.tar.gz 
 tar -zxf rtorrent-install-LATEST.tar.gz
 cd rt-src 
