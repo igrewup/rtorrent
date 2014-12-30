@@ -1,6 +1,13 @@
 #!/bin/bash
 source $(dirname $0)/incl.sh
 
+#$1 = NEWFTPPORT1
+if [ -z "$1" ]; then
+	echo "No FTP port variable set"
+	echo "Run main script or add missing variable. ex: ./install_vsftpd 21"
+        exit 1
+fi
+
 if [ ! -f /etc/init.d/vsftpd ]; then
 
 	if [ "$OS1" = "Debian" ]; then
@@ -27,7 +34,7 @@ fi
 # Modify /etc/vsftpd.conf
 
 echo "listen=YES
-listen_port=$NEWFTPPORT1
+listen_port=$1
 local_root=/home
 anonymous_enable=NO
 local_enable=YES
