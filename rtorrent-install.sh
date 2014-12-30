@@ -252,6 +252,7 @@ fi
 else
 	echo "Aborting installation"
 	exit 1
-fi ### END INSTALLATION ###
+fi 
+### END INSTALLATION ###
 
 echo "End of script"
