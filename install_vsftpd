@@ -19,7 +19,7 @@ if [ ! -f /etc/init.d/vsftpd ]; then
 	fi
 else
 
-	echo "VSFTPD is already installed."
+	echo "VSFTPD is already installed on port $1"
 
 fi
 
