@@ -116,7 +116,7 @@ echo
 echo
 echo "Your system is running $OS1 ($OS2) which is support by this script."
 echo
-read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
+#read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
 echo
 echo
 
@@ -132,7 +132,7 @@ sed -i "/$DIR/d" /tmp/users.list
 done
 
 
-check=0
+check=1
 user=nobody
 while [ $check -eq 0 ]; do
 
@@ -166,10 +166,10 @@ PASSWORD2=b
 
 # Install other software & services
 
-getString NO  "Set password for $user: " PASSWORD1
-getString NO  "SSH port (usually 22): " NEWSSHPORT1 22
+#getString NO  "Set password for $user: " PASSWORD1
+#getString NO  "SSH port (usually 22): " NEWSSHPORT1 22
 ### INSTALL VSFTPD
-getString NO  "Install VSFTPD (yes/no)?: " INSTALLVSFTPD1 NO
+getString NO  "Install VSFTPD (yes/no)?: " INSTALLVSFTPD1 YES
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
 getString NO  "VSFTPD port (usually 21): " NEWFTPPORT1 21
 fi
@@ -209,8 +209,8 @@ echo
 read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
 echo
 
-getString NO  "DO YOU WANT TO CONTINUE WITH INSTALLATION? (yes/no): " INSTALL NO
-
+#getString NO  "DO YOU WANT TO CONTINUE WITH INSTALLATION? (yes/no): " INSTALL NO
+INSTALL=YES
 ### START INSTALLATION = YES ##
 if [ "$INSTALL" = "YES" ]; then
 
@@ -238,15 +238,15 @@ sed -i "s/Port.*/Port $NEWSSHPORT1/g" /etc/ssh/sshd_config
 ### END OF OPENSSH MODIFICATIONS ###
 
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
-  bash ./install_vsftpd
+  bash ./install_vsftpd "$NEWFTPPORT1"
 fi
 
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
-  bash ./install_openvpn
+  bash ./install_openvpn "$OPENVPNPORT1"
 fi
 
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
-  bash ./install_webmin
+  bash ./install_webmin "$WEBMINPORT1"
 fi
 
 else
