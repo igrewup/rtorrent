@@ -1,0 +1,25 @@
+#!/bin/bash
+source $(dirname $0)/incl.sh
+
+if [ ! -f /etc/init.d/webmin ]; then
+	#if webmin isup, download key
+	WEBMINDOWN=YES
+	ping -c1 -w2 www.webmin.com > /dev/null
+	if [ $? = 0 ] ; then
+		WEBMINDOWN=NO
+		echo "Webmin server seems up, going to download key and install webmin now."
+		wget -O - http://www.webmin.com/jcameron-key.asc | sudo apt-key add -
+		echo 'deb http://download.webmin.com/download/repository sarge contrib
+		deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' > /etc/apt/sources.list.d/webmin.list
+		apt-get update
+		apt-get -y install webmin
+		rm jcameron-key.asc
+		echo "Webmin installed successfully."
+	else
+		WEBMINDOWN=YES
+		echo "Cannot install Webmin, the webserver seems to be down."
+  	fi
+
+else
+	echo "Webmin is already installed"
+fi
