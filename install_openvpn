@@ -151,7 +151,13 @@ else
 	read -p "IP address: " -e -i $IP IP
 	echo ""
 	echo "What port do you want for OpenVPN?"
-	read -p "Port: " -e -i 1194 PORT
+	if [ -z "$1" ]; then
+		PORT="1194"
+		read -p "Port: " -e -i $PORT PORT
+	else
+		PORT="$1"
+		echo "OpenVPN Port: $PORT"
+	fi
 	echo ""
 	echo "Do you want OpenVPN to be available at port 53 too?"
 	echo "This can be useful to connect under restrictive networks"
@@ -160,9 +166,10 @@ else
 	echo "Finally, tell me your name for the client cert"
 	echo "Please, use one word only, no special characters"
 	read -p "Client name: " -e -i client CLIENT
-	echo ""
-        echo "Do you like secure ${CLIENT}'s  private key with password?"
-        read -p "Use password for private key [y/n]:" -e -i y USEPASS
+	#echo ""
+        #echo "Do you like secure ${CLIENT}'s  private key with password?"
+        #read -p "Use password for private key [y/n]:" -e -i y USEPASS
+	USEPASS="y"
 	echo ""
 	echo "Okay, that was all I needed. We are ready to setup your OpenVPN server now"
 	read -n1 -r -p "Press any key to continue..."
@@ -217,7 +224,7 @@ else
 	sed -i 's|;push "redirect-gateway def1 bypass-dhcp"|push "redirect-gateway def1 bypass-dhcp"|' server.conf
 	sed -i 's|;push "dhcp-option DNS 208.67.222.222"|push "dhcp-option DNS 8.8.8.8"|' server.conf
 	sed -i 's|;push "dhcp-option DNS 208.67.220.220"|push "dhcp-option DNS 8.8.4.4"|' server.conf
-	sed -i "s|port 1194|port $PORT|" server.conf
+	sed -i "s|port.*|port $PORT|" server.conf
 	# Listen at port 53 too if user wants that
 	if [ $ALTPORT = 'y' ]; then
 		iptables -t nat -A PREROUTING -p udp -d $IP --dport 53 -j REDIRECT --to-port $PORT
@@ -282,9 +289,12 @@ else
 	zip ../ovpn-$CLIENT.zip $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT.ovpn
 	cd ~/
 	rm -rf ovpn-$CLIENT
+	mkdir /var/www/vpn/
+	mv ~/ovpn-$CLIENT.zip /var/www/rutor/vpn/
 	echo ""
 	echo "Finished!"
 	echo ""
-	echo "Your client config is available at ~/ovpn-$CLIENT.zip"
+	echo "Your client config is available at https://$IP/vpn/ovpn-$CLIENT.zip"
 	echo "If you want to add more clients, you simply need to run this script another time!"
+	echo "OpenVPN account for $CLIENT created successfully." >> output.txt
 fi
