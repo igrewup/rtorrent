@@ -50,8 +50,12 @@ cd ../..
 rm -rv rtorrent
 
 ldconfig
-
+else
+	echo
+	echo "rTorrent is already installed."
 fi # Is rtorrent already installed (END)
+
+
 
 # Creating session directory
 if [ ! -d "$homedir"/.rtorrent-session ]; then
