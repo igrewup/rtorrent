@@ -12,11 +12,10 @@ if [ ! -f /etc/init.d/webmin ]; then
 		WEBMINDOWN=NO
 		echo "Webmin server seems up, going to download key and install webmin now."
 		wget -O - http://www.webmin.com/jcameron-key.asc | sudo apt-key add -
-		echo 'deb http://download.webmin.com/download/repository sarge contrib
-		deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' > /etc/apt/sources.list.d/webmin.list
+		echo 'deb http://download.webmin.com/download/repository sarge contrib' > /etc/apt/sources.list.d/webmin.list
+		echo 'deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' >> /etc/apt/sources.list.d/webmin.list
 		apt-get update
 		apt-get -y install webmin
-		rm /tmp/webmin.asc
 		echo "Webmin installed successfully."  >> $OUTPUTFILE
 	else
 		WEBMINDOWN=YES
