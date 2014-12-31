@@ -78,33 +78,21 @@ function getString
   eval $RETURN=\$NEWVAR1
 }
 
-# Remove temp files
-rm $OUTPUTFILE
-
-# Welcome screen
 clear
-echo
-echo
-echo "Your system is running $OS1 ($OS2) which is support by this script."
-echo
-read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
-echo
-echo
 
 # Check to see if this script is up-to-date
-echo $1
-sleep 5
 if [[ $1 == "update" ]]; then
-	bash ./check_version.sh
+  bash ./check_version.sh
+  echo
+  echo "Now continuing with the installation."
+  echo
+elif [[ $1 == "noupdate" ]]; then
+	echo "Skipping script update checker"
 else
-	read -p "Run Security Update (y/n)? " UPDATE1
+	read -p "Run script updater (y/n)? " UPDATE1
 	if [[ $UPDATE1 = "y" ]]; then
   		read -p "Are you sure? (y/n)? " UPDATE2
-  		if [[ $UPDATE2 != "y" ]]; then
-  			echo "Goodbye!"
-  			exit
-  		else
-  			echo
+  		if [[ $UPDATE2 = "y" ]]; then
   			bash ./check_version.sh
   			echo
   			echo "Now continuing with the installation."
@@ -112,6 +100,18 @@ else
   		fi
 	fi
 fi
+
+# Welcome screen
+echo
+echo
+echo "Your system is running $OS1 ($OS2) which is support by this script."
+echo
+read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
+echo
+echo
+# Remove temp files
+rm $OUTPUTFILE
+clear
 
 # Prompting for system user.
 cut -d":" -f1 /etc/passwd > /tmp/users.list
