@@ -81,6 +81,9 @@ function getString
 clear
 
 # Check to see if this script is up-to-date
+
+echo "Option when launching ./rtorrent-install.sh [update,noupdate]"
+echo "If no variable is set, the script will ask u to update."
 if [[ $1 == "update" ]]; then
   #bash ./check_version.sh
   source $(dirname $0)/check_version.sh
