@@ -1,5 +1,5 @@
 #!/bin/bash
-source $(dirname $0)/check.sh
+#source $(dirname $0)/check.sh
 source $(dirname $0)/incl.sh
 
 # OpenVPN road warrior installer for Debian-based distros
