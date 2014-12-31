@@ -31,7 +31,7 @@ if [ "$OS2" != "wheezy" ]; then
 	exit 1
 fi
 
-if [ -f /var/www/vpn/index.html ]; then
+if [ ! -f /var/www/vpn/index.html ]; then
 echo '<!DOCTYPE HTML>
 <html lang="en-US">
 <head>
