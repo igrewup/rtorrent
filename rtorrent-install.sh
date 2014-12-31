@@ -229,10 +229,6 @@ if [ "$INSTALLRTORRENT1" = "YES" ]; then
 	bash ./install_rtorrent "$homedir" "$user"
 fi
 
-if [ "$INSTALLPLUGINS1" = "YES" ]; then
-	bash ./install_plugins "$homedir"
-fi
-
 if [ "$INSTALLSSH1" = "YES" ]; then
 	bash ./install_ssh "$NEWSSHPORT1"
 fi
@@ -247,6 +243,10 @@ fi
 
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
   bash ./install_webmin "$WEBMINPORT1"
+fi
+
+if [ "$INSTALLPLUGINS1" = "YES" ]; then
+	bash ./install_plugins "$homedir"
 fi
 
 else
