@@ -109,7 +109,6 @@ function getString
   eval $RETURN=\$NEWVAR1
 }
 
-
 # License
 
 echo
@@ -147,7 +146,6 @@ elif id -u $user >/dev/null 2>&1; then
 #elif [ id $user ]; then
 	echo "ID=$user"
 	check=1
-
 else
 	echo "This user does not exist, try a different user."
 fi
@@ -160,30 +158,30 @@ echo "$user is a valid and available username"
 
 homedir=$(cat /etc/passwd | grep "$user": | cut -d: -f6)
 
-#those passwords will be changed in the next steps
+# those passwords will be changed in the next steps
 PASSWORD1=a
 PASSWORD2=b
 
 # Install other software & services
 
 #getString NO  "Set password for $user: " PASSWORD1
-#getString NO  "SSH port (usually 22): " NEWSSHPORT1 22
-### INSTALL VSFTPD
-getString NO  "Install VSFTPD (yes/no)?: " INSTALLVSFTPD1 YES
+getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 YES
+if [ "$INSTALLSSH1" = "YES" ]; then
+getString NO  "SSH port (usually 22): " NEWSSHPORT1 22
+fi
+getString NO  "Install/Update VSFTPD (yes/no)?: " INSTALLVSFTPD1 YES
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
 getString NO  "VSFTPD port (usually 21): " NEWFTPPORT1 21
 fi
-### INSTALL OPENVPN
-getString NO  "Install OpenVPN (yes/no)?: " INSTALLOPENVPN1 NO
+getString NO  "Install/Update OpenVPN (yes/no)?: " INSTALLOPENVPN1 NO
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
 getString NO  "OpenVPN port (usually ??): " OPENVPNPORT1 22220
 fi
-### INSTALL WEBMIN
-getString NO  "Install Webmin (yes/no)?: " INSTALLWEBMIN1 NO
+getString NO  "Install/Update Webmin (yes/no)?: " INSTALLWEBMIN1 NO
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
 getString NO  "Webmin port (default: 10000)?: " WEBMINPORT1 10000
 fi
-
+getString NO "Install/Update PLUGINS (yes/no)?: " INSTALLPLUGINS1 YES
 clear
 
 echo "Your settings:"
