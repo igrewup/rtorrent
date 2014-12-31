@@ -93,7 +93,7 @@ echo
 
 # Installing dependencies
 apt-get update
-apt-get -y install openssl git subversion build-essential automake libtool screen rar unrar zip unzip
+apt-get -y install openssl git subversion build-essential automake libtool screen zip unzip rar unrar-free
 
 # Prompting for system user.
 cut -d":" -f1 /etc/passwd > /tmp/users.list
