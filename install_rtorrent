@@ -2,19 +2,18 @@
 source $(dirname $0)/check.sh
 source $(dirname $0)/incl.sh
 
-1=$homedir
-2=$user
+homedir=$1
+user=$2
 
-echo "$1 $2"
-echo "$homedir $user"
-
-if [ $1 != $homedir ] || [ $2 != $user ]; then
-  echo "Variables do not match, stop script to prevent damage."
+if [ $1 != $homedir ]; then
+  echo "$1 != $homedir, stopping script to prevent damage."
   exit 1
 fi
 
-echo "Exiting."
-exit 1
+if [ $2 != $user ]; then
+  echo "$2 != $user, stopping script to prevent damage."
+  exit 1
+fi
 
 if [ ! -f /usr/local/bin/rtorrent ]; then # Is rtorrent already installed (START)
 # Installing xmlrpc-c
