@@ -51,7 +51,7 @@ cd rtorrent-0.9.4
 make
 make install
 cd ../..
-rm -rv rtorrent
+rm -rf rtorrent
 
 ldconfig
 echo "rTorrent installed successfully." >> output.txt
