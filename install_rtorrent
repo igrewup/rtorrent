@@ -50,12 +50,10 @@ cd ../..
 rm -rv rtorrent
 
 ldconfig
+echo "rTorrent installed successfully." >> output.txt
 else
-	echo
-	echo "rTorrent is already installed."
+	echo "rTorrent is already installed." >> output.txt
 fi # Is rtorrent already installed (END)
-
-
 
 # Creating session directory
 if [ ! -d "$homedir"/.rtorrent-session ]; then
@@ -86,3 +84,5 @@ fi
 cp .rtorrent.rc $homedir/.rtorrent.rc
 chown "$user"."$user" $homedir/.rtorrent.rc
 sed -i "s@HOMEDIRHERE@$homedir@g" $homedir/.rtorrent.rc
+
+echo "rTorrent settings updated sucessfully." >> output.txt
