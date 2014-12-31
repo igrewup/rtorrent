@@ -1,5 +1,6 @@
 #!/bin/bash
 source $(dirname $0)/check.sh
+source $(dirname $0)/incl.sh
 
 # $1 = $homedir
 plugindir="/var/www/rutor/plugins/"
