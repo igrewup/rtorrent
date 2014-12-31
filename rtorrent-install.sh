@@ -148,7 +148,7 @@ getString NO  "VSFTPD port (usually 21): " NEWFTPPORT1 21
 fi
 getString NO  "Install/Update OpenVPN (yes/no)?: " INSTALLOPENVPN1 NO
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
-getString NO  "OpenVPN port (usually ??): " OPENVPNPORT1 22220
+getString NO  "Port 1194 is already set but you can add another port (usually 53): " OPENVPNPORT1 53
 fi
 getString NO  "Install/Update Webmin (yes/no)?: " INSTALLWEBMIN1 NO
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
@@ -194,11 +194,6 @@ if [ "$INSTALLWEBMIN1" = "YES" ]; then
 	echo "WEBMIN port: $WEBMINPORT1"
 	echo
 fi
-
-echo
-echo
-read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
-echo
 
 getString NO  "DO YOU WANT TO CONTINUE WITH INSTALLATION? (yes/no): " INSTALL NO
 ### START INSTALLATION = YES ##
