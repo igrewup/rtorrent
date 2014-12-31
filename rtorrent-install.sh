@@ -81,9 +81,6 @@ function getString
 clear
 
 # Check to see if this script is up-to-date
-
-echo "Option when launching ./rtorrent-install.sh [update,noupdate]"
-echo "If no variable is set, the script will ask u to update."
 if [[ $1 == "update" ]]; then
   #bash ./check_version.sh
   source $(dirname $0)/check_version.sh
@@ -108,8 +105,10 @@ fi
 
 # Welcome screen
 echo
+echo "NOTE: Options when launching ./rtorrent-install.sh [update,noupdate]"
+echo "By default, if no variable is given, it will ask you to update or not."
 echo
-echo "Your system is running $OS1 ($OS2) which is support by this script."
+echo "Your system is running $OS1 ($OS2) which is supported by this script."
 echo
 read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
 echo
