@@ -135,6 +135,9 @@ PASSWORD2=b
 getString NO  "Set password for $user: " PASSWORD1
 getString NO "Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 YES
 getString NO "Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 YES
+if [ "$INSTALLRUTORRENT1" = "YES" ]; then
+getString NO "Install/Update RUTORRENT PLUGINS (yes/no)?: " INSTALLPLUGINS1 YES
+fi
 getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 YES
 if [ "$INSTALLSSH1" = "YES" ]; then
 getString NO  "SSH port (usually 22): " NEWSSHPORT1 22
@@ -151,44 +154,45 @@ getString NO  "Install/Update Webmin (yes/no)?: " INSTALLWEBMIN1 NO
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
 getString NO  "Webmin port (default: 10000)?: " WEBMINPORT1 10000
 fi
-getString NO "Install/Update PLUGINS (yes/no)?: " INSTALLPLUGINS1 YES
+
 clear
 
-echo "Your settings:"
-echo
-echo "USERNAME: $user |  PASSWORD: $PASSWORD1  |  HOMEDIR: $homedir"
-echo
+	echo "Your settings:"
+	echo
+	echo "USERNAME: $user |  PASSWORD: $PASSWORD1  |  HOMEDIR: $homedir"
+	echo
 if [ "$INSTALLRTORRENT1" = "YES" ]; then
-echo "Install/Update RTORRENT: $INSTALLRTORRENT1"
-echo
+	echo "Install/Update RTORRENT: $INSTALLRTORRENT1"
+	echo
 fi
+
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then
 echo "Install/Update RUTORRENT: $INSTALLRUTORRENT1"
+	if [ "$INSTALLPLUGINS1" = "YES" ]; then
+	echo "Install/Update PLUGINS: $INSTALLPLUGINS1"
+fi
 echo
 fi
+
 if [ "$INSTALLSSH1" = "YES" ]; then
-echo "Install/Update SSH: $INSTALLSSH1"
-echo "SSH port: $NEWSSHPORT1"
-echo
+	echo "Install/Update SSH: $INSTALLSSH1"
+	echo "SSH port: $NEWSSHPORT1"
+	echo
 fi
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
-echo "Install/Update VSFTPD: $INSTALLVSFTPD1"
-echo "VSFTPD port: $NEWFTPPORT1"
-echo
+	echo "Install/Update VSFTPD: $INSTALLVSFTPD1"
+	echo "VSFTPD port: $NEWFTPPORT1"
+	echo
 fi
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
-echo "Install/Update OPENVPN: $INSTALLOPENVPN1"
-echo "OPENVPN port: $OPENVPNPORT1"
-echo
+	echo "Install/Update OPENVPN: $INSTALLOPENVPN1"
+	echo "OPENVPN port: $OPENVPNPORT1"
+	echo
 fi
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
-echo "Install/Update WEBMIN: $INSTALLWEBMIN1"
-echo "WEBMIN port: $WEBMINPORT1"
-echo
-fi
-if [ "$INSTALLPLUGINS1" = "YES" ]; then
-echo "Install/Update PLUGINS: $INSTALLPLUGINS1"
-echo
+	echo "Install/Update WEBMIN: $INSTALLWEBMIN1"
+	echo "WEBMIN port: $WEBMINPORT1"
+	echo
 fi
 
 echo
