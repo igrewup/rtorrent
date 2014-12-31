@@ -267,10 +267,9 @@ else
 		echo "Webmin: https://$ip:$WEBMINPORT1"
 	fi
 	if [ "$INSTALLOPENVPN1" = "YES" ]; then
-	if [ -f $OUTPUTFILE ]; then
-		grep "https://" $OUTPUTFILE
-	fi
-		#echo "OpenVPN certificate: https://$ip/rutor/vpn/"
+		if [ -f $OUTPUTFILE ]; then
+			grep 'https://' $OUTPUTFILE
+		fi
 	fi
 	
 	if [ -f $OUTPUTFILE ]; then
