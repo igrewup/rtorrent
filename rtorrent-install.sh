@@ -91,6 +91,10 @@ read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n
 echo
 echo
 
+# Installing dependencies
+apt-get update
+apt-get -y install openssl git subversion build-essential screen rar unrar zip unzip
+
 # Prompting for system user.
 cut -d":" -f1 /etc/passwd > /tmp/users.list
 DIRS=`ls -l /home | egrep '^d' | awk '{print $9}'`
