@@ -94,6 +94,17 @@ echo
 read -p "Run Security Update (y/n)? " UPDATE
 if [ "$UPDATE" == "y" ]; then
   bash ./install_rutorrent "update"
+  echo "System is fully up-to-date and secure."
+  echo
+  read -p "Continue with installation (y/n)? " CONTINSTALL
+  if [ "$CONTINSTALL" != "y" ]; then
+  	echo "Goodbye!"
+  	exit
+  else
+  	echo
+  	echo"Continuing with the installation."
+  	echo
+  fi
 fi
 
 # Prompting for system user.
