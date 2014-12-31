@@ -34,7 +34,7 @@ while true; do
 done
 fi
 
-chmod 444 /var/www/rutor/.ht*
+chmod 444 /var/www/rutor/.htaccess
 
 # Creating Apache virtual host
 if [ ! -f /etc/apache2/sites-available/rutor ]; then
