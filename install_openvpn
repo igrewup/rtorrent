@@ -19,6 +19,12 @@ else
 	NEWPORT=$1
 fi
 
+if [ -z $2 ]; then
+	clientname="vpnuser"
+else
+	clientname=$2
+fi
+
 # Try to get our IP from the system and fallback to the Internet.
 # I do this to make the script compatible with NATed servers (lowendspirit.com)
 # and to avoid getting an IPv6.
@@ -46,7 +52,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			echo ""
 			echo "Tell me a name for the client cert"
 			echo "Please, use one word only, no special characters"
-			read -p "Client name: " -e -i client CLIENT
+			read -p "Client name: " -e -i $clientname CLIENT
 			echo ""
 		        #echo "Do you like secure ${CLIENT}'s  private key with password?"
         		#read -p "Use password for private key [y/n]:" -e -i y USEPASS
@@ -104,7 +110,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			2)
 			echo ""
 			echo "Tell me the existing client name"
-			read -p "Client name: " -e -i client CLIENT
+			read -p "Client name: " -e -i $clientname CLIENT
 			cd /etc/openvpn/easy-rsa/2.0/
 			. /etc/openvpn/easy-rsa/2.0/vars
 			. /etc/openvpn/easy-rsa/2.0/revoke-full $CLIENT
@@ -154,7 +160,7 @@ else
 	echo ""
 	echo "Finally, tell me your name for the client cert"
 	echo "Please, use one word only, no special characters"
-	read -p "Client name: " -e -i client CLIENT
+	read -p "Client name: " -e -i $clientname CLIENT
 	#echo ""
         #echo "Do you like secure ${CLIENT}'s  private key with password?"
         #read -p "Use password for private key [y/n]:" -e -i y USEPASS
