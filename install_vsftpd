@@ -4,8 +4,7 @@ source $(dirname $0)/incl.sh
 
 if [ ! -f /etc/init.d/vsftpd ]; then
 	if [ "$OS1" = "Debian" ]; then
-		apt-get update
-		apt-get install vsftpd
+		apt-get -y install vsftpd openssl
 		echo "VSFTPD successfully installed."  >> output.txt
 	else
 		echo "You are not using Debian. Cannot install VSFTPD."  >> output.txt
