@@ -200,15 +200,15 @@ read -p "DO YOU WANT TO CONTINUE WITH THE INSTALLATION? (yes / no):" INSTALL
 ### START INSTALLATION = YES ##
 if [ "$INSTALL" = "yes" ]; then
 read -p "ARE YOU SURE? (yes / no):" SURE
-	if [ "$SURE" != "yes" ]
+	if [ "$SURE" != "yes" ]; then
 		echo
 		echo "Aborting installation."
 		echo
 		exit
 	else
-	clear
-	echo "Starting the installation now, this will take a while..."
-fi
+		clear
+		echo "Starting the installation now, this will take a while..."
+	fi
 
 # Installing dependencies
 apt-get update
