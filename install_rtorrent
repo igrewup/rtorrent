@@ -15,6 +15,10 @@ if [ $2 != $user ]; then
   exit 1
 fi
 
+# Installing dependencies
+apt-get update
+apt-get -y install subversion build-essential automake libtool libcppunit-dev libcurl3-dev libsigc++-2.0-dev curl libncurses-dev
+
 if [ ! -f /usr/local/bin/rtorrent ]; then # Is rtorrent already installed (START)
 # Installing xmlrpc-c
 svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
