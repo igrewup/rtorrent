@@ -221,7 +221,7 @@ if [ "$INSTALLVSFTPD1" = "YES" ]; then
 fi
 
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
-  bash ./install_openvpn "$OPENVPNPORT1"
+  bash ./install_openvpn "$OPENVPNPORT1" "$user"
 fi
 
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
