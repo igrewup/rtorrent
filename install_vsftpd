@@ -50,4 +50,5 @@ ssl_sslv2=NO
 ssl_sslv3=NO
 ssl_ciphers=HIGH" > /etc/vsftpd.conf
 service vsftpd restart
+echo "VSFTPD Port: $NEWFTPPORT1" >> output.txt
 fi
