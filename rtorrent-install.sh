@@ -188,20 +188,26 @@ echo "Your settings:"
 echo
 echo "USERNAME: $user"
 echo "PASSWORD: $PASSWORD1"
+if [ "$INSTALLSSH1" = "YES" ]; then
+echo "Install/Update SSH: $INSTALLSSH1"
 echo "SSH port: $NEWSSHPORT1"
-echo
+fi
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
-echo "Install VSFTPD: $INSTALLVSFTPD1"
+echo "Install/Update VSFTPD: $INSTALLVSFTPD1"
 echo "VSFTPD port: $NEWFTPPORT1"
 fi
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
-echo "Install OPENVPN: $INSTALLOPENVPN1"
+echo "Install/Update OPENVPN: $INSTALLOPENVPN1"
 echo "OPENVPN port: $OPENVPNPORT1"
 fi
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
-echo "Install WEBMIN: $INSTALLWEBMIN1"
+echo "Install/Update WEBMIN: $INSTALLWEBMIN1"
 echo "WEBMIN port: $WEBMINPORT1"
 fi
+if [ "$INSTALLPLUGINS1" = "YES" ]; then
+echo "Install/Update PLUGINS: $INSTALLPLUGINS1"
+fi
+
 echo
 echo
 read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
