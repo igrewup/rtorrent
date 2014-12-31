@@ -186,7 +186,8 @@ if [ "$INSTALLVSFTPD1" = "YES" ]; then
 fi
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
 	echo "Install/Update OPENVPN: $INSTALLOPENVPN1"
-	echo "OPENVPN port: $OPENVPNPORT1"
+	echo "OPENVPN main port: 1194"
+	echo "OPENVPN alternate port: $OPENVPNPORT1"
 	echo
 fi
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
