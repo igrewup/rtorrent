@@ -13,7 +13,7 @@ if [ ! -e /dev/net/tun ]; then
 	exit
 fi
 
-if [ -z "$NEWPORT" ]; then
+if [ -z $1 ]; then
 	NEWPORT="53"
 else
 	NEWPORT=$1
