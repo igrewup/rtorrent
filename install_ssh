@@ -1,5 +1,6 @@
 #!/bin/bash
 source $(dirname $0)/check.sh
+source $(dirname $0)/incl.sh
 
 if [ ! -f /etc/init.d/ssh ]; then
   apt-get -y install ssh
