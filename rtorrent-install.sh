@@ -132,7 +132,7 @@ PASSWORD1=a
 PASSWORD2=b
 
 # Install other software & services
-getString NO  "Set password for $user: " PASSWORD1
+#getString NO  "Set password for $user: " PASSWORD1
 getString NO "Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 YES
 getString NO "Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 YES
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then
