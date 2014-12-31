@@ -13,12 +13,12 @@ if [ ! -f /etc/init.d/vsftpd ]; then
 	if [ "$OS1" = "Debian" ]; then
 		apt-get update
 		apt-get install vsftpd
-		echo "VSFTPD successfully installed."
+		echo "VSFTPD successfully installed."  >> output.txt
 	else
-		echo "You are not using Debian. Cannot install VSFTPD."
+		echo "You are not using Debian. Cannot install VSFTPD."  >> output.txt
 	fi
 else
-	echo "VSFTPD is already installed."
+	echo "VSFTPD is already installed."  >> output.txt
 fi
 
 # Create SSL certificate for VSFTPD.
