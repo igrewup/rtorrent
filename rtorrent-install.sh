@@ -266,14 +266,21 @@ tput sgr0
 echo
 
 if [ -z "$(ip addr | grep eth0)" ]; then
+	echo "Unable to find your IP Address."
 	echo "ruTorrent WebGUI: https://IP.ADDRESS/rutor"
-	echo "Webmin: https://<IP.ADDRESS>:$WEBMINPORT1"
+	echo "Webmin: https://<IP.ADDRESS>:10000 (unless port was changed)"
 	echo "OpenVPN certificate: https://<IP.ADDRESS>/rutor/vpn/" 
 else
 	ip=$(ip addr | grep eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
-	echo "ruTorrent WebGUI: https://$ip/rutor"
-	echo "Webmin: https://$ip:$WEBMINPORT1"
+	if [ "$INSTALLRUTORRENT1" = "YES" ]; then
+		echo "ruTorrent WebGUI: https://$ip/rutor/"
+	fi
+	if [ "$INSTALLWEBMIN1" = "YES" ]; then
+			echo "Webmin: https://$ip:$WEBMINPORT1"
+	fi
+	if [ "$INSTALLOPENVPN1" = "YES" ]; then
 	echo "OpenVPN certificate: https://$ip/rutor/vpn/"
+	fi
 fi
 echo
 echo -e "\033[0;32;148mTo exit the script, type: exit\033[39m"
