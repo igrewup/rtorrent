@@ -1,6 +1,7 @@
 #!/bin/bash
 source $(dirname $0)/incl.sh
 
+
 # Checking if user is root.
 if [[ $EUID -ne 0 ]]; then
   echo
@@ -103,6 +104,9 @@ function getString
   done
   eval $RETURN=\$NEWVAR1
 }
+
+# Output result file
+rm output.txt
 
 # License
 
@@ -261,5 +265,5 @@ fi
 
 # Secure ruTorrent web folder
 cp .htaccess /var/www/rutor/ && chmod 444 /var/www/rutor/.ht*
-
+cat output.txt
 echo "End of script"
