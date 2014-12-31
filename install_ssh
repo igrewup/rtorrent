@@ -2,6 +2,8 @@
 source $(dirname $0)/check.sh
 source $(dirname $0)/incl.sh
 
+NEWSSHPORT1=$1
+
 if [ ! -f /etc/init.d/ssh ]; then
   apt-get -y install ssh
   echo "SSH installed successfully"  >> output.txt
@@ -10,13 +12,13 @@ else
 fi
 
 echo
-echo "New SSH port: $1"
+echo "New SSH port: $NEWSSHPORT1"
 read -p "Do you want to update SSH settings? (y/n): " UPDATE
 echo
 if [ "$UPDATE" == "y" ]; then
 
   cp install_ssh_default /etc/ssh/sshd_config
-  sed -i "s/Port.*/Port $1/g" /etc/ssh/sshd_config
+  sed -i "s/Port.*/Port $NEWSSHPORT1/g" /etc/ssh/sshd_config
 
   #sed -i "s/PermitRootLogin.*/PermitRootLogin no/g" /etc/ssh/sshd_config
   #sed -i "s/#Protocol 2/Protocol 2/g" /etc/ssh/sshd_config
@@ -36,4 +38,5 @@ if [ "$UPDATE" == "y" ]; then
   #echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config
   
   service ssh restart
+  echo "SSH Port: $NEWSSHPORT1" >>output.txt
 fi
