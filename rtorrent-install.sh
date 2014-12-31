@@ -266,10 +266,14 @@ tput sgr0
 echo
 
 if [ -z "$(ip addr | grep eth0)" ]; then
-	echo "Visit rutorrent at https://IP.ADDRESS/rutor" 
+	echo "ruTorrent WebGUI: https://IP.ADDRESS/rutor"
+	echo "Webmin: https://<IP.ADDRESS>:$WEBMINPORT1"
+	echo "OpenVPN certificate: https://<IP.ADDRESS>/rutor/vpn/" 
 else
 	ip=$(ip addr | grep eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
-	echo "Visit rutorrent at https://$ip/rutor"
+	echo "ruTorrent WebGUI: https://$ip/rutor"
+	echo "Webmin: https://$ip:$WEBMINPORT1"
+	echo "OpenVPN certificate: https://$ip/rutor/vpn/"
 fi
 echo
 echo -e "\033[0;32;148mTo exit the script, type: exit\033[39m"
