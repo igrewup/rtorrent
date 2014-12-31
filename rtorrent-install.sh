@@ -133,16 +133,16 @@ PASSWORD2=b
 
 # Install other software & services
 #getString NO  "Set password for $user: " PASSWORD1
-getString NO "Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 YES
-getString NO "Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 YES
+getString NO "Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 NO
+getString NO "Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 NO
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then
 getString NO "Install/Update RUTORRENT PLUGINS (yes/no)?: " INSTALLPLUGINS1 YES
 fi
-getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 YES
+getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 NO
 if [ "$INSTALLSSH1" = "YES" ]; then
 getString NO  "SSH port (usually 22): " NEWSSHPORT1 22
 fi
-getString NO  "Install/Update VSFTPD (yes/no)?: " INSTALLVSFTPD1 YES
+getString NO  "Install/Update VSFTPD (yes/no)?: " INSTALLVSFTPD1 NO
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
 getString NO  "VSFTPD port (usually 21): " NEWFTPPORT1 21
 fi
