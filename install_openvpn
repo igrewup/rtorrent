@@ -26,6 +26,7 @@ if [ ! -e /etc/debian_version ]; then
 	exit
 fi
 
+NEWPORT=$1
 
 # Try to get our IP from the system and fallback to the Internet.
 # I do this to make the script compatible with NATed servers (lowendspirit.com)
@@ -132,7 +133,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			apt-get remove --purge -y openvpn openvpn-blacklist
 			rm -rf /etc/openvpn
 			rm -rf /usr/share/doc/openvpn
-			sed -i '/--dport 53 -j REDIRECT --to-port/d' /etc/rc.local
+			sed -i '/--dport $NEWPORT -j REDIRECT --to-port/d' /etc/rc.local
 			sed -i '/iptables -t nat -A POSTROUTING -s 10.8.0.0/d' /etc/rc.local
 			echo ""
 			echo "OpenVPN removed!"
@@ -152,19 +153,20 @@ else
 	echo "listening to."
 	read -p "IP address: " -e -i $IP IP
 	echo ""
-	echo "What port do you want for OpenVPN?"
-	if [ -z "$1" ]; then
-		PORT="1194"
-		read -p "Port: " -e -i $PORT PORT
+	echo "OpenVPN default port: 1194"
+	PORT="1194"
+	#read -p "Port: " -e -i 1194 PORT
+	if [ -z "$NEWPORT" ]; then
+			NEWPORT="53"
+			echo ""
+			echo "Do you want OpenVPN to be available at port $NEWPORT too?"
+			echo "This can be useful to connect under restrictive networks"
+			read -p "Alternate port: $NEWPORT [y/n]:" -e -i n ALTPORT
 	else
-		PORT="$1"
-		echo "Port: $PORT"
+			echo "Do you want OpenVPN to be available at port $NEWPORT too?"
+			echo "This can be useful to connect under restrictive networks"
+			read -p "Alternate port: $NEWPORT [y/n]:" -e -i n ALTPORT
 	fi
-	echo ""
-	echo "Do you want OpenVPN to be available at port 53 too?"
-	echo "This can be useful to connect under restrictive networks"
-	#read -p "Listen at port 53 [y/n]:" -e -i y ALTPORT
-	ALTPORT="n"
 	echo ""
 	echo "Finally, tell me your name for the client cert"
 	echo "Please, use one word only, no special characters"
@@ -230,8 +232,8 @@ else
 	sed -i "s|port.*|port $PORT|" server.conf
 	# Listen at port 53 too if user wants that
 	if [ $ALTPORT = 'y' ]; then
-		iptables -t nat -A PREROUTING -p udp -d $IP --dport 53 -j REDIRECT --to-port $PORT
-		sed -i "/# By default this script does nothing./a\iptables -t nat -A PREROUTING -p udp -d $IP --dport 53 -j REDIRECT --to-port $PORT" /etc/rc.local
+		iptables -t nat -A PREROUTING -p udp -d $IP --dport $NEWPORT -j REDIRECT --to-port $PORT
+		sed -i "/# By default this script does nothing./a\iptables -t nat -A PREROUTING -p udp -d $IP --dport $NEWPORT -j REDIRECT --to-port $PORT" /etc/rc.local
 	fi
 	# Enable net.ipv4.ip_forward for the system
 	sed -i 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|' /etc/sysctl.conf
