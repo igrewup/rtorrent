@@ -248,7 +248,7 @@ fi
 clear
 
 echo -e "\033[0;32;148mInstallation is complete..\033[39m"
-if [ ! -f output.txt ]; then
+if [ -f output.txt ]; then
 cat output.txt && rm output.txt
 fi
 tput sgr0
