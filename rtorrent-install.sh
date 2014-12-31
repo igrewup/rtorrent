@@ -195,9 +195,20 @@ if [ "$INSTALLWEBMIN1" = "YES" ]; then
 	echo
 fi
 
-getString NO  "DO YOU WANT TO CONTINUE WITH INSTALLATION? (yes/no): " INSTALL NO
+read -p "DO YOU WANT TO CONTINUE WITH THE INSTALLATION? (yes / no):" INSTALL
+#getString NO  "DO YOU WANT TO CONTINUE WITH INSTALLATION? (yes/no): " INSTALL NO
 ### START INSTALLATION = YES ##
-if [ "$INSTALL" = "YES" ]; then
+if [ "$INSTALL" = "yes" ]; then
+read -p "ARE YOU SURE? (yes / no):" SURE
+	if [ "$SURE" != "yes" ]
+		echo
+		echo "Aborting installation."
+		echo
+		exit
+	else
+	clear
+	echo "Starting the installation now, this will take a while..."
+fi
 
 # Installing dependencies
 apt-get update
