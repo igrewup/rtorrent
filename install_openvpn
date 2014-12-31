@@ -293,7 +293,7 @@ else
 	zip ../ovpn-$CLIENT.zip $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT.ovpn
 	cd ~/
 	rm -rf ovpn-$CLIENT
-	mkdir /var/www/vpn/
+	mkdir -p /var/www/vpn/
 	mv ~/ovpn-$CLIENT.zip /var/www/vpn/
 	echo ""
 	echo "Finished!"
