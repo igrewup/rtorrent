@@ -195,11 +195,11 @@ if [ "$INSTALLWEBMIN1" = "YES" ]; then
 	echo
 fi
 
-read -p "DO YOU WANT TO CONTINUE WITH THE INSTALLATION? (yes / no):" INSTALL
+read -p "DO YOU WANT TO CONTINUE WITH THE INSTALLATION? (yes / no): " INSTALL
 #getString NO  "DO YOU WANT TO CONTINUE WITH INSTALLATION? (yes/no): " INSTALL NO
 ### START INSTALLATION = YES ##
 if [ "$INSTALL" = "yes" ]; then
-read -p "ARE YOU SURE? (yes / no):" SURE
+read -p "ARE YOU SURE? (yes / no): " SURE
 	if [ "$SURE" != "yes" ]; then
 		echo
 		echo "Aborting installation."
@@ -207,7 +207,9 @@ read -p "ARE YOU SURE? (yes / no):" SURE
 		exit
 	else
 		clear
+		echo
 		echo "Starting the installation now, this will take a while..."
+		echo
 	fi
 
 # Installing dependencies
@@ -246,7 +248,9 @@ fi
 clear
 
 echo -e "\033[0;32;148mInstallation is complete..\033[39m"
+if [ ! -f output.txt ]; then
 cat output.txt && rm output.txt
+fi
 tput sgr0
 echo
 
