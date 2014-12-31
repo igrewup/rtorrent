@@ -251,4 +251,7 @@ else
 fi 
 ### END INSTALLATION ###
 
+# Secure ruTorrent web folder
+cp .htaccess /var/www/rutor/ && chmod 444 /var/www/rutor/.ht*
+
 echo "End of script"
