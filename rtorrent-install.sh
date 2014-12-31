@@ -92,13 +92,15 @@ echo
 echo
 
 # Check to see if this script is up-to-date
-if [ $1 == "update" ]; then
+echo $1
+sleep 5
+if [[ $1 == "update" ]]; then
 	bash ./check_version.sh
 else
 	read -p "Run Security Update (y/n)? " UPDATE1
-	if [ "$UPDATE1" = "y" ]; then
+	if [[ $UPDATE1 = "y" ]]; then
   		read -p "Are you sure? (y/n)? " UPDATE2
-  		if [ "$UPDATE2" != "y" ]; then
+  		if [[ $UPDATE2 != "y" ]]; then
   			echo "Goodbye!"
   			exit
   		else
