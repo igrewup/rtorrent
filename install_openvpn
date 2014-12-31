@@ -209,8 +209,7 @@ else
 	# Now the client keys. We need to set KEY_CN or the stupid pkitool will cry
 	export KEY_CN="$CLIENT"
 	export EASY_RSA="${EASY_RSA:-.}"
-        if [ $USEPASS = 'y' ];
-        then
+        if [ $USEPASS = 'y' ]; then
         	"$EASY_RSA/pkitool" --pass $CLIENT
         else
         	"$EASY_RSA/pkitool" $CLIENT
@@ -295,7 +294,7 @@ else
 	cd ~/
 	rm -rf ovpn-$CLIENT
 	mkdir /var/www/vpn/
-	mv ~/ovpn-$CLIENT.zip /var/www/rutor/vpn/
+	mv ~/ovpn-$CLIENT.zip /var/www/vpn/
 	echo ""
 	echo "Finished!"
 	echo ""
