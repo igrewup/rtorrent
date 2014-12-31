@@ -32,7 +32,8 @@ if [ "$OS2" != "wheezy" ]; then
 fi
 
 if [ ! -f /var/www/vpn/index.html ]; then
-echo '<!DOCTYPE HTML>
+echo "index.html doesn't exist, now creating it."
+echo "<!DOCTYPE HTML>
 <html lang="en-US">
 <head>
 <meta charset="UTF-8">
@@ -46,5 +47,5 @@ window.location.href = "http://www.ubuntu.com"
 <!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
 If you are not redirected automatically, follow the <a href='http://www.ubuntu.com'></a>
 </body>
-</html>' > /var/www/vpn/index.html
+</html>" > /var/www/vpn/index.html
 fi
