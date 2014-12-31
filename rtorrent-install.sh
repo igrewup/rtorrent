@@ -92,18 +92,19 @@ echo
 echo
 
 
-if [ $1 == "update" ]; then
-  wget --no-check-certificate https://github.com/igrewup/rtorrent/VERSION
-  bash ./install_rutorrent "update"
-  echo "System is fully up-to-date and secure."
-  echo
-else
+#if [ $1 == "update" ]; then
+#  wget --no-check-certificate https://github.com/igrewup/rtorrent/VERSION
+#  bash ./install_rutorrent "update"
+#  echo "System is fully up-to-date and secure."
+#  echo
+#else
 	read -p "Run Security Update (y/n)? " UPDATE
   read -p "Continue with installation (y/n)? " CONTINSTALL
   if [ "$CONTINSTALL" != "y" ]; then
   	echo "Goodbye!"
   	exit
   else
+  	bash ./install_rutorrent "update"
   	echo
   	echo "Continuing with the installation."
   	echo
