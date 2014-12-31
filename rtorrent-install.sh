@@ -157,6 +157,7 @@ PASSWORD2=b
 
 # Install other software & services
 #getString NO  "Set password for $user: " PASSWORD1
+getString NO "Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 YES
 getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 YES
 if [ "$INSTALLSSH1" = "YES" ]; then
 getString NO  "SSH port (usually 22): " NEWSSHPORT1 22
@@ -178,9 +179,12 @@ clear
 
 echo "Your settings:"
 echo
-echo "USERNAME: $user"
-echo "PASSWORD: $PASSWORD1"
+echo "USERNAME: $user |  PASSWORD: $PASSWORD1  |  HOMEDIR: $homedir"
 echo
+if [ "$INSTALLRTORRENT1" = "YES" ]; then
+echo "Install/Update RTORRENT: $INSTALLRTORRENT1"
+echo
+fi
 if [ "$INSTALLSSH1" = "YES" ]; then
 echo "Install/Update SSH: $INSTALLSSH1"
 echo "SSH port: $NEWSSHPORT1"
@@ -217,6 +221,10 @@ INSTALL=YES
 if [ "$INSTALL" = "YES" ]; then
 
 clear
+if [ "$INSTALLRTORRENT1" = "YES" ]; then
+	bash ./install_rtorrent "$homedir" "$user"
+	echo
+fi
 
 if [ "$INSTALLPLUGINS1" = "YES" ]; then
 	bash ./install_plugins "$homedir"
