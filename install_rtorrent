@@ -94,4 +94,6 @@ sed -i "s/USERNAMEHERE/$user/g" /etc/init.d/rtorrent-init
 update-rc.d rtorrent-init defaults
 fi
 
+service rtorrent-init start
+
 echo "rTorrent settings updated sucessfully." >> output.txt
