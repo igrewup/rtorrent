@@ -2,13 +2,6 @@
 source $(dirname $0)/check.sh
 source $(dirname $0)/incl.sh
 
-#$1 = NEWFTPPORT1
-if [ -z "$1" ]; then
-	echo "No FTP port variable set"
-	echo "Run main script or add missing variable. ex: ./install_vsftpd 21"
-        exit 1
-fi
-
 if [ ! -f /etc/init.d/vsftpd ]; then
 	if [ "$OS1" = "Debian" ]; then
 		apt-get update
@@ -21,19 +14,19 @@ else
 	echo "VSFTPD is already installed."  >> output.txt
 fi
 
+NEWFTPPORT1=$1
 # Create SSL certificate for VSFTPD.
 if [ ! -f /etc/ssl/private/vsftpd.pem ]; then
 openssl req -x509 -nodes -days 12000 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com" -newkey rsa:4096 -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/private/vsftpd.pem
 chmod 600 /etc/ssl/private/vsftpd.*
 fi
 
-echo 
-echo "New VSFTPD port: $1"
-read -p "Do you want to update SSH settings? (y/n): " UPDATE
+echo "New VSFTPD port: $NEWFTPPORT1"
+read -p "Do you want to update VSFTPD settings? (y/n): " UPDATE
 echo
 if [ "$UPDATE" == "y" ]; then
 echo "listen=YES
-listen_port=$1
+listen_port=$NEWFTPPORT1
 local_root=/home
 anonymous_enable=NO
 local_enable=YES
@@ -56,6 +49,5 @@ ssl_tlsv1=YES
 ssl_sslv2=NO
 ssl_sslv3=NO
 ssl_ciphers=HIGH" > /etc/vsftpd.conf
-echo "New VSFTPD port: $1"
 service vsftpd restart
 fi
