@@ -105,6 +105,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			zip ../ovpn-$CLIENT.zip $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT.ovpn
 			cd ~/
 			rm -rf ovpn-$CLIENT
+			mkdir -p $LOCATION && mkdir -p /root/openvpn-users/
 			mv ovpn-$CLIENT.zip $LOCATION/ovpn-$CLIENT-$NEW_UUID.zip
 			cp $LOCATION/ovpn-$CLIENT-$NEW_UUID.zip /root/openvpn-users/
 			#mv ovpn-$CLIENT.zip /var/www/vpn/
@@ -294,7 +295,7 @@ else
 	zip ../ovpn-$CLIENT.zip $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT.ovpn
 	cd ~/
 	rm -rf ovpn-$CLIENT
-	mkdir -p $LOCATION && mkdir /root/openvpn-users/
+	mkdir -p $LOCATION && mkdir -p /root/openvpn-users/
 	mv ~/ovpn-$CLIENT.zip $LOCATION/ovpn-$CLIENT-$NEW_UUID.zip
 	cp $LOCATION/ovpn-$CLIENT-$NEW_UUID.zip /root/openvpn-users/
 	echo ""
