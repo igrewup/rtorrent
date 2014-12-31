@@ -216,26 +216,13 @@ if [ "$INSTALL" = "YES" ]; then
 
 clear
 
-sed -i "s/Port.*/Port $NEWSSHPORT1/g" /etc/ssh/sshd_config
-#sed -i "s/PermitRootLogin.*/PermitRootLogin no/g" /etc/ssh/sshd_config
-#sed -i "s/#Protocol 2/Protocol 2/g" /etc/ssh/sshd_config
-#sed -i "s/X11Forwarding.*/X11Forwarding no/g" /etc/ssh/sshd_config
+if [ "$INSTALLSSH1" = "YES" ]; then
+bash ./install_ssh "$NEWSSHPORT1"
+fi
 
-#groupadd sshdusers
-#groupadd sftponly
-#echo "" | tee -a /etc/ssh/sshd_config > /dev/null
-#echo "UseDNS no" | tee -a /etc/ssh/sshd_config > /dev/null
-#echo "AllowGroups sshdusers" >> /etc/ssh/sshd_config
-#mkdir -p /usr/share/terminfo/l/
-#cp /lib/terminfo/l/linux /usr/share/terminfo/l/
-#echo '/usr/lib/openssh/sftp-server' >> /etc/shells
-#echo "Match Group sftponly" >> /etc/ssh/sshd_config
-#echo "ChrootDirectory %h" >> /etc/ssh/sshd_config
-#echo "ForceCommand internal-sftp" >> /etc/ssh/sshd_config
-#echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config
-#service ssh restart
-
-### END OF OPENSSH MODIFICATIONS ###
+if [ "$INSTALLPLUGINS1" = "YES" ]; then
+bash ./install_plugins "$homedir"
+fi
 
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
   bash ./install_vsftpd "$NEWFTPPORT1"
@@ -254,5 +241,7 @@ else
 	exit 1
 fi 
 ### END INSTALLATION ###
+
+service ssh restart
 
 echo "End of script"
