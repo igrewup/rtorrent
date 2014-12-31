@@ -6,9 +6,9 @@ NEWSSHPORT1=$1
 
 if [ ! -f /etc/init.d/ssh ]; then
   apt-get -y install ssh
-  echo "SSH installed successfully"  >> output.txt
+  echo "SSH installed successfully"  >> $OUTPUTFILE
 else
-  echo "SSH Server is already installed."  >> output.txt
+  echo "SSH Server is already installed."  >> $OUTPUTFILE
 fi
 
 echo
@@ -38,5 +38,5 @@ if [ "$UPDATE" == "y" ]; then
   #echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config
   
   service ssh restart
-  echo "SSH Port: $NEWSSHPORT1" >>output.txt
+  echo "SSH Port: $NEWSSHPORT1" >> $OUTPUTFILE
 fi
