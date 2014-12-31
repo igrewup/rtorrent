@@ -227,32 +227,26 @@ if [ "$INSTALL" = "YES" ]; then
 clear
 if [ "$INSTALLRTORRENT1" = "YES" ]; then
 	bash ./install_rtorrent "$homedir" "$user"
-	echo
 fi
 
 if [ "$INSTALLPLUGINS1" = "YES" ]; then
 	bash ./install_plugins "$homedir"
-	echo
 fi
 
 if [ "$INSTALLSSH1" = "YES" ]; then
 	bash ./install_ssh "$NEWSSHPORT1"
-	echo
 fi
 
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
   bash ./install_vsftpd "$NEWFTPPORT1"
-	echo
 fi
 
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
   bash ./install_openvpn "$OPENVPNPORT1"
-	echo
 fi
 
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
   bash ./install_webmin "$WEBMINPORT1"
-	echo
 fi
 
 else
@@ -265,5 +259,7 @@ fi
 
 # Secure ruTorrent web folder
 cp .htaccess /var/www/rutor/ && chmod 444 /var/www/rutor/.ht*
-cat output.txt
-echo "End of script"
+
+clear
+cat output.txt && rm output.txt
+echo "End of rTorrent installation script."
