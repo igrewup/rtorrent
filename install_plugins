@@ -556,5 +556,4 @@ case $plugin in
 esac
 done
 
-echo
-echo "Plugins are installed/updated."
+echo "Plugins are installed/updated."  >> output.txt
