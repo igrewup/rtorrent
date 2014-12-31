@@ -561,6 +561,4 @@ case $plugin in
 esac
 done
 
-else
-  echo "Plugins are already installed."
-fi # Check to see if plugins already installed (END)
+  echo "Plugins are installed/updated."
