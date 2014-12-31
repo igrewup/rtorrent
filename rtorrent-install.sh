@@ -258,26 +258,10 @@ if [ "$INSTALLPLUGINS1" = "YES" ]; then
 	bash ./install_plugins "$homedir"
 fi
 
-else
-	echo
-	echo "Aborting installation."
-	echo
-	exit 1
-fi 
-### END INSTALLATION ###
-
-# Secure ruTorrent web folder
-cp .htaccess /var/www/rutor/ && chmod 444 /var/www/rutor/.ht*
-
 clear
 
 echo -e "\033[0;32;148mInstallation is complete..\033[39m"
 cat output.txt && rm output.txt
-echo -e "\033[1;34;148mYour downloads is put in the 'Downloads' folder, sessions data in '.rtorrent-session' and 
-rtorrent's configuration file is '.rtorrent.rc', all in your home directory.\033[39m"
-echo
-echo -e "\033[1;34;148mIf you want to change configuration for rtorrent, such as download folder, port, etc., 
-you will need to edit the '.rtorrent.rc' file. E.g. 'nano $homedir/.rtorrent.rc'\033[39m"
 tput sgr0
 echo
 
@@ -291,3 +275,11 @@ echo
 echo -e "\033[0;32;148mTo exit the script, type: exit\033[39m"
 
 exec sh
+
+else
+	echo
+	echo "Aborting installation."
+	echo
+	exit 1
+fi 
+### END INSTALLATION ###
