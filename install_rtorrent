@@ -53,9 +53,9 @@ cd ../..
 rm -rf rtorrent
 
 ldconfig
-echo "rTorrent installed successfully." >> output.txt
+echo "rTorrent installed successfully." >> $OUTPUTFILE
 else
-	echo "rTorrent is already installed." >> output.txt
+	echo "rTorrent is already installed." >> $OUTPUTFILE
 fi # Is rtorrent already installed (END)
 
 # Creating session directory
@@ -99,4 +99,4 @@ fi
 
 service rtorrent-init start
 
-echo "rTorrent settings updated sucessfully." >> output.txt
+echo "rTorrent settings updated sucessfully." >> $OUTPUTFILE
