@@ -250,9 +250,6 @@ fi
 clear
 
 echo -e "\033[0;32;148mInstallation is complete..\033[39m"
-if [ -f /tmp/output.txt ]; then
-cat /tmp/output.txt && rm /tmp/output.txt
-fi
 tput sgr0
 echo
 
@@ -270,12 +267,17 @@ else
 		echo "Webmin: https://$ip:$WEBMINPORT1"
 	fi
 	if [ "$INSTALLOPENVPN1" = "YES" ]; then
-	if [ -f /tmp/vpn.txt ]; then
-		cat /tmp/vpn.txt && rm /tmp/vpn.txt
+	if [ -f $OUTPUTFILE ]; then
+		grep "https://" $OUTPUTFILE
 	fi
 		#echo "OpenVPN certificate: https://$ip/rutor/vpn/"
 	fi
+	
+	if [ -f $OUTPUTFILE ]; then
+		grep -v 'https://' $OUTPUTFILE 
+	fi
 fi
+rm $OUTPUTFILE
 echo
 echo -e "\033[0;32;148mTo exit the script, type: exit\033[39m"
 
