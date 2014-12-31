@@ -78,8 +78,8 @@ function getString
   eval $RETURN=\$NEWVAR1
 }
 
-# Output result file
-rm output.txt
+# Remove temp files
+rm output.txt vpn.txt
 
 # Welcome screen
 clear
@@ -265,10 +265,13 @@ else
 		echo "ruTorrent WebGUI: https://$ip/rutor/"
 	fi
 	if [ "$INSTALLWEBMIN1" = "YES" ]; then
-			echo "Webmin: https://$ip:$WEBMINPORT1"
+		echo "Webmin: https://$ip:$WEBMINPORT1"
 	fi
 	if [ "$INSTALLOPENVPN1" = "YES" ]; then
-	echo "OpenVPN certificate: https://$ip/rutor/vpn/"
+	if [ -f vpn.txt ]; then
+		cat vpn.txt && rm vpn.txt
+	fi
+		#echo "OpenVPN certificate: https://$ip/rutor/vpn/"
 	fi
 fi
 echo
