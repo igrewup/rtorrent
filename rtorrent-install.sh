@@ -128,16 +128,19 @@ user=nobody
 while [ $check -eq 0 ]; do
 
 # Script to see if User exists
+echo
 echo -n "Check if username is valid: "
 read user
 
 if grep "$user" /tmp/users.list > /dev/null; then
+   echo
    echo "You can't use '$user' as a user!"
 elif id -u $user >/dev/null 2>&1; then
 #elif [ id $user ]; then
 	echo "ID=$user"
 	check=1
 else
+	echo
 	echo "This user does not exist, try a different user."
 fi
 
@@ -145,6 +148,7 @@ done
 
 rm /tmp/users.list
 
+echo
 echo "$user is a valid and available username"
 
 homedir=$(cat /etc/passwd | grep "$user": | cut -d: -f6)
