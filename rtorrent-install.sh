@@ -97,17 +97,18 @@ if [ $1 == "update" ]; then
 else
 	read -p "Run Security Update (y/n)? " UPDATE1
 	if [ "$UPDATE1" = "y" ]; then
-  	read -p "Are you sure? (y/n)? " UPDATE2
-  	if [ "$UPDATE2" != "y" ]; then
-  	echo "Goodbye!"
-  	exit
-  else
-  	echo
-  	bash ./check_version.sh
-  	echo
-  	echo "Now continuing with the installation."
-  	echo
-  fi
+  		read -p "Are you sure? (y/n)? " UPDATE2
+  		if [ "$UPDATE2" != "y" ]; then
+  			echo "Goodbye!"
+  			exit
+  		else
+  			echo
+  			bash ./check_version.sh
+  			echo
+  			echo "Now continuing with the installation."
+  			echo
+  		fi
+	fi
 fi
 
 # Prompting for system user.
