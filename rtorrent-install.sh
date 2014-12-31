@@ -1,9 +1,7 @@
 #!/bin/bash
-
 source $(dirname $0)/incl.sh
 
 # Checking if user is root.
-
 if [[ $EUID -ne 0 ]]; then
   echo
   echo "This script must be run as root" 1>&2
@@ -12,7 +10,6 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Checking if system is running Debian.
-
 if [ "$OS1" != "Debian" ]; then
 	echo
 	echo "You are not running Debian. This script will now exit." 1>&2
@@ -21,7 +18,6 @@ if [ "$OS1" != "Debian" ]; then
 fi
 
 # Checking if system is running Debian.
-
 if [ "$OS2" != "wheezy" ]; then
 	echo
 	echo "Unfortunately, you are not running Debian codename (wheezy)"
@@ -31,7 +27,6 @@ if [ "$OS2" != "wheezy" ]; then
 fi
 
 ####################### EVERYTHING LOOKS GOOD, START THE SCRIPT ###############################
-
 clear
 
 function getString
@@ -120,7 +115,6 @@ echo
 echo
 
 # Prompting for system user.
-
 cut -d":" -f1 /etc/passwd > /tmp/users.list
 DIRS=`ls -l /home | egrep '^d' | awk '{print $9}'`
 
@@ -136,7 +130,6 @@ user=nobody
 while [ $check -eq 0 ]; do
 
 # Script to see if User exists
-
 echo -n "Check if username is valid: "
 read user
 
@@ -163,7 +156,6 @@ PASSWORD1=a
 PASSWORD2=b
 
 # Install other software & services
-
 #getString NO  "Set password for $user: " PASSWORD1
 getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 YES
 if [ "$INSTALLSSH1" = "YES" ]; then
