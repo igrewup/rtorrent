@@ -188,24 +188,30 @@ echo "Your settings:"
 echo
 echo "USERNAME: $user"
 echo "PASSWORD: $PASSWORD1"
+echo
 if [ "$INSTALLSSH1" = "YES" ]; then
 echo "Install/Update SSH: $INSTALLSSH1"
 echo "SSH port: $NEWSSHPORT1"
+echo
 fi
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
 echo "Install/Update VSFTPD: $INSTALLVSFTPD1"
 echo "VSFTPD port: $NEWFTPPORT1"
+echo
 fi
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
 echo "Install/Update OPENVPN: $INSTALLOPENVPN1"
 echo "OPENVPN port: $OPENVPNPORT1"
+echo
 fi
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
 echo "Install/Update WEBMIN: $INSTALLWEBMIN1"
 echo "WEBMIN port: $WEBMINPORT1"
+echo
 fi
 if [ "$INSTALLPLUGINS1" = "YES" ]; then
 echo "Install/Update PLUGINS: $INSTALLPLUGINS1"
+echo
 fi
 
 echo
@@ -221,27 +227,34 @@ if [ "$INSTALL" = "YES" ]; then
 clear
 
 if [ "$INSTALLSSH1" = "YES" ]; then
-bash ./install_ssh "$NEWSSHPORT1"
+	bash ./install_ssh "$NEWSSHPORT1"
+	echo
 fi
 
 if [ "$INSTALLPLUGINS1" = "YES" ]; then
-bash ./install_plugins "$homedir"
+	bash ./install_plugins "$homedir"
+	echo
 fi
 
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
   bash ./install_vsftpd "$NEWFTPPORT1"
+	echo
 fi
 
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
   bash ./install_openvpn "$OPENVPNPORT1"
+	echo
 fi
 
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
   bash ./install_webmin "$WEBMINPORT1"
+	echo
 fi
 
 else
-	echo "Aborting installation"
+	echo
+	echo "Aborting installation."
+	echo
 	exit 1
 fi 
 ### END INSTALLATION ###
