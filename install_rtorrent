@@ -85,4 +85,13 @@ cp .rtorrent.rc $homedir/.rtorrent.rc
 chown "$user"."$user" $homedir/.rtorrent.rc
 sed -i "s@HOMEDIRHERE@$homedir@g" $homedir/.rtorrent.rc
 
+
+# Downloading and installing rtorrent init script.
+if [ ! -f /etc/init.d/rtorrent-init ]; then
+#wget --no-check-certificate -O /etc/init.d/rtorrent-init https://raw.githubusercontent.com/igrewup/rtorrent/master/rtorrent-init
+cp rtorrent-init /etc/init.d/ && chmod +x /etc/init.d/rtorrent-init
+sed -i "s/USERNAMEHERE/$user/g" /etc/init.d/rtorrent-init
+update-rc.d rtorrent-init defaults
+fi
+
 echo "rTorrent settings updated sucessfully." >> output.txt
