@@ -12,7 +12,7 @@ echo
 if [ "$UPDATE" == "y" ]; then
 
   cp install_ssh_default /etc/ssh/sshd_config
-  sed -i "s/CHANGEME/Port $NEWSSHPORT1/g" /etc/ssh/sshd_config
+  sed -i "s/CHANGEME/$1/g" /etc/ssh/sshd_config
 
   #sed -i "s/PermitRootLogin.*/PermitRootLogin no/g" /etc/ssh/sshd_config
   #sed -i "s/#Protocol 2/Protocol 2/g" /etc/ssh/sshd_config
