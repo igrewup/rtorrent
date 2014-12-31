@@ -270,7 +270,7 @@ else
 			grep 'https://' $OUTPUTFILE
 		fi
 	fi
-	
+	echo
 	if [ -f $OUTPUTFILE ]; then
 		grep -v 'https://' $OUTPUTFILE 
 	fi
