@@ -26,7 +26,7 @@ else
 fi
 
 LOCATION=/var/www/vpn
-rm vpn.txt
+
 # Try to get our IP from the system and fallback to the Internet.
 # I do this to make the script compatible with NATed servers (lowendspirit.com)
 # and to avoid getting an IPv6.
