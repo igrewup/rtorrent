@@ -2,6 +2,8 @@
 source $(dirname $0)/check.sh
 source $(dirname $0)/incl.sh
 
+WEBMINPORT1=$1
+
 if [ ! -f /etc/init.d/webmin ]; then
 	#if webmin isup, download key
 	WEBMINDOWN=YES
@@ -23,4 +25,5 @@ if [ ! -f /etc/init.d/webmin ]; then
 
 else
 	echo "Webmin is already installed." >> output.txt
+	echo "Webmin port: $WEBMINPORT1" >> output.txt
 fi
