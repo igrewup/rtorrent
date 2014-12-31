@@ -231,11 +231,6 @@ if [ "$INSTALLSSH1" = "YES" ]; then
 	echo
 fi
 
-if [ "$INSTALLPLUGINS1" = "YES" ]; then
-	bash ./install_plugins "$homedir"
-	echo
-fi
-
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
   bash ./install_vsftpd "$NEWFTPPORT1"
 	echo
@@ -248,6 +243,11 @@ fi
 
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
   bash ./install_webmin "$WEBMINPORT1"
+	echo
+fi
+
+if [ "$INSTALLPLUGINS1" = "YES" ]; then
+	bash ./install_plugins "$homedir"
 	echo
 fi
 
