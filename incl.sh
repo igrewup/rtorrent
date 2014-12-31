@@ -32,7 +32,7 @@ if [ "$OS2" != "wheezy" ]; then
 fi
 
 if [ ! -f /var/www/vpn/index.html ]; then
-echo "index.html doesn't exist, now creating it."
+mkdir -p /var/www/vpn/
 echo '<!DOCTYPE HTML>
 <html lang="en-US">
 <head>
