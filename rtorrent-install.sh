@@ -131,7 +131,7 @@ sed -i "/$DIR/d" /tmp/users.list
 done
 
 
-check=1
+check=0
 user=nobody
 while [ $check -eq 0 ]; do
 
