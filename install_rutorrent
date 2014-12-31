@@ -1,0 +1,55 @@
+#!/bin/bash
+source $(dirname $0)/check.sh
+source $(dirname $0)/incl.sh
+
+# Installing rutorrent.
+if [ ! -d /var/www/rutor ]; then
+  #wget --no-check-certificate https://github.com/igrewup/rtorrent/raw/master/rutorrent-3.6.tar.gz
+  tar -zxvf rutorrent-3.6.tar.gz
+  mv -f rutorrent /var/www/rutor
+  sed -i 's/newTitle+=".*;/newTitle+="ruTor";/' /var/www/rutor/js/webui.js
+else
+  echo "ruTorrent already installed." >> output.txt
+fi
+
+# Changeing permissions for rutorrent and plugins.
+chown -R www-data.www-data /var/www/rutor
+chmod -R 775 /var/www/rutor/
+cp .htaccess /var/www/rutor/
+
+if [ ! -f /var/www/rutor/.htpasswd ]; then
+# Creating user for webinterface.
+echo -n "Please type the username for the webinterface, system user not required: "
+read -e htauser
+
+while true; do
+	htpasswd -c /var/www/rutor/.htpasswd "$htauser"
+	if [ $? = 0 ]; then
+		break
+	fi
+done
+fi
+
+chmod 444 /var/www/rutor/.ht*
+
+# Creating Apache virtual host
+if [ ! -f /etc/apache2/sites-available/rutor ]; then
+
+echo '<VirtualHost *:80>
+	ServerName *
+	ServerAlias *
+        DocumentRoot /var/www/
+        CustomLog /var/log/apache2/rutorrent.log vhost_combined
+        ErrorLog /var/log/apache2/rutorrent_error.log
+
+        SCGIMount /RPC2 127.0.0.1:5000
+        <location /RPC2>
+                AuthName "Tits or GTFO"
+                AuthType Basic
+                Require Valid-User
+                AuthUserFile /var/www/rutor/.htpasswd
+        </location>
+</VirtualHost>' > /etc/apache2/sites-available/rutor
+fi
+
+echo "ruTorrent installed successfully." >> output.txt
