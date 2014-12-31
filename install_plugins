@@ -1,11 +1,7 @@
 #!/bin/bash
+source $(dirname $0)/check.sh
+
 # $1 = $homedir
-
-if [ -z $1 ]; then
-	echo "Run the main script. ( ./rtorrent-install.sh )"
-	exit 1
-fi
-
 plugindir="/var/www/rutor/plugins/"
 
 # Function to download plugins.
