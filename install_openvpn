@@ -108,7 +108,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			#mv ovpn-$CLIENT.zip /var/www/vpn/
 			echo ""
 			VPNFILE="https://$IP/vpn/ovpn-$CLIENT-$RANDOM.zip"
-			echo $VPNFILE >> /tmp/vpn.txt
+			echo $VPNFILE >> $OUTPUTFILE
 			echo "Client $CLIENT added, certs available at $VPNFILE"
 			exit
 			;;
@@ -294,8 +294,8 @@ else
 	echo "Finished!"
 	echo ""
 	VPNFILE="https://$IP/vpn/ovpn-$CLIENT-$RANDOM.zip"
-	echo $VPNFILE >> /tmp/vpn.txt
+	echo $VPNFILE >> $OUTPUTFILE
 	echo "Your client config is available at $VPNFILE"
 	echo "If you want to add more clients, you simply need to run this script another time!"
-	echo "OpenVPN account for $CLIENT created successfully." >> output.txt
+	echo "OpenVPN account for $CLIENT created successfully." >> $OUTPUTFILE
 fi
