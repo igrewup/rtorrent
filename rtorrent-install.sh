@@ -246,6 +246,4 @@ else
 fi 
 ### END INSTALLATION ###
 
-service ssh restart
-
 echo "End of script"
