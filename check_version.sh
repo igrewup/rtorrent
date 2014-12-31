@@ -14,10 +14,10 @@ if [[ ! -f $dir/VERSION ]]; then
 
 		else
 			echo "Cannot find $dir/VERSION, exiting."
-			exit
+			exit 0
 		fi
 	else
-		exit
+		exit 0
 	fi
 fi
 
@@ -29,7 +29,7 @@ if [[ ! -f /tmp/LATESTVERSION ]]; then
 	if [[ ! -f /tmp/LATESTVERSION ]]; then
         	echo "Failed to download LATEST VERSION file."
         	echo "There seems to be a problem with the webserver."
-        	exit
+        	exit 0
 	else
 	LATESTVERSION=$(cat /tmp/LATESTVERSION)
 	#LATESTVERSION=0;
@@ -47,20 +47,20 @@ if [[ ! -f /tmp/LATESTVERSION ]]; then
 			CURRENTVERSION=$(cat $dir/VERSION)
         		if [[ $CURRENTVERSION == $LATESTVERSION ]]; then
 				echo "Your system is fully up-to-date, re-run the script."
-				exit 1
+				exit 0
                 	else
                         	echo "Still not the latest $dir/VERSION, try removing the main rtorrent folder."
 				echo "And then run: 'git clone git://github.com/igrewup/rtorrent.git'"
-                        	exit 1
+                        	exit 0
                 	fi
         	else
-                	exit
+                	exit 0
         	fi
 
 	else
 		echo "Unable to determine what version you have."
 		echo "Going to exit from the system update."
-		exit
+		exit 0
 	fi
 fi
 fi
