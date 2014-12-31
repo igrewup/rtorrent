@@ -91,6 +91,11 @@ read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n
 echo
 echo
 
+read -p "Run Security Update (y/n)? " UPDATE
+if [ "$UPDATE" == "y" ]; then
+  bash ./install_rutorrent "update"
+fi
+
 # Prompting for system user.
 cut -d":" -f1 /etc/passwd > /tmp/users.list
 DIRS=`ls -l /home | egrep '^d' | awk '{print $9}'`
