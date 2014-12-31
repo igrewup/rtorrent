@@ -22,6 +22,5 @@ if [ ! -f /etc/init.d/webmin ]; then
   	fi
 
 else
-	echo
-	echo "Webmin is already installed."
+	echo "Webmin is already installed." >> output.txt
 fi
