@@ -107,7 +107,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			rm -rf ovpn-$CLIENT
 			mv ovpn-$CLIENT.zip /var/www/vpn/
 			echo ""
-			echo "Client $CLIENT added, certs available at https://$IP/vpn/ovpn-$CLIENT.zip"
+			echo "Client $CLIENT added, certs available at https://$IP/vpn/ovpn-$CLIENT-$RANDOM.zip"
 			exit
 			;;
 			2)
@@ -133,7 +133,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			apt-get remove --purge -y openvpn openvpn-blacklist
 			rm -rf /etc/openvpn
 			rm -rf /usr/share/doc/openvpn
-			sed -i '/--dport $NEWPORT -j REDIRECT --to-port/d' /etc/rc.local
+			sed -i '/iptables -t nat -A PREROUTING -p udp -d.*-j REDIRECT --to-port 1194/d' /etc/rc.local
 			sed -i '/iptables -t nat -A POSTROUTING -s 10.8.0.0/d' /etc/rc.local
 			echo ""
 			echo "OpenVPN removed!"
@@ -294,11 +294,11 @@ else
 	cd ~/
 	rm -rf ovpn-$CLIENT
 	mkdir -p /var/www/vpn/
-	mv ~/ovpn-$CLIENT.zip /var/www/vpn/
+	mv ~/ovpn-$CLIENT.zip /var/www/vpn/ovpn-$CLIENT-$RANDOM.zip
 	echo ""
 	echo "Finished!"
 	echo ""
-	echo "Your client config is available at https://$IP/vpn/ovpn-$CLIENT.zip"
+	echo "Your client config is available at https://$IP/vpn/ovpn-$CLIENT-$RANDOM.zip"
 	echo "If you want to add more clients, you simply need to run this script another time!"
 	echo "OpenVPN account for $CLIENT created successfully." >> output.txt
 fi
