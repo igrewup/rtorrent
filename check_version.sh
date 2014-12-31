@@ -47,11 +47,11 @@ if [[ ! -f /tmp/LATESTVERSION ]]; then
 			CURRENTVERSION=$(cat $dir/VERSION)
         		if [[ $CURRENTVERSION == $LATESTVERSION ]]; then
 				echo "Your system is fully up-to-date, re-run the script."
-				exit
+				exit 1
                 	else
                         	echo "Still not the latest $dir/VERSION, try removing the main rtorrent folder."
 				echo "And then run: 'git clone git://github.com/igrewup/rtorrent.git'"
-                        	exit
+                        	exit 1
                 	fi
         	else
                 	exit
