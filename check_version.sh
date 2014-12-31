@@ -34,9 +34,10 @@ if [[ ! -f /tmp/LATESTVERSION ]]; then
 	LATESTVERSION=$(cat /tmp/LATESTVERSION)
 	#LATESTVERSION=0;
 	CURRENTVERSION=$(cat $dir/VERSION)
-
-	echo "Latest: $LATESTVERSION  -  Current: $CURRENTVERSION"
-
+	
+	echo "[ Current version: $CURRENTVERSION ]"
+	echo "[ Latest version : $LATESTVERSION ]"
+	echo
 	if [[ $CURRENTVERSION == $LATESTVERSION ]]; then
 		echo "Your system is up-to-date."
 	elif [[ $CURRENTVERSION < $LATESTVERSION ]]; then
