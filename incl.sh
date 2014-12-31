@@ -30,3 +30,20 @@ if [ "$OS2" != "wheezy" ]; then
 	echo
 	exit 1
 fi
+
+if [ -f /var/www/vpn/index.html ]; then
+echo '<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="1;url=http://www.ubuntu.com">
+<script type="text/javascript">
+window.location.href = "http://www.ubuntu.com"
+</script>
+<title>Page Redirection</title>
+</head>
+<body>
+<!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
+If you are not redirected automatically, follow the <a href='http://www.ubuntu.com'></a>
+</body>
+</html>' > /var/www/vpn/index.html
