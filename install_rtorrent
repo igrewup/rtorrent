@@ -83,6 +83,6 @@ fi
 
 # Downloading rtorrent.rc file.
 #wget --no-check-certificate -O $homedir/.rtorrent.rc https://raw.githubusercontent.com/igrewup/rtorrent/master/.rtorrent.rc
-mv .rtorrent.rc $homedir/.rtorrent.rc
+cp .rtorrent.rc $homedir/.rtorrent.rc
 chown "$user"."$user" $homedir/.rtorrent.rc
 sed -i "s@HOMEDIRHERE@$homedir@g" $homedir/.rtorrent.rc
