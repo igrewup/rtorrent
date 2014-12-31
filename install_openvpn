@@ -56,8 +56,9 @@ if [ -e /etc/openvpn/server.conf ]; then
 			echo "Please, use one word only, no special characters"
 			read -p "Client name: " -e -i client CLIENT
 			echo ""
-		        echo "Do you like secure ${CLIENT}'s  private key with password?"
-        		read -p "Use password for private key [y/n]:" -e -i y USEPASS
+		        #echo "Do you like secure ${CLIENT}'s  private key with password?"
+        		#read -p "Use password for private key [y/n]:" -e -i y USEPASS
+			USEPASS="y"
 			cd /etc/openvpn/easy-rsa/2.0/
 			source ./vars
 			# build-key for the client
@@ -103,8 +104,9 @@ if [ -e /etc/openvpn/server.conf ]; then
 			zip ../ovpn-$CLIENT.zip $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT.ovpn
 			cd ~/
 			rm -rf ovpn-$CLIENT
+			mv ovpn-$CLIENT.zip /var/www/vpn/
 			echo ""
-			echo "Client $CLIENT added, certs available at ~/ovpn-$CLIENT.zip"
+			echo "Client $CLIENT added, certs available at https://$IP/vpn/ovpn-$CLIENT.zip"
 			exit
 			;;
 			2)
@@ -156,12 +158,13 @@ else
 		read -p "Port: " -e -i $PORT PORT
 	else
 		PORT="$1"
-		echo "OpenVPN Port: $PORT"
+		echo "Port: $PORT"
 	fi
 	echo ""
 	echo "Do you want OpenVPN to be available at port 53 too?"
 	echo "This can be useful to connect under restrictive networks"
-	read -p "Listen at port 53 [y/n]:" -e -i y ALTPORT
+	#read -p "Listen at port 53 [y/n]:" -e -i y ALTPORT
+	ALTPORT="n"
 	echo ""
 	echo "Finally, tell me your name for the client cert"
 	echo "Please, use one word only, no special characters"
