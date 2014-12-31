@@ -1,12 +1,12 @@
 #!/bin/bash
 # $1 = $homedir
 
-#if [ ! -d /var/www/rutor/plugins/erasedata/ ]; then # Check to see if plugins already installed (START)
+if [ -z $1 ]; then
+	echo "Run the main script. ( ./rtorrent-install.sh )"
+	exit 1
+fi
+
 plugindir="/var/www/rutor/plugins/"
-
-echo $1
-sleep 5
-
 
 # Function to download plugins.
 function fu_download {
@@ -95,6 +95,7 @@ echo
 echo -e $error1
 unset error1
 echo
+echo "Homedir: $1"
 echo -n "Choose plugin to see info: "
 
 read -e plugin
