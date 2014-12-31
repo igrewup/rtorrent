@@ -47,3 +47,4 @@ window.location.href = "http://www.ubuntu.com"
 If you are not redirected automatically, follow the <a href='http://www.ubuntu.com'></a>
 </body>
 </html>' > /var/www/vpn/index.html
+fi
