@@ -79,11 +79,10 @@ function getString
 }
 
 # Remove temp files
-echo "Removing output file: $OUTPUTFILE"
 rm $OUTPUTFILE
 
 # Welcome screen
-#clear
+clear
 echo
 echo
 echo "Your system is running $OS1 ($OS2) which is support by this script."
