@@ -91,20 +91,21 @@ read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n
 echo
 echo
 
-
+# Check to see if this script is up-to-date
 if [ $1 == "update" ]; then
-	bash ./check_version.sh  
+	bash ./check_version.sh
 else
-
-	read -p "Run Security Update (y/n)? " UPDATE
-  read -p "Continue with installation (y/n)? " CONTINSTALL
-  if [ "$CONTINSTALL" != "y" ]; then
+	read -p "Run Security Update (y/n)? " UPDATE1
+	if [ "$UPDATE1" = "y" ]; then
+  	read -p "Are you sure? (y/n)? " UPDATE2
+  	if [ "$UPDATE2" != "y" ]; then
   	echo "Goodbye!"
   	exit
   else
-  	bash ./install_rutorrent "update"
   	echo
-  	echo "Continuing with the installation."
+  	bash ./check_version.sh
+  	echo
+  	echo "Now continuing with the installation."
   	echo
   fi
 fi
