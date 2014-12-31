@@ -102,7 +102,7 @@ if [ "$UPDATE" == "y" ]; then
   	exit
   else
   	echo
-  	echo"Continuing with the installation."
+  	echo "Continuing with the installation."
   	echo
   fi
 fi
