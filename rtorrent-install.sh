@@ -91,10 +91,6 @@ read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n
 echo
 echo
 
-# Installing dependencies
-apt-get update
-apt-get -y install openssl git subversion build-essential automake libtool screen zip unzip rar unrar-free
-
 # Prompting for system user.
 cut -d":" -f1 /etc/passwd > /tmp/users.list
 DIRS=`ls -l /home | egrep '^d' | awk '{print $9}'`
@@ -200,10 +196,13 @@ echo
 read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
 echo
 
-#getString NO  "DO YOU WANT TO CONTINUE WITH INSTALLATION? (yes/no): " INSTALL NO
-INSTALL=YES
+getString NO  "DO YOU WANT TO CONTINUE WITH INSTALLATION? (yes/no): " INSTALL NO
 ### START INSTALLATION = YES ##
 if [ "$INSTALL" = "YES" ]; then
+
+# Installing dependencies
+apt-get update
+apt-get -y install openssl git subversion zip unzip rar unrar-free
 
 clear
 if [ "$INSTALLRTORRENT1" = "YES" ]; then
