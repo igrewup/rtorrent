@@ -2,7 +2,6 @@
 source $(dirname $0)/incl.sh
 
 ####################### EVERYTHING LOOKS GOOD, START THE SCRIPT ###############################
-clear
 
 function getString
 {
@@ -82,13 +81,13 @@ function getString
 # Output result file
 rm output.txt
 
-# License
-
+# Welcome screen
+clear
 echo
 echo
 echo "Your system is running $OS1 ($OS2) which is support by this script."
 echo
-#read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
+read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
 echo
 echo
 
@@ -101,7 +100,6 @@ do
 # Remove usernames that exist in /home
 sed -i "/$DIR/d" /tmp/users.list
 done
-
 
 check=0
 user=nobody
@@ -134,7 +132,7 @@ PASSWORD1=a
 PASSWORD2=b
 
 # Install other software & services
-#getString NO  "Set password for $user: " PASSWORD1
+getString NO  "Set password for $user: " PASSWORD1
 getString NO "Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 YES
 getString NO "Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 YES
 getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 YES
