@@ -106,6 +106,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			cd ~/
 			rm -rf ovpn-$CLIENT
 			mv ovpn-$CLIENT.zip $LOCATION/ovpn-$CLIENT-$NEW_UUID.zip
+			cp $LOCATION/ovpn-$CLIENT-$NEW_UUID.zip /root/openvpn-users/
 			#mv ovpn-$CLIENT.zip /var/www/vpn/
 			echo ""
 			VPNFILE="OpenVPN certificate: https://$IP/vpn/ovpn-$CLIENT-$NEW_UUID.zip"
@@ -293,8 +294,9 @@ else
 	zip ../ovpn-$CLIENT.zip $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT.ovpn
 	cd ~/
 	rm -rf ovpn-$CLIENT
-	mkdir -p $LOCATION
+	mkdir -p $LOCATION && mkdir /root/openvpn-users/
 	mv ~/ovpn-$CLIENT.zip $LOCATION/ovpn-$CLIENT-$NEW_UUID.zip
+	cp $LOCATION/ovpn-$CLIENT-$NEW_UUID.zip /root/openvpn-users/
 	echo ""
 	echo "Finished!"
 	echo ""
