@@ -15,10 +15,10 @@ if [ ! -f /etc/init.d/webmin ]; then
 		apt-get update
 		apt-get -y install webmin
 		rm /tmp/webmin.asc
-		echo "Webmin installed successfully."
+		echo "Webmin installed successfully."  >> output.txt
 	else
 		WEBMINDOWN=YES
-		echo "Cannot install Webmin, the webserver seems to be down."
+		echo "Cannot install Webmin, the webserver seems to be down."  >> output.txt
   	fi
 
 else
