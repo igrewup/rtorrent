@@ -226,6 +226,11 @@ if [ "$INSTALL" = "YES" ]; then
 
 clear
 
+if [ "$INSTALLPLUGINS1" = "YES" ]; then
+	bash ./install_plugins "$homedir"
+	echo
+fi
+
 if [ "$INSTALLSSH1" = "YES" ]; then
 	bash ./install_ssh "$NEWSSHPORT1"
 	echo
@@ -243,11 +248,6 @@ fi
 
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
   bash ./install_webmin "$WEBMINPORT1"
-	echo
-fi
-
-if [ "$INSTALLPLUGINS1" = "YES" ]; then
-	bash ./install_plugins "$homedir"
 	echo
 fi
 
