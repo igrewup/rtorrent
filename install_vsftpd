@@ -31,8 +31,11 @@ chmod 600 /etc/ssl/private/vsftpd.*
 
 fi
 
-# Modify /etc/vsftpd.conf
-
+echo 
+echo "New VSFTPD port: $1"
+read -p "Do you want to update SSH settings? (y/n): " UPDATE
+echo
+if [ "$UPDATE" == "y" ]; then
 echo "listen=YES
 listen_port=$1
 local_root=/home
@@ -57,3 +60,6 @@ ssl_tlsv1=YES
 ssl_sslv2=NO
 ssl_sslv3=NO
 ssl_ciphers=HIGH" > /etc/vsftpd.conf
+echo "New VSFTPD port: $1"
+service vsftpd restart
+fi
