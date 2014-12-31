@@ -25,6 +25,8 @@ else
 	clientname=$2
 fi
 
+LOCATION=/var/www/vpn
+rm vpn.txt
 # Try to get our IP from the system and fallback to the Internet.
 # I do this to make the script compatible with NATed servers (lowendspirit.com)
 # and to avoid getting an IPv6.
@@ -102,9 +104,12 @@ if [ -e /etc/openvpn/server.conf ]; then
 			zip ../ovpn-$CLIENT.zip $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT.ovpn
 			cd ~/
 			rm -rf ovpn-$CLIENT
-			mv ovpn-$CLIENT.zip /var/www/vpn/
+			mv ovpn-$CLIENT.zip $LOCATION/ovpn-$CLIENT-$RANDOM.zip
+			#mv ovpn-$CLIENT.zip /var/www/vpn/
 			echo ""
-			echo "Client $CLIENT added, certs available at https://$IP/vpn/ovpn-$CLIENT-$RANDOM.zip"
+			VPNFILE="https://$IP/vpn/ovpn-$CLIENT-$RANDOM.zip"
+			echo $VPNFILE >> vpn.txt
+			echo "Client $CLIENT added, certs available at $VPNFILE"
 			exit
 			;;
 			2)
@@ -283,12 +288,14 @@ else
 	zip ../ovpn-$CLIENT.zip $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT.ovpn
 	cd ~/
 	rm -rf ovpn-$CLIENT
-	mkdir -p /var/www/vpn/
-	mv ~/ovpn-$CLIENT.zip /var/www/vpn/ovpn-$CLIENT-$RANDOM.zip
+	mkdir -p $LOCATION
+	mv ~/ovpn-$CLIENT.zip $LOCATION/ovpn-$CLIENT-$RANDOM.zip
 	echo ""
 	echo "Finished!"
 	echo ""
-	echo "Your client config is available at https://$IP/vpn/ovpn-$CLIENT-$RANDOM.zip"
+	VPNFILE="https://$IP/vpn/ovpn-$CLIENT-$RANDOM.zip"
+	echo $VPNFILE >> vpn.txt
+	echo "Your client config is available at $VPNFILE"
 	echo "If you want to add more clients, you simply need to run this script another time!"
 	echo "OpenVPN account for $CLIENT created successfully." >> output.txt
 fi
