@@ -91,8 +91,6 @@ echo -e "\033[0;32;148m---------------------------------------------------------
 echo
 echo -e $error1
 unset error1
-echo
-echo "Homedir: $1"
 echo -n "Choose plugin to see info: "
 
 read -e plugin
