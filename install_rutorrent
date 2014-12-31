@@ -11,9 +11,9 @@ if [ ! -d /var/www/rutor ]; then
   tar -zxvf rutorrent-3.6.tar.gz
   mv -f rutorrent /var/www/rutor
   sed -i 's/newTitle+=".*;/newTitle+="ruTor";/' /var/www/rutor/js/webui.js
-  echo "ruTorrent installed successfully." >> output.txt
+  echo "ruTorrent installed successfully." >> $OUTPUTFILE
 else
-  echo "ruTorrent already installed." >> output.txt
+  echo "ruTorrent already installed." >> $OUTPUTFILE
 fi
 
 # Changeing permissions for rutorrent and plugins.
@@ -125,4 +125,4 @@ a2ensite rutor
 
 service apache2 restart
 
-echo "ruTorrent settings updated successfully." >> output.txt
+echo "ruTorrent settings updated successfully." >> $OUTPUTFILE
