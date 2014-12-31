@@ -26,6 +26,7 @@ else
 fi
 
 LOCATION=/var/www/vpn
+NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 32);
 
 # Try to get our IP from the system and fallback to the Internet.
 # I do this to make the script compatible with NATed servers (lowendspirit.com)
@@ -104,10 +105,10 @@ if [ -e /etc/openvpn/server.conf ]; then
 			zip ../ovpn-$CLIENT.zip $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT.ovpn
 			cd ~/
 			rm -rf ovpn-$CLIENT
-			mv ovpn-$CLIENT.zip $LOCATION/ovpn-$CLIENT-$RANDOM.zip
+			mv ovpn-$CLIENT.zip $LOCATION/ovpn-$CLIENT-$NEW_UUID.zip
 			#mv ovpn-$CLIENT.zip /var/www/vpn/
 			echo ""
-			VPNFILE="OpenVPN certificate: https://$IP/vpn/ovpn-$CLIENT-$RANDOM.zip"
+			VPNFILE="OpenVPN certificate: https://$IP/vpn/ovpn-$CLIENT-$NEW_UUID.zip"
 			echo $VPNFILE >> $OUTPUTFILE
 			echo "Client $CLIENT added, certs available at $VPNFILE"
 			exit
@@ -293,11 +294,11 @@ else
 	cd ~/
 	rm -rf ovpn-$CLIENT
 	mkdir -p $LOCATION
-	mv ~/ovpn-$CLIENT.zip $LOCATION/ovpn-$CLIENT-$RANDOM.zip
+	mv ~/ovpn-$CLIENT.zip $LOCATION/ovpn-$CLIENT-$NEW_UUID.zip
 	echo ""
 	echo "Finished!"
 	echo ""
-	VPNFILE="OpenVPN certificate: https://$IP/vpn/ovpn-$CLIENT-$RANDOM.zip"
+	VPNFILE="OpenVPN certificate: https://$IP/vpn/ovpn-$CLIENT-$NEW_UUID.zip"
 	echo $VPNFILE >> $OUTPUTFILE
 	echo "Your client config is available at $VPNFILE"
 	echo "If you want to add more clients, you simply need to run this script another time!"
