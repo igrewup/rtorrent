@@ -1,0 +1,82 @@
+#!/bin/bash
+#source $(dirname $0)/check.sh
+source $(dirname $0)/incl.sh
+
+1 = $homedir
+2 = $user
+
+echo "$1 $2"
+echo "$homedir $user"
+
+if [ $1 != $homedir ] || [ $2 != $user ]; then
+  echo "Variables do not match, stop script to prevent damage."
+  exit 1;
+fi
+
+if [ ! -f /usr/local/bin/rtorrent ]; then # Is rtorrent already installed (START)
+# Installing xmlrpc-c
+svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
+cd xmlrpc-c
+./configure --disable-cplusplus
+make
+make install
+cd ..
+rm -rv xmlrpc-c
+
+mkdir rtorrent
+cd rtorrent
+
+# Installing libtorrent.
+wget http://libtorrent.rakshasa.no/downloads/libtorrent-0.13.4.tar.gz
+tar -zxvf libtorrent-0.13.4.tar.gz
+cd libtorrent-0.13.4
+./autogen.sh
+./configure
+make
+make install
+cd ..
+
+# Installing rtorrent.
+wget http://libtorrent.rakshasa.no/downloads/rtorrent-0.9.4.tar.gz
+tar -zxvf rtorrent-0.9.4.tar.gz
+cd rtorrent-0.9.4
+./autogen.sh
+./configure --with-xmlrpc-c
+make
+make install
+cd ../..
+rm -rv rtorrent
+
+ldconfig
+
+fi # Is rtorrent already installed (END)
+
+# Creating session directory
+if [ ! -d "$homedir"/.rtorrent-session ]; then
+	mkdir "$homedir"/.rtorrent-session
+	chown "$user"."$user" "$homedir"/.rtorrent-session
+else
+	chown "$user"."$user" "$homedir"/.rtorrent-session
+fi
+
+# Creating downloads folder
+if [ ! -d "$homedir"/Downloads ]; then
+	mkdir "$homedir"/Downloads
+	chown "$user"."$user" "$homedir"/Downloads
+else
+	chown "$user"."$user" "$homedir"/Downloads
+fi
+
+# Creating watch folder
+if [ ! -d "$homedir"/watch ]; then
+	mkdir "$homedir"/watch
+	chown "$user"."$user" "$homedir"/watch
+else
+	chown "$user"."$user" "$homedir"/watch
+fi
+
+# Downloading rtorrent.rc file.
+#wget --no-check-certificate -O $homedir/.rtorrent.rc https://raw.githubusercontent.com/igrewup/rtorrent/master/.rtorrent.rc
+mv .rtorrent.rc $homedir/.rtorrent.rc
+chown "$user"."$user" $homedir/.rtorrent.rc
+sed -i "s@HOMEDIRHERE@$homedir@g" $homedir/.rtorrent.rc
