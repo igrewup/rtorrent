@@ -8,25 +8,16 @@ source $(dirname $0)/incl.sh
 # it will probably work if you simply want to setup a VPN on your Debian/Ubuntu
 # VPS. It has been designed to be as unobtrusive and universal as possible.
 
-
-if [ $USER != 'root' ]; then
-	echo "Sorry, you need to run this as root"
-	exit
-fi
-
-
 if [ ! -e /dev/net/tun ]; then
 	echo "TUN/TAP is not available"
 	exit
 fi
 
-
-if [ ! -e /etc/debian_version ]; then
-	echo "Looks like you aren't running this installer on a Debian-based system"
-	exit
+if [ -z "$NEWPORT" ]; then
+	NEWPORT="53"
+else
+	NEWPORT=$1
 fi
-
-NEWPORT=$1
 
 # Try to get our IP from the system and fallback to the Internet.
 # I do this to make the script compatible with NATed servers (lowendspirit.com)
@@ -153,20 +144,13 @@ else
 	echo "listening to."
 	read -p "IP address: " -e -i $IP IP
 	echo ""
-	echo "OpenVPN default port: 1194"
+	echo "OpenVPN default port '1194' is already the main port."
 	PORT="1194"
 	#read -p "Port: " -e -i 1194 PORT
-	if [ -z "$NEWPORT" ]; then
-			NEWPORT="53"
-			echo ""
-			echo "Do you want OpenVPN to be available at port $NEWPORT too?"
-			echo "This can be useful to connect under restrictive networks"
-			read -p "Alternate port: $NEWPORT [y/n]:" -e -i n ALTPORT
-	else
-			echo "Do you want OpenVPN to be available at port $NEWPORT too?"
-			echo "This can be useful to connect under restrictive networks"
-			read -p "Alternate port: $NEWPORT [y/n]:" -e -i n ALTPORT
-	fi
+	echo ""
+	echo "Do you want OpenVPN to add an alternate port?"
+	echo "This can be useful to connect under restrictive networks"	
+	read -p "Alternate port: $NEWPORT [y/n]:" -e -i n ALTPORT
 	echo ""
 	echo "Finally, tell me your name for the client cert"
 	echo "Please, use one word only, no special characters"
