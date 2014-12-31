@@ -17,8 +17,7 @@ fi
 
 # Installing dependencies
 apt-get update
-apt-get -y install subversion build-essential automake libtool
-#libcppunit-dev libcurl3-dev libsigc++-2.0-dev curl libncurses-dev libcurl4-openssl-dev libcppunit-dev libncurses5-dev libsigc++-2.0-dev
+apt-get -y install subversion build-essential automake libtool screen curl libcppunit-dev libcurl3-dev libsigc++-2.0-dev libncurses-dev libcurl4-openssl-dev libcppunit-dev libncurses5-dev libsigc++-2.0-dev
 
 if [ ! -f /usr/local/bin/rtorrent ]; then # Is rtorrent already installed (START)
 # Installing xmlrpc-c
@@ -28,7 +27,7 @@ cd xmlrpc-c
 make
 make install
 cd ..
-rm -rv xmlrpc-c
+rm -rf xmlrpc-c
 
 mkdir rtorrent
 cd rtorrent
