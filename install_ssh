@@ -4,9 +4,9 @@ source $(dirname $0)/incl.sh
 
 if [ ! -f /etc/init.d/ssh ]; then
   apt-get -y install ssh
-  echo "SSH installed successfully"
+  echo "SSH installed successfully"  >> output.txt
 else
-  echo "SSH Server is already installed."
+  echo "SSH Server is already installed."  >> output.txt
 fi
 
 echo
