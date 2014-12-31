@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
+AuthType Basic
+AuthName "Password Protected Area"
+AuthUserFile .htpasswd
+Require valid-user
