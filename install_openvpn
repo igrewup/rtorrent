@@ -182,7 +182,7 @@ else
 	USEPASS="y"
 	echo ""
 	echo "IP Address: $IP"
-	if [[ -z $ALTPORT ]]; then
+	if [ $ALTPORT ]; then
 	echo "Main Port: 1194"
 	else 
 	echo "Main Port: 1194 - Alternate Port: $ALTPORT"
