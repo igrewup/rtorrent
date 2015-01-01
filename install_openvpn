@@ -286,11 +286,14 @@ else
 	echo "remote-cert-tls server" >> $CLIENT.conf
 	
 	cp $CLIENT.conf $CLIENT.ovpn
-	
 	sed -i "s|ca ca.crt|ca [inline]|" $CLIENT.ovpn
 	sed -i "s|cert $CLIENT.crt|cert [inline]|" $CLIENT.ovpn
 	sed -i "s|key $CLIENT.key|key [inline]|" $CLIENT.ovpn
 	echo -e "keepalive 10 60\n" >> $CLIENT.ovpn
+	
+	# For some reason in Ubuntu, you need to select the .key manually for it to work with network-manager-openvpn-gnome.
+	cp $CLIENT.conf $CLIENT-ubuntu.ovpn
+	sed -i "s|key $CLIENT.key|;key $CLIENT.key|" $CLIENT.ovpn
 	
 	echo "<ca>" >> $CLIENT.ovpn
 	cat ca.crt >> $CLIENT.ovpn
