@@ -7,7 +7,6 @@ apt-get -y install openssl apache2 apache2-utils libapache2-mod-scgi php5 php5-c
 
 # Installing rutorrent.
 if [ ! -d /var/www/rutor ]; then
-  #wget --no-check-certificate https://github.com/igrewup/rtorrent/raw/master/rutorrent-3.6.tar.gz
   tar -zxvf rutorrent-3.6.tar.gz
   mv -f rutorrent /var/www/rutor
   sed -i 's/newTitle+=".*;/newTitle+="ruTor";/' /var/www/rutor/js/webui.js
@@ -34,6 +33,7 @@ while true; do
 	fi
 done
 fi
+chmod 444 /etc/apache2/.htpasswd
 
 # Creating Apache virtual host
 #if [ ! -f /etc/apache2/sites-available/rutor ]; then
@@ -61,7 +61,7 @@ chmod 600 /etc/ssl/private/apache.*
 fi
 
 # Create Apache SSL website
-#rm /etc/apache2/sites-available/default-ssl
+rm /etc/apache2/sites-available/default-ssl
 echo '<IfModule mod_ssl.c>
 <VirtualHost _default_:443>
 	ServerAdmin webmaster@localhost
