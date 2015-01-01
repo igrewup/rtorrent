@@ -21,7 +21,11 @@ if [[ ! -f $dir/VERSION ]]; then
 	fi
 fi
 
+if [[ -f /tmp/LATESTVERSION ]]; then
 rm /tmp/LATESTVERSION
+fi
+
+# Download latest VERSION from GITHUB and check it against the current VERSION file.
 if [[ ! -f /tmp/LATESTVERSION ]]; then
 	wget --quiet --no-check-certificate -O /tmp/LATESTVERSION https://raw.githubusercontent.com/igrewup/rtorrent/master/VERSION
 	#clear
