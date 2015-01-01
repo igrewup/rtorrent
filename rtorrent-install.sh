@@ -92,6 +92,7 @@ elif [[ $1 == "noupdate" ]]; then
 	echo "Skipping script update checker"
 	echo
 else
+	echo
 	read -p "Run script updater (y/n)? " UPDATE1
 	if [[ $UPDATE1 = "y" ]]; then
   		read -p "Are you sure? (y/n)? " UPDATE2
@@ -108,8 +109,8 @@ fi
 
 # Welcome screen
 echo
-echo "NOTE: Options when launching ./rtorrent-install.sh [update,noupdate]"
-echo "By default, if no variable is given, it will ask you to update or not."
+echo "NOTE: Options when launching ./rtorrent-install.sh [ update | noupdate ]"
+echo "By default, if no variable is given, it will ask you to update (y/n)."
 echo
 echo "Your system is running $OS1 ($OS2) which is supported by this script."
 echo
