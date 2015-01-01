@@ -20,8 +20,9 @@ fi
 chown -R www-data.www-data /var/www/rutor
 chmod -R 775 /var/www/rutor/
 cp .htaccess /var/www/rutor/
+chmod 444 /var/www/rutor/.htaccess
 
-if [ ! -f /var/www/rutor/.htpasswd ]; then
+if [ ! -f /etc/apache2/.htpasswd ]; then
 # Creating user for webinterface.
 echo -n "Please type the username for the webinterface, system user not required: "
 read -e htauser
@@ -33,8 +34,6 @@ while true; do
 	fi
 done
 fi
-
-chmod 444 /var/www/rutor/.htaccess
 
 # Creating Apache virtual host
 if [ ! -f /etc/apache2/sites-available/rutor ]; then
