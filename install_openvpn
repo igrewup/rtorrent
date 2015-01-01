@@ -139,7 +139,8 @@ if [ -e /etc/openvpn/server.conf ]; then
 			exit
 			;;
 			3) 
-			apt-get remove --purge -y openvpn openvpn-blacklist
+			apt-get -y purge openvpn openvpn-blacklist
+			apt-get -y autoremove
 			rm -rf /etc/openvpn
 			rm -rf /usr/share/doc/openvpn
 			rm -rf /var/www/vpn/ovpn-*.zip
