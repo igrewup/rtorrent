@@ -141,8 +141,8 @@ if [ -e /etc/openvpn/server.conf ]; then
 			3) 
 			apt-get -y purge openvpn openvpn-blacklist
 			apt-get -y autoremove
-			rm -rf /etc/openvpn
-			rm -rf /usr/share/doc/openvpn
+			rm -rf /etc/openvpn/
+			rm -rf /usr/share/doc/openvpn/
 			rm -rf /var/www/vpn/ovpn-*.zip
 			sed -i '/iptables -t nat -A PREROUTING -p udp -d.*-j REDIRECT --to-port 1194/d' /etc/rc.local
 			sed -i '/iptables -t nat -A POSTROUTING -s 10.8.0.0/d' /etc/rc.local
@@ -175,6 +175,7 @@ else
 	echo "Finally, tell me your name for the client cert"
 	echo "Please, use one word only, no special characters"
 	echo "Client name: $clientname"
+	CLIENT=$clientname
 	#read -p "Client name: " -e -i $clientname CLIENT
 	#echo ""
         #echo "Do you like secure ${CLIENT}'s  private key with password?"
