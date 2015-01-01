@@ -23,7 +23,7 @@ fi
 
 rm /tmp/LATESTVERSION
 if [[ ! -f /tmp/LATESTVERSION ]]; then
-	wget --no-check-certificate -O /tmp/LATESTVERSION https://raw.githubusercontent.com/igrewup/rtorrent/master/VERSION
+	wget --no-check-certificate -O /tmp/LATESTVERSION https://raw.githubusercontent.com/igrewup/rtorrent/master/VERSION > /dev/null
 	#clear
 	#touch /tmp/LATESTVERION
 	if [[ ! -f /tmp/LATESTVERSION ]]; then
