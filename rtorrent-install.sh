@@ -244,7 +244,7 @@ read -p "ARE YOU SURE? (yes / no): " SURE
 	fi
 
 # Installing dependencies
-apt-get update
+apt-get update > /dev/null
 apt-get -y install openssl git subversion zip unzip rar unrar-free
 
 clear
