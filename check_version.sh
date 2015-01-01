@@ -39,6 +39,7 @@ if [[ ! -f /tmp/LATESTVERSION ]]; then
 	#LATESTVERSION=0;
 	CURRENTVERSION=$(cat $dir/VERSION)
 	
+	echo
 	echo "[ Current version: $CURRENTVERSION ]"
 	echo "[ Latest version : $LATESTVERSION ]"
 	echo
