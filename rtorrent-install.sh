@@ -82,7 +82,6 @@ clear
 
 # Check to see if this script is up-to-date
 if [[ $1 == "update" ]]; then
-  #bash ./check_version.sh
   source $(dirname $0)/check_version.sh
   echo
   echo "Now continuing with the installation."
@@ -95,16 +94,11 @@ else
 	echo
 	read -p "Run script updater (y/n)? " UPDATE1
 	if [[ $UPDATE1 = "y" ]]; then
-  		read -p "Are you sure? (y/n)? " UPDATE2
+  		source $(dirname $0)/check_version.sh
   		echo
-  		if [[ $UPDATE2 = "y" ]]; then
-  			#bash ./check_version.sh
-  			source $(dirname $0)/check_version.sh
-  			echo
-  			echo "Now continuing with the installation."
-  			echo
-  		fi
-	fi
+  		echo "Now continuing with the installation."
+  		echo
+  	fi
 fi
 
 # Welcome screen
