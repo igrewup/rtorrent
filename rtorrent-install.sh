@@ -88,11 +88,14 @@ if [[ $1 == "update" ]]; then
   echo "Now continuing with the installation."
   echo
 elif [[ $1 == "noupdate" ]]; then
+	echo
 	echo "Skipping script update checker"
+	echo
 else
 	read -p "Run script updater (y/n)? " UPDATE1
 	if [[ $UPDATE1 = "y" ]]; then
   		read -p "Are you sure? (y/n)? " UPDATE2
+  		echo
   		if [[ $UPDATE2 = "y" ]]; then
   			#bash ./check_version.sh
   			source $(dirname $0)/check_version.sh
