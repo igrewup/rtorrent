@@ -183,7 +183,7 @@ else
 	echo ""
 	echo "IP Address: $IP"
 	if [ $ALTPORT ]; then
-	echo "Main Port: 1194"
+	echo "Main Port: 1194 $ALTPORT"
 	else 
 	echo "Main Port: 1194 - Alternate Port: $ALTPORT"
 	fi
