@@ -532,7 +532,7 @@ case $plugin in
 	apt-get -y install php5-geoip ffmpeg curl libzen0 libmediainfo0 mediainfo
 
 	# UPDATE GEOIP WITH CITIES
-	wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+	wget --quiet http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
 	gunzip GeoLiteCity.dat.gz
 	mkdir -v /usr/share/GeoIP
 	mv -v GeoLiteCity.dat /usr/share/GeoIP/GeoIPCity.dat
