@@ -32,7 +32,7 @@ mkdir rtorrent
 cd rtorrent
 
 # Installing libtorrent.
-wget http://libtorrent.rakshasa.no/downloads/libtorrent-0.13.4.tar.gz
+wget --quiet http://libtorrent.rakshasa.no/downloads/libtorrent-0.13.4.tar.gz
 tar -zxvf libtorrent-0.13.4.tar.gz
 cd libtorrent-0.13.4
 ./autogen.sh
@@ -42,7 +42,7 @@ make install
 cd ..
 
 # Installing rtorrent.
-wget http://libtorrent.rakshasa.no/downloads/rtorrent-0.9.4.tar.gz
+wget --quiet http://libtorrent.rakshasa.no/downloads/rtorrent-0.9.4.tar.gz
 tar -zxvf rtorrent-0.9.4.tar.gz
 cd rtorrent-0.9.4
 ./autogen.sh
