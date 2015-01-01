@@ -14,7 +14,7 @@ if [ ! -f /etc/init.d/webmin ]; then
 		wget -O - http://www.webmin.com/jcameron-key.asc | sudo apt-key add -
 		echo 'deb http://download.webmin.com/download/repository sarge contrib' > /etc/apt/sources.list.d/webmin.list
 		echo 'deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' >> /etc/apt/sources.list.d/webmin.list
-		apt-get update
+		apt-get update > /dev/null
 		apt-get -y install webmin
 		echo "Webmin installed successfully."  >> $OUTPUTFILE
 	else
