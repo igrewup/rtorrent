@@ -27,7 +27,7 @@ echo -n "Please type the username for the webinterface, system user not required
 read -e htauser
 
 while true; do
-	htpasswd -c /var/www/rutor/.htpasswd "$htauser"
+	htpasswd -c /etc/apache2/.htpasswd "$htauser"
 	if [ $? = 0 ]; then
 		break
 	fi
