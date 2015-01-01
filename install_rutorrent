@@ -36,7 +36,7 @@ done
 fi
 
 # Creating Apache virtual host
-if [ ! -f /etc/apache2/sites-available/rutor ]; then
+#if [ ! -f /etc/apache2/sites-available/rutor ]; then
 echo '<VirtualHost *:80>
 	ServerName *
 	ServerAlias *
@@ -49,10 +49,10 @@ echo '<VirtualHost *:80>
                 AuthName "Tits or GTFO"
                 AuthType Basic
                 Require Valid-User
-                AuthUserFile /var/www/rutor/.htpasswd
+                AuthUserFile /etc/apache2/.htpasswd
         </location>
 </VirtualHost>' > /etc/apache2/sites-available/rutor
-fi
+#fi
 
 # Creating Apache SSL certificates
 if [ ! -f /etc/ssl/private/apache.crt ]; then
@@ -61,7 +61,7 @@ chmod 600 /etc/ssl/private/apache.*
 fi
 
 # Create Apache SSL website
-rm /etc/apache2/sites-available/default-ssl
+#rm /etc/apache2/sites-available/default-ssl
 echo '<IfModule mod_ssl.c>
 <VirtualHost _default_:443>
 	ServerAdmin webmaster@localhost
