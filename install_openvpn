@@ -125,13 +125,13 @@ if [ -e /etc/openvpn/server.conf ]; then
 			# If it's the first time revoking a cert, we need to add the crl-verify line
 			if grep -q "crl-verify" "/etc/openvpn/server.conf"; then
 				echo ""
-				echo "Removing: $LOCATION/ovpn-$client*.zip"
-				rm $LOCATION/ovpn*$client*.zip
+				echo "Removing: $LOCATION/ovpn-$CLIENT*.zip"
+				rm $LOCATION/ovpn-$CLIENT*.zip
 				echo "Certificate for client $CLIENT revoked"
 			else
 				echo "crl-verify /etc/openvpn/easy-rsa/2.0/keys/crl.pem" >> "/etc/openvpn/server.conf"
-				echo "Removing: $LOCATION/ovpn-$client*.zip"
-				rm $LOCATION/ovpn*$client*.zip
+				echo "Removing: $LOCATION/ovpn-$CLIENT*.zip"
+				rm $LOCATION/ovpn-$CLIENT*.zip
 				/etc/init.d/openvpn restart
 				echo ""
 				echo "Certificate for client $CLIENT revoked"
@@ -142,6 +142,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			apt-get remove --purge -y openvpn openvpn-blacklist
 			rm -rf /etc/openvpn
 			rm -rf /usr/share/doc/openvpn
+			rm -rf /var/www/vpn/ovpn-*.zip
 			sed -i '/iptables -t nat -A PREROUTING -p udp -d.*-j REDIRECT --to-port 1194/d' /etc/rc.local
 			sed -i '/iptables -t nat -A POSTROUTING -s 10.8.0.0/d' /etc/rc.local
 			echo ""
