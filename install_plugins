@@ -16,7 +16,7 @@ function fu_download {
 	if [[ $REPLY =~ [Yy]$ ]]; then
 
 		echo
-		wget "$url"
+		wget --quiet "$url"
 		$unpack
 		if [ $? -eq "0" ]; then
 
@@ -458,7 +458,7 @@ case $plugin in
 	unpack="tar -zxvf $file -C $plugindir"
 	fu_download
 	apt-get -y install libzen0 libmediainfo0 mediainfo
-	wget http://dl.bintray.com/novik65/generic/plugins/_task-3.6.tar.gz
+	wget --quiet http://dl.bintray.com/novik65/generic/plugins/_task-3.6.tar.gz
 	tar -zxvf _task-3.6.tar.gz -C $plugindir
 	rm _task-3.6.tar.gz
 	;;
@@ -480,7 +480,7 @@ case $plugin in
 	unpack="tar -zxvf $file -C $plugindir"
 	fu_download
 	apt-get -y install ffmpeg
-	wget http://dl.bintray.com/novik65/generic/plugins/_task-3.6.tar.gz
+	wget --quiet http://dl.bintray.com/novik65/generic/plugins/_task-3.6.tar.gz
 	tar -zxvf _task-3.6.tar.gz -C $plugindir
 	rm _task-3.6.tar.gz
 	;;
