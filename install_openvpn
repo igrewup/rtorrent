@@ -170,7 +170,7 @@ else
 	echo ""
 	echo "Do you want OpenVPN to add an alternate port?"
 	echo "This can be useful to connect under restrictive networks"	
-	read -p "Alternate port: $NEWPORT [y/n]:" -e -i n ALTPORT
+	read -p "Alternate port: $NEWPORT [y/n]: " -e -i n ALTPORT
 	echo ""
 	echo "Finally, tell me your name for the client cert"
 	echo "Please, use one word only, no special characters"
@@ -182,10 +182,10 @@ else
 	USEPASS="y"
 	echo ""
 	echo "IP Address: $IP"
-	if [ $ALTPORT ]; then
-	echo "Main Port: 1194 $ALTPORT"
+	if [ $ALTPORT = "y" ]; then
+	echo "Main Port: 1194"
 	else 
-	echo "Main Port: 1194 - Alternate Port: $ALTPORT"
+	echo "Main Port: 1194 - Alternate Port: $NEWPORT"
 	fi
 	echo "Creating OpenVPN user: $clientname"
 	echo "Okay, that was all I needed. We are ready to setup your OpenVPN server now"
