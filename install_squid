@@ -23,6 +23,8 @@ while :
       echo "New proxy port: $NEWPROXYPORT1"
       read -p "Do you want to update Proxy Server port & settings? (y/n): " UPDATE
       if [ $UPDATE == "y" ]; then
+      
+      htdigest /etc/squid3/passwords proxy
         cp install_squid_default /etc/squid3/squid.conf
         sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
         echo "Proxy Server Port: $NEWPROXYPORT1" >> $OUTPUTFILE
