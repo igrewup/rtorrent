@@ -23,9 +23,7 @@ while :
       echo "Aborting Proxy Server installation" >> $OUTPUTFILE
       exit
     fi
-  fi
-  # If Proxy Server is already installed, continue with the script.
-  clear
+  else # Is Proxy server already installed?
   echo
   echo "Looks like Proxy Server is already installed."
   echo "What do you want to do?"
@@ -58,6 +56,7 @@ while :
       ;;
       3) exit;;
     esac
+    fi
   done
   
 echo "All done!"
