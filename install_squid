@@ -6,6 +6,7 @@ NEWPROXYPORT1=$1
 INSTALL="no"
 
 clear
+echo "This is a tee test" | tee $OUTPUTFILE
 while :
   do
   if [ -f /etc/init.d/squid3 ]; then
@@ -15,30 +16,57 @@ while :
   echo 
   echo "1) Update Proxy Server port to $NEWPROXYPORT1"
   echo "2) Remove Proxy Server"
-  echo "3) Exit"
+  echo "*) Exit"
   echo 
   read -p "Select an option [1-3]: " option
     case $option in
       1) echo
-      echo "New proxy port: $NEWPROXYPORT1"
-      read -p "Do you want to update Proxy Server port & settings? (y/n): " UPDATE
-      if [ $UPDATE == "y" ]; then
-      
-      htdigest /etc/squid3/passwords proxy
-        cp install_squid_default /etc/squid3/squid.conf
-        sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
-        echo "Proxy Server Port: $NEWPROXYPORT1" >> $OUTPUTFILE
-        service squid3 restart
-      else
-        exit
-      fi
+      while:
+        do
+          case $updates in
+            echo 
+            echo "Options available for PROXY SERVER"
+            echo "1) Add a new user"
+            echo "2) Remove a user"
+            echo "3) Update port to $NEWPROXYPORT1"
+            echo "4) Update server config settings"
+            echo "5) Exit"
+            echo 
+            1)
+            ;;
+            2)
+              echo "Remove a user"
+            ;;
+            3)
+            read -p "Change port to $NEWPROXYPORT1? (y/n): " PORT
+            if [ $PORT == "y" ]; then
+              
+              htdigest /etc/squid3/passwords proxy
+              cp install_squid_default /etc/squid3/squid.conf
+              sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
+              echo "Proxy Server Port: $NEWPROXYPORT1" >> $OUTPUTFILE
+              service squid3 restart
+            else
+              exit
+            fi
+            ;;
+            *) exit ;;
+          esac
+        done
+
       ;;
       2) echo
+      echo "It's recommanded that you create a backup of /etc/squid3/passwords"
+      echo "if you plan on re-using the list of proxy users again."
       read -p "Are you sure you want to remove the Proxy Server? (y/n): " REMOVE
       if [ $REMOVE == "y" ]; then
+        
         echo "Removing Proxy Server..." 
         apt-get -y purge squid3 && apt-get -y autoremove
-        echo "Proxy Server removed successfully." >> $OUTPUTFILE
+        cp /etc/squid3/passwords /etc/squid-passwords.bak
+        rm -rf /etc/squid3/
+        echo "A backup of your proxy users was created '/etc/squid-passwords.bak'" >> $OUTPUTFILE
+        #echo "Proxy Server removed successfully." | tee $OUTPUTFILE
       fi
       ;;
       3) exit;;
