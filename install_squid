@@ -24,7 +24,9 @@ while :
       exit
     fi
   fi
-  # If Proxy Server is already installed, continue with the script. 
+  # If Proxy Server is already installed, continue with the script.
+  clear
+  echo
   echo "Looks like Proxy Server is already installed."
   echo "What do you want to do?"
   echo 
