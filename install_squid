@@ -46,7 +46,7 @@ while :
               4) echo "Update PROXY server config settings" ;;
               *) exit ;;
             esac
-          done
+          #done
       ;;
       2) echo
       echo "It's recommanded that you create a backup of /etc/squid3/passwords"
