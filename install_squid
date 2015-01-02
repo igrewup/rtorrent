@@ -25,7 +25,7 @@ while :
             echo "2) Remove a user"
             echo "3) Update port to $NEWPROXYPORT1"
             echo "4) Update PROXY server config settings"
-            echo "5) Exit"
+            echo "5) Back to main menu"
             echo ""
             read -p "Select an option [1-5]: " updates
             case $updates in
