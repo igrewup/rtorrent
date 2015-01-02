@@ -31,6 +31,11 @@ if [ "$OS2" != "wheezy" ]; then
 	exit 1
 fi
 
+function pause(){
+   read -p "$*"
+}
+
+# Security check to make sure server is secure.
 if [ ! -f /var/www/vpn/index.html ]; then
 mkdir -p /var/www/vpn/
 echo '<!DOCTYPE HTML>
