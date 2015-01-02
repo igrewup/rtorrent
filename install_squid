@@ -48,12 +48,8 @@ while :
             esac
           done
       ;;
-      2) echo
-      echo "It's recommanded that you create a backup of /etc/squid3/passwords"
-      echo "if you plan on re-using the list of proxy users again."
-      read -p "Are you sure you want to remove the Proxy Server? (y/n): " REMOVE
+      2) read -p "Are you sure you want to remove the Proxy Server? (y/n): " REMOVE
       if [ $REMOVE == "y" ]; then
-        
         echo "Removing Proxy Server..." | tee -a $OUTPUTFILE
         apt-get -y purge squid3 && apt-get -y autoremove
         cp /etc/squid3/passwords /etc/squid-passwords.bak
@@ -64,9 +60,8 @@ while :
       ;;
       3) exit;;
     esac
-  
-  
-  else # Proxy Server is not installed.
+
+else # Proxy Server is not installed.
   
     clear
     echo
