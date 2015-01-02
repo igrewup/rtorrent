@@ -22,14 +22,14 @@ while :
       while :
         do
           case $updates in
-            echo 
+            echo ""
             echo "Options available for PROXY SERVER"
             echo "1) Add a new user"
             echo "2) Remove a user"
             echo "3) Update port to $NEWPROXYPORT1"
             echo "4) Update server config settings"
             echo "5) Exit"
-            echo 
+            echo ""
             1)
             ;;
             2)
