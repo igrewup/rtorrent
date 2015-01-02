@@ -7,6 +7,8 @@ INSTALL="no"
 
 clear
 echo "This is a tee test" | tee $OUTPUTFILE
+echo "This is a tee test" | tee $OUTPUTFILE
+echo "This is a tee test" | tee $OUTPUTFILE
 while :
   do
   if [ -f /etc/init.d/squid3 ]; then
