@@ -20,7 +20,7 @@ while :
       1) echo "1" ;;
       2) echo "2" ;;
       3) exit;;
-      INSTALL) echo "Installing" ;;
+      9) echo "Installing" ;;
     esac
   done
   
