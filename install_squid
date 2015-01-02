@@ -35,8 +35,11 @@ while :
               #htdigest /etc/squid3/passwords proxy
               ;;
               2) echo "Remove a user" ;;
-              3) echo -n "Change port to $NEWPROXYPORT1? (y/n): "
-                  read PORT
+              3) read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
+                echo $PORT
+                sleep 5
+              #echo -n "Change port to $NEWPROXYPORT1? (y/n): "
+                  #read PORT
                   #if [ "$PORT" == "y" ]; then
                   #echo "NEW PORT ADDED"
                   #fi
