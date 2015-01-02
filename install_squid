@@ -6,9 +6,9 @@ NEWPROXYPORT1=$1
 INSTALL="no"
 
 clear
-echo "This is a tee test" | tee $OUTPUTFILE
-echo "This is a tee test" | tee $OUTPUTFILE
-echo "This is a tee test" | tee $OUTPUTFILE
+echo "This is a tee test1" | tee -a $OUTPUTFILE
+echo "This is a tee test2" | tee -a $OUTPUTFILE
+echo "This is a tee test3" | tee -a $OUTPUTFILE
 while :
   do
   if [ -f /etc/init.d/squid3 ]; then
