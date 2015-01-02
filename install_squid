@@ -39,12 +39,12 @@ while :
                   sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
                   echo "Proxy Server Port: $NEWPROXYPORT1" | tee -a $OUTPUTFILE
                   service squid3 restart
-                #else
-                #exit
+                else
+                  break
                 fi
               ;;
               4) echo "Update PROXY server config settings" ;;
-              *) exit 1 ;;
+              *) break ;;
             esac
           done
       ;;
