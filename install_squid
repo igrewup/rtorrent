@@ -69,7 +69,8 @@ while :
       ;;
       3) exit;;
     esac
-    
+  done
+  
   else # Proxy Server is not installed.
   
     clear
