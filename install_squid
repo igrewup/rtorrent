@@ -44,8 +44,10 @@ while :
     
   else # Proxy Server is not installed.
   
-  echo "Installing Proxy Server on port: $NEWPROXYPORT1"
-  read -p "Do you want to continue with installation? (y/n): " INSTALL
+  clear
+  echo
+  echo "Looks like Proxy Server is not installed.
+  read -p "Do you want to install Proxy Server on port: $NEWPROXYPORT1" (y/n): " INSTALL
     if [ $INSTALL == "y" ]; then
       echo "Installing Proxy Server..."
       apt-get -y install squid3
