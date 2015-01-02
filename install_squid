@@ -20,7 +20,7 @@ while :
     case $option in
       1) while :
           do
-            clear
+            #clear
             echo
             echo "Options available for PROXY SERVER"
             echo "1) Add a new user"
