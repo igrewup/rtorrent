@@ -56,6 +56,7 @@ while :
         rm -rf /etc/squid3/
         echo "A backup of your proxy users was created '/etc/squid-passwords.bak'" | tee -a $OUTPUTFILE
         echo "Proxy Server removed successfully." | tee -a $OUTPUTFILE
+        $HITENTER
       fi
       ;;
       3) exit;;
@@ -75,9 +76,11 @@ else # Proxy Server is not installed.
         sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
         service squid3 restart
         echo "Proxy Server installed successfully" | tee -a $OUTPUTFILE
+        $HITENTER
       else
         echo "Aborting Proxy Server installation" | tee -a $OUTPUTFILE
-        exit
+        $HITENTER
+        break
       fi
     fi
     
