@@ -44,23 +44,23 @@ while :
     
   else # Proxy Server is not installed.
   
-  clear
-  echo
-  echo "Looks like Proxy Server is not installed."
-  read -p "Do you want to install Proxy Server on port: $NEWPROXYPORT1 (y/n): " INSTALL
-    if [ $INSTALL == "y" ]; then
-      echo "Installing Proxy Server..."
-      apt-get -y install squid3
-      mv /etc/squid3/squid.conf /etc/squid3/squid.conf-orig
-      cp install_squid_default /etc/squid3/squid.conf
-      sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
-      service squid3 restart
-      echo "Proxy Server installed successfully" >> $OUTPUTFILE
-    else
-      echo "Aborting Proxy Server installation" >> $OUTPUTFILE
-      exit
+    clear
+    echo
+    echo "Looks like Proxy Server is not installed."
+    read -p "Do you want to install Proxy Server on port: $NEWPROXYPORT1 (y/n): " INSTALL
+      if [ $INSTALL == "y" ]; then
+        echo "Installing Proxy Server..."
+        apt-get -y install squid3
+        mv /etc/squid3/squid.conf /etc/squid3/squid.conf-orig
+        cp install_squid_default /etc/squid3/squid.conf
+        sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
+        service squid3 restart
+        echo "Proxy Server installed successfully" >> $OUTPUTFILE
+      else
+        echo "Aborting Proxy Server installation" >> $OUTPUTFILE
+        exit
+      fi
     fi
-  fi
   done
   
 echo "All done!"
