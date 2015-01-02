@@ -11,7 +11,7 @@ while :
   echo
   echo "What do you want to do?"
   echo 
-  echo "1) Update Proxy Server port to $NEWPROXYPORT"
+  echo "1) Update Proxy Server port to $NEWPROXYPORT1"
   echo "2) Remove Proxy Server"
   echo "3) Exit"
   echo ""
