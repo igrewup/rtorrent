@@ -4,10 +4,10 @@ source $(dirname $0)/incl.sh
 
 NEWPROXYPORT1=$1
 
-clear
 while :
   do
   if [ -f /etc/init.d/squid3 ]; then
+  clear
   echo
   echo "Looks like Proxy Server is already installed."
   echo "What do you want to do?"
@@ -20,13 +20,15 @@ while :
     case $option in
       1) while :
           do
+            clear
+            echo
             echo "Options available for PROXY SERVER"
             echo "1) Add a new user"
             echo "2) Remove a user"
             echo "3) Update port to $NEWPROXYPORT1"
             echo "4) Update PROXY server config settings"
             echo "5) Back to main menu"
-            echo ""
+            echo 
             read -p "Select an option [1-5]: " updates
             case $updates in
               1) echo "Add a user"
