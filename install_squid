@@ -3,15 +3,23 @@ source $(dirname $0)/check.sh
 source $(dirname $0)/incl.sh
 
 NEWPROXYPORT1=$1
+INSTALL="no"
 
 if [ ! -f /etc/init.d/squid3 ]; then
+  echo "Installing Proxy Server on port: $NEWPROXYPORT1"
+  read -p "Do you want to continue with installation? (y/n): " INSTALL
+  if [ $INSTALL == "y" ]; then
   apt-get -y install squid3
   mv /etc/squid3/squid.conf /etc/squid3/squid.conf-orig
   cp install_squid_default /etc/squid3/squid.conf
   sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
   service squid3 restart
   echo "Proxy Server installed successfully" >> $OUTPUTFILE
-
+  else
+    echo "Aborting Proxy Server installation."
+    exit
+  fi
+  
 else
 
   echo "Proxy Server is already installed." >> $OUTPUTFILE
