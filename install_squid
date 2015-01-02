@@ -37,9 +37,9 @@ while :
               2) echo "Remove a user" ;;
               3) echo -n "Change port to $NEWPROXYPORT1? (y/n): "
                   read PORT
-                  if [ "$PORT" == "y" ]; then
-                  echo "NEW PORT ADDED"
-                  fi
+                  #if [ "$PORT" == "y" ]; then
+                  #echo "NEW PORT ADDED"
+                  #fi
               
 #              read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
 #                if [ $PORT == "y" ]; then
