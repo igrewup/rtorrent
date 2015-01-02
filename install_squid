@@ -18,8 +18,8 @@ while :
   echo 
   read -p "Select an option [1-3]: " option
     case $option in
-      1) echo
-      while:
+      1)
+      while :
         do
           case $updates in
             echo 
@@ -69,7 +69,7 @@ while :
       ;;
       3) exit;;
     esac
-  done
+  
   
   else # Proxy Server is not installed.
   
@@ -90,6 +90,7 @@ while :
         exit
       fi
     fi
+    
   done
   
 echo "All done!"
