@@ -6,24 +6,24 @@ NEWPROXYPORT1=$1
 INSTALL="no"
 
 clear
-if [ ! -f /etc/init.d/squid3 ]; then
+while :
+  do
+  if [ ! -f /etc/init.d/squid3 ]; then
   echo "Installing Proxy Server on port: $NEWPROXYPORT1"
   read -p "Do you want to continue with installation? (y/n): " INSTALL
-  if [ $INSTALL == "y" ]; then
-    echo "Installing Proxy Server..."
-    apt-get -y install squid3
-    mv /etc/squid3/squid.conf /etc/squid3/squid.conf-orig
-    cp install_squid_default /etc/squid3/squid.conf
-    sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
-    service squid3 restart
-    echo "Proxy Server installed successfully" >> $OUTPUTFILE
-  else
-    echo "Aborting Proxy Server installation" >> $OUTPUTFILE
-    exit
-  fi
-else
-  while :
-  do
+    if [ $INSTALL == "y" ]; then
+      echo "Installing Proxy Server..."
+      apt-get -y install squid3
+      mv /etc/squid3/squid.conf /etc/squid3/squid.conf-orig
+      cp install_squid_default /etc/squid3/squid.conf
+      sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
+      service squid3 restart
+      echo "Proxy Server installed successfully" >> $OUTPUTFILE
+    else
+      echo "Aborting Proxy Server installation" >> $OUTPUTFILE
+      exit
+    fi
+  # If Proxy Server is already installed, continue with the script. 
   echo "Looks like Proxy Server is already installed."
   echo "What do you want to do?"
   echo 
@@ -58,7 +58,6 @@ else
   done
   
 echo "All done!"
-fi 
 
 # Include footer.sh
 source $(dirname $0)/footer.sh
