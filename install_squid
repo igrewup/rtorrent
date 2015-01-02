@@ -5,23 +5,25 @@ source $(dirname $0)/incl.sh
 NEWPROXYPORT1=$1
 INSTALL="no"
 
-clear
-echo
-echo "What do you want to do?"
-echo ""
-echo "1) Install Proxy Server on port $NEWPROXYPORT"
-echo "2) Update Proxy Server port to $NEWPROXYPORT"
-echo "3) Remove Proxy Server"
-echo "4) Exit"
-echo ""
-read -p "Select an option [1-4]: " option
-  case $option in
-    1) echo "1" ;;
-    2) echo "2" ;;
-    3) echo "3" ;;
-    4) exit;;
-  esac
-
+while :
+  do
+  clear
+  echo
+  echo "What do you want to do?"
+  echo ""
+  echo "1) Update Proxy Server port to $NEWPROXYPORT"
+  echo "2) Remove Proxy Server"
+  echo "3) Exit"
+  echo ""
+  read -p "Select an option [1-3]: " option
+    case $option in
+      1) echo "1" ;;
+      2) echo "2" ;;
+      3) exit;;
+      INSTALL) echo "Installing" ;;
+    esac
+  done
+  
 echo "All done!"
 exit 0
 
