@@ -4,6 +4,7 @@ OS1=$(lsb_release -si)
 OS2=$(lsb_release -sc)
 OSV1=$(lsb_release -rs)
 OUTPUTFILE="/tmp/output.txt"
+HITENTER="pause 'Press [Enter] key to continue...'"
 
 # Checking if user is root.
 if [[ $EUID -ne 0 ]]; then
