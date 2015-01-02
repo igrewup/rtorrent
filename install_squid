@@ -36,23 +36,15 @@ while :
               ;;
               2) echo "Remove a user" ;;
               3) read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
-                echo $PORT
-              #echo -n "Change port to $NEWPROXYPORT1? (y/n): "
-                  #read PORT
-                  #if [ "$PORT" == "y" ]; then
-                  #echo "NEW PORT ADDED"
-                  #fi
-              
-#              read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
-#                if [ $PORT == "y" ]; then
- #                 cp install_squid_default /etc/squid3/squid.conf
-  #                sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
-   #               echo "Proxy Server Port: $NEWPROXYPORT1" | tee -a $OUTPUTFILE
-    #              service squid3 restart
-    #            fi
+              if [ $PORT == "y" ]; then
+                cp install_squid_default /etc/squid3/squid.conf
+                sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
+                echo "Proxy Server Port: $NEWPROXYPORT1" | tee -a $OUTPUTFILE
+                service squid3 restart
+              fi
               ;;
               4) echo "Update PROXY server config settings" ;;
-              *) break ;;
+              5) break ;;
             esac
           done
       ;;
