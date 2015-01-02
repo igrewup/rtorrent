@@ -5,59 +5,60 @@ source $(dirname $0)/incl.sh
 NEWPROXYPORT1=$1
 INSTALL="no"
 
-while :
+clear
+if [ ! -f /etc/init.d/squid3 ]; then
+  echo "Installing Proxy Server on port: $NEWPROXYPORT1"
+  read -p "Do you want to continue with installation? (y/n): " INSTALL
+  if [ $INSTALL == "y" ]; then
+    echo "Installing Proxy Server..."
+    apt-get -y install squid3
+    mv /etc/squid3/squid.conf /etc/squid3/squid.conf-orig
+    cp install_squid_default /etc/squid3/squid.conf
+    sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
+    service squid3 restart
+    echo "Proxy Server installed successfully" >> $OUTPUTFILE
+  else
+    echo "Aborting Proxy Server installation" >> $OUTPUTFILE
+    exit
+  fi
+else
+  while :
   do
-  clear
-  echo
+  echo "Looks like Proxy Server is already installed."
   echo "What do you want to do?"
   echo 
   echo "1) Update Proxy Server port to $NEWPROXYPORT1"
   echo "2) Remove Proxy Server"
   echo "3) Exit"
-  echo ""
+  echo 
   read -p "Select an option [1-3]: " option
     case $option in
-      1) echo "1" ;;
-      2) echo "2" ;;
+      1) echo
+      echo "New proxy port: $NEWPROXYPORT1"
+      read -p "Do you want to update Proxy Server port & settings? (y/n): " UPDATE
+      if [ $UPDATE == "y" ]; then
+        cp install_squid_default /etc/squid3/squid.conf
+        sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
+        echo "Proxy Server Port: $NEWPROXYPORT1" >> $OUTPUTFILE
+        service squid3 restart
+      else
+        exit
+      fi
+      ;;
+      2) echo
+      read -p "Are you sure you want to remove the Proxy Server? (y/n): " REMOVE
+      if [ $REMOVE == "y" ]; then
+        echo "Removing Proxy Server..." 
+        apt-get -y purge squid3 && apt-get autoremove
+        echo "Proxy Server removed successfully." >> $OUTPUTFILE
+      fi
+      ;;
       3) exit;;
-      9) echo "Installing" ;;
     esac
   done
   
 echo "All done!"
-exit 0
-
-
-if [ ! -f /etc/init.d/squid3 ]; then
-  echo "Installing Proxy Server on port: $NEWPROXYPORT1"
-  read -p "Do you want to continue with installation? (y/n): " INSTALL
-  if [ $INSTALL == "y" ]; then
-  apt-get -y install squid3
-  mv /etc/squid3/squid.conf /etc/squid3/squid.conf-orig
-  cp install_squid_default /etc/squid3/squid.conf
-  sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
-  service squid3 restart
-  echo "Proxy Server installed successfully" >> $OUTPUTFILE
-  else
-    echo "Aborting Proxy Server installation."
-    exit
-  fi
-  
-else
-
-  echo "Proxy Server is already installed." >> $OUTPUTFILE
-  echo
-  echo "New proxy port: $NEWPROXYPORT1"
-  read -p "Do you want to update PROXY settings? (y/n): " UPDATE
-
-  if [ $UPDATE == "y" ]; then
-  cp install_squid_default /etc/squid3/squid.conf
-  sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
-  service squid3 restart
-  echo "Proxy Server Port: $NEWPROXYPORT1" >> $OUTPUTFILE
-  fi
-
-fi
+fi 
 
 # Include footer.sh
 source $(dirname $0)/footer.sh
