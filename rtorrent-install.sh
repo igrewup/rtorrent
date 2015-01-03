@@ -133,7 +133,7 @@ fi
 read -p "DO YOU WANT TO CONTINUE WITH THE INSTALLATION? (yes / no): " INSTALL
 if [ "$INSTALL" = "yes" ]; then
 read -p "ARE YOU SURE? (yes / no): " SURE
-if [ "$SURE" != "yes" ]; then echo; echo "Aborting installation."; echo; exit; else; clear; echo; echo "Starting the installation now, this will take a while..."; echo; fi
+if [ "$SURE" != "yes" ]; then echo; echo "Aborting installation."; echo; exit; else clear; echo; echo "Starting the installation now, this will take a while..."; echo; fi
 
 # Installing dependencies
 apt-get update > /dev/null && apt-get -y install openssl git subversion zip unzip rar unrar-free
