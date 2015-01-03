@@ -66,30 +66,30 @@ if [[ $YESORNO1 = "y" ]]; then ANSWER="YES";	else ANSWER="NO";	fi
 
 # Install other software & services
 #getString NO  "Set password for $user: " PASSWORD1
-getString NO "Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 $ANSWER
-getString NO "Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 $ANSWER
+getString NO " Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 $ANSWER
+getString NO " Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 $ANSWER
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then
-getString NO "Install/Update RUTORRENT PLUGINS (yes/no)?: " INSTALLPLUGINS1 YES
+getString NO " Install/Update RUTORRENT PLUGINS (yes/no)?: " INSTALLPLUGINS1 YES
 fi
-getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 $ANSWER
+getString NO  " Install/Update SSH (yes/no)?: " INSTALLSSH1 $ANSWER
 if [ "$INSTALLSSH1" = "YES" ]; then
-getString NO  "SSH port (usually 22): " NEWSSHPORT1 22
+getString NO  " SSH port (usually 22): " NEWSSHPORT1 22
 fi
-getString NO  "Install/Update VSFTPD (yes/no)?: " INSTALLVSFTPD1 $ANSWER
+getString NO  " Install/Update VSFTPD (yes/no)?: " INSTALLVSFTPD1 $ANSWER
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
-getString NO  "VSFTPD port (usually 21): " NEWFTPPORT1 21
+getString NO  " VSFTPD port (usually 21): " NEWFTPPORT1 21
 fi
-getString NO  "Install/Update OpenVPN (yes/no)?: " INSTALLOPENVPN1 $ANSWER
+getString NO  " Install/Update OpenVPN (yes/no)?: " INSTALLOPENVPN1 $ANSWER
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
-getString NO  "Port 1194 is already set but you can add another port (usually 53): " OPENVPNPORT1 53
+getString NO  " Port 1194 is already set but you can add another port (usually 53): " OPENVPNPORT1 53
 fi
-getString NO  "Install/Update Proxy Server (yes/no)?: " INSTALLSQUID1 $ANSWER
+getString NO  " Install/Update Proxy Server (yes/no)?: " INSTALLSQUID1 $ANSWER
 if [ "$INSTALLSQUID1" = "YES" ]; then
-getString NO  "VSFTPD port (usually 3128): " SQUIDPORT1 3128
+getString NO  " VSFTPD port (usually 3128): " SQUIDPORT1 3128
 fi
-getString NO  "Install/Update Webmin (yes/no)?: " INSTALLWEBMIN1 $ANSWER
+getString NO  " Install/Update Webmin (yes/no)?: " INSTALLWEBMIN1 $ANSWER
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
-getString NO  "Webmin port (default: 10000)?: " WEBMINPORT1 10000
+getString NO  " Webmin port (default: 10000)?: " WEBMINPORT1 10000
 fi
 
 clear
@@ -98,21 +98,16 @@ echo
 echo "USERNAME: $user |  HOMEDIR: $homedir"
 echo
 
-if [ "$INSTALLRTORRENT1" = "YES" ]; then echo "Install/Update RTORRENT: $INSTALLRTORRENT1"; echo; fi
-if [ "$INSTALLRUTORRENT1" = "YES" ]; then
+if [ "$INSTALLRTORRENT1" = "YES" ]; then echo " Install/Update RTORRENT: $INSTALLRTORRENT1"; echo; fi
+if [ "$INSTALLRUTORRENT1" = "YES" ] && [ "$INSTALLPLUGINS1" = "YES" ]; then
+	echo "Install/Update RUTORRENT: $INSTALLRUTORRENT1 and PLUGINS: $INSTALLPLUGINS1"
+else
 	echo "Install/Update RUTORRENT: $INSTALLRUTORRENT1"
-	if [ "$INSTALLPLUGINS1" = "YES" ]; then	echo "Install/Update PLUGINS: $INSTALLPLUGINS1"; fi
-	echo; fi
-if [ "$INSTALLSSH1" = "YES" ]; then echo "Install/Update SSH: $INSTALLSSH1"; echo "SSH port: $NEWSSHPORT1"; echo; fi
-if [ "$INSTALLVSFTPD1" = "YES" ]; then echo "Install/Update VSFTPD: $INSTALLVSFTPD1"; echo "VSFTPD port: $NEWFTPPORT1"; echo; fi
-if [ "$INSTALLSQUID1" = "YES" ]; then echo "Install/Update Proxy Server: $INSTALLSQUID1"; echo "Proxy Server port: $SQUIDPORT1"; echo; fi
-if [ "$INSTALLWEBMIN1" = "YES" ]; then echo "Install/Update WEBMIN: $INSTALLWEBMIN1"; echo "WEBMIN port: $WEBMINPORT1"; echo; fi
-if [ "$INSTALLOPENVPN1" = "YES" ]; then
-	echo "Install/Update OPENVPN: $INSTALLOPENVPN1"
-	echo "OPENVPN main port: 1194"
-	echo "OPENVPN alternate port: $OPENVPNPORT1"
-	echo
-fi
+if [ "$INSTALLSSH1" = "YES" ]; then echo " Install/Update SSH: $INSTALLSSH1 on PORT: $NEWSSHPORT1"; echo; fi
+if [ "$INSTALLVSFTPD1" = "YES" ]; then echo " Install/Update VSFTPD: $INSTALLVSFTPD1 on PORT: $NEWFTPPORT1"; echo; fi
+if [ "$INSTALLSQUID1" = "YES" ]; then echo " Install/Update Proxy Server: $INSTALLSQUID1 on PORT: $SQUIDPORT1"; echo; fi
+if [ "$INSTALLWEBMIN1" = "YES" ]; then echo " Install/Update WEBMIN: $INSTALLWEBMIN1 on PORT: $WEBMINPORT1"; echo; fi
+if [ "$INSTALLOPENVPN1" = "YES" ]; then	echo " Install/Update OPENVPN: $INSTALLOPENVPN1 on MAIN PORT: 1194 and ALTERNATE PORT: $OPENVPNPORT1"
 
 read -p "DO YOU WANT TO CONTINUE WITH THE INSTALLATION? (yes / no): " INSTALL
 if [ "$INSTALL" = "yes" ]; then
