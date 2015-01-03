@@ -39,16 +39,19 @@ do
 sed -i "/$DIR/d" /tmp/users.list
 done
 
+
+# Script to see if the username entered exist.
 check=0
 while [ $check -eq 0 ]; do
-
-# Script to see if User exists
 echo; read -p " Check if username is valid: " user;
-if [ -z $user ]; then echo "You did not enter a username";
-	if grep -wF "$user" /tmp/users.list > /dev/null; then echo; echo "You can't use '$user' as a user!";
+if [ -z $user ]; then
+	echo "You did not enter a username"
+else
+	grep -wF "$user" /tmp/users.list > /dev/null; then echo; echo "You can't use '$user' as a user!";
 	elif id -u $user >/dev/null 2>&1; then echo "ID=$user"; check=1;
 	else echo; echo "This user does not exist, try a different user."; fi
 fi
+echo "The username name '$user' is valid."
 done
 
 #rm /tmp/users.list
