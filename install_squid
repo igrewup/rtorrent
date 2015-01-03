@@ -7,7 +7,7 @@ NEWPROXYPORT1=$1
 while :
   do
   if [[ -f /etc/init.d/squid3 ]]; then
-  #clear
+  clear
   echo
   echo " Looks like Proxy Server is already installed."
   echo " What do you want to do?"
