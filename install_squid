@@ -31,6 +31,7 @@ while :
             echo 
             read -p " Select an option [1-5]: " updates
             case $updates in
+            clear
               1) read -p " Add new PROXY user: " user
               echo
               touch /etc/squid3/passwords
