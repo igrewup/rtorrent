@@ -53,7 +53,7 @@ while :
               if grep -wF "$user" /etc/squid3/passwords > /dev/null ; then
                 read -p " Are you sure you want to remove '$user'? (y/n): " REMOVE
                 if [ $REMOVE == "y" ]; then
-                  sed -i '/\<$user\>/d' /etc/squid3/passwords
+                  sed -i "/\<$user\>/d" /etc/squid3/passwords
                   if grep -wF "$user" /etc/squid3/passwords > /dev/null ; then
                     echo " Error removing '$user'"
                   else
