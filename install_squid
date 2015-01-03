@@ -21,7 +21,7 @@ while :
     case $option in
       1) while :
           do
-            #clear
+            clear
             echo
             echo " Options available for PROXY SERVER"
             echo "1) Add a new user"
@@ -31,7 +31,7 @@ while :
             echo "5) Update PROXY server config settings"
             echo "6) Back to main menu"
             echo 
-            read -p " Select an option [1-5]: " updates
+            read -p " Select an option [1-6]: " updates
             case $updates in
               1) read -p " Add new PROXY user: " user
               echo
@@ -67,7 +67,7 @@ while :
               ;;
               3)
               echo " List of PROXY users."
-              cat /etc/squid3/passwords
+              cut -d':' -f1 /etc/squid3/passwords
               ;;
               4) read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
               if [ $PORT == "y" ]; then
