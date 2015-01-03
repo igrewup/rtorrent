@@ -32,7 +32,7 @@ while :
             read -p "Select an option [1-5]: " updates
             case $updates in
               1) echo
-              while [ $check == 0 ]; do
+              while [ $check -eq 0 ]; do
                 # Script to see if user exists
                 read -p " Add new PROXY user: " newuser
                 echo
