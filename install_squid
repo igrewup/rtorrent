@@ -30,7 +30,7 @@ while :
             echo 
             read -p " Select an option [1-5]: " updates
             case $updates in
-              1) clear
+              1) clear;
               read -p " Add new PROXY user: " user
               echo
               touch /etc/squid3/passwords
@@ -49,7 +49,7 @@ while :
                 echo " Error creating '$user'"
               fi
               ;;
-              2) clear
+              2) clear;
               read -p " Remove a PROXY user: " user
               if grep -wF "$user" /etc/squid3/passwords > /dev/null ; then
                 read -p " Are you sure you want to remove '$user'? (y/n): " SURE
@@ -67,7 +67,7 @@ while :
               fi
               ;;
           
-              3) clear
+              3) clear;
               if [[ -s /etc/squid3/passwords ]] ; then
               echo " List of all PROXY users."
               cut -d':' -f1 /etc/squid3/passwords
@@ -75,7 +75,7 @@ while :
               echo " There's currently no PROXY users."
               fi
               ;;
-              4) clear
+              4) clear;
               currentport=$(grep "http_port" /etc/squid3/squid.conf | cut -d' ' -f2)
               echo " Update PROXY server settings."
               echo "==============================="
@@ -93,8 +93,9 @@ while :
                 service squid3 restart
               fi
               ;;
-              5) clear
-              break ;;
+              5) clear;
+              break
+              ;;
             esac  
           done
       ;;
