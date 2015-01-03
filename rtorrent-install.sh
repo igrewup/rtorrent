@@ -134,7 +134,7 @@ echo
 echo -n "Check if username is valid: "
 read user
 
-if grep "$user" /tmp/users.list > /dev/null; then
+if grep -wF "$user" /tmp/users.list > /dev/null; then
    echo
    echo "You can't use '$user' as a user!"
 elif id -u $user >/dev/null 2>&1; then
