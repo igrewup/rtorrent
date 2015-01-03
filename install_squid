@@ -81,7 +81,7 @@ while :
               echo "==============================="
               read -p " Keep current port '$currentport'? (y/n): " KEEP
               if [ $KEEP != "y" ]; then
-                read -p " Change port to: " NEWPORT
+                read -p " Change port to (default: 3128): " NEWPORT
               else
                 NEWPORT=$currentport
               fi
