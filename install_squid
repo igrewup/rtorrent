@@ -37,6 +37,7 @@ while :
               touch /etc/squid3/passwords
               if grep -wF "$user" /etc/squid3/passwords > /dev/null ; then
                 echo " User $user already exist. NOTE: This will overwrite the user's current password."
+                $HITENTER
               else
                 echo " User doesn't exist."
               fi
