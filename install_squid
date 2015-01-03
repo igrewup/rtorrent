@@ -35,13 +35,13 @@ while :
               1) read -p " Add new PROXY user: " newuser
               echo
               touch /etc/squid3/passwords
-              if [[ grep -wF "$newuser" /etc/squid3/passwords > /dev/null ]]; then
+              if grep -wF "$newuser" /etc/squid3/passwords > /dev/null ; then
                 echo "User $newuser already exist. This will overwrite the user's password."
               else
                 echo "User doesn't exist. Creating $newuser."
               fi
               htdigest /etc/squid3/passwords proxy $newuser
-              if [[ grep -wF "$newuser" /etc/squid3/passwords > /dev/null ]]; then
+              if grep -wF "$newuser" /etc/squid3/passwords > /dev/null ; then
                 echo "$newuser created sucessfully." | tee -a $OUTPUTFILE
                 check=1
               else
@@ -50,7 +50,7 @@ while :
               ;;
               2) echo "Remove a user" ;;
               3) read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
-              if [[ $PORT == "y" ]]; then
+              if [ $PORT == "y" ]; then
                 cp install_squid_default /etc/squid3/squid.conf
                 sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
                 echo "Proxy Server Port: $NEWPROXYPORT1" | tee -a $OUTPUTFILE
@@ -63,7 +63,7 @@ while :
           done
       ;;
       2) read -p "Are you sure you want to remove the Proxy Server? (y/n): " REMOVE
-      if [[ $REMOVE == "y" ]]; then
+      if [ $REMOVE == "y" ]; then
         echo "Removing Proxy Server..." | tee -a $OUTPUTFILE
         apt-get -y purge squid3 && apt-get -y autoremove
         cp /etc/squid3/passwords /etc/squid-passwords.bak
@@ -82,7 +82,7 @@ else # Proxy Server is not installed.
     echo
     echo "Looks like Proxy Server is not installed."
     read -p "Do you want to install Proxy Server on port: "$NEWPROXYPORT1" (y/n): " INSTALL
-      if [[ $INSTALL == "y" ]]; then
+      if [ $INSTALL == "y" ]; then
         echo "Installing Proxy Server..."
         apt-get -y install squid3
         mv /etc/squid3/squid.conf /etc/squid3/squid.conf-orig
