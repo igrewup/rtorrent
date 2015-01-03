@@ -48,12 +48,11 @@ if [ -z $user ]; then
 	echo " You did not enter a username."
 else	
 	if grep -wF "$user" /tmp/users.list > /dev/null; then echo; echo " You can't use '$user' as a user!";
-	elif id -u $user >/dev/null 2>&1; then echo "ID=$user"; check=1;
+	elif id -u $user >/dev/null 2>&1; then echo " The username name '$user' is valid."; echo " Continuing with installation..."; echo; check=1;
 	else echo; echo " This user does not exist, try a different user."; fi
 fi
 done
 
-echo " The username name '$user' is valid."; echo "Continuing with installation..."; echo;
 rm /tmp/users.list
 homedir=$(cat /etc/passwd | grep "$user": | cut -d: -f6)
 
