@@ -74,18 +74,19 @@ while :
               fi
               ;;
               4) currentport=$(grep "http_port" /etc/squid3/squid.conf | cut -d' ' -f2)
-              echo "Current port: $currentport"
-              read -p " Keep current port? (y/n): " KEEP
+              echo " Update PROXY server settings."
+              echo "==============================="
+              read -p " Keep current port '$currentport'? (y/n): " KEEP
               if [ $KEEP != "y" ]; then
-                read -p " Change port to: " PORT
+                read -p " Change port to: " NEWPORT
               else
-                PORT=$currentport
+                NEWPORT=$currentport
               fi
-              read -p " Updating server settings and using port '$PORT' (y/n): " SURE
+              read -p " Updating server settings and using port '$NEWPORT' (y/n): " SURE
               if [ $SURE == "y" ]; then
                 cp install_squid_default /etc/squid3/squid.conf
-                sed -i "s/http_port.*/http_port $PORT/g" /etc/squid3/squid.conf
-                echo " Proxy Server updated and using port: $PORT" | tee -a $OUTPUTFILE
+                sed -i "s/http_port.*/http_port $NEWPORT/g" /etc/squid3/squid.conf
+                echo " Proxy Server updated and using port: $NEWPORT" | tee -a $OUTPUTFILE
                 service squid3 restart
               fi
               ;;
