@@ -31,7 +31,6 @@ while :
             echo "6) Back to main menu"
             echo 
             read -p " Select an option [1-6]: " updates
-            clear
             case $updates in
               1) read -p " Add new PROXY user: " user
               echo
