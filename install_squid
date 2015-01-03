@@ -83,10 +83,10 @@ while :
               fi
               ;;
               5) 
-              echo " Update PROXY server config settings"
+              echo " Updating PROXY server config file settings."
               currentport=$(grep "http_port" /etc/squid3/squid.conf)
-              echo $currentport
-              #cp install_squid_default /etc/squid3/squid.conf
+              cp install_squid_default /etc/squid3/squid.conf
+              sed -i "s/http_port.*/$currentport/g" /etc/squid3/squid.conf
               ;;
               6) break ;;
             esac  
