@@ -109,7 +109,11 @@ if [ "$INSTALLOPENVPN1" = "YES" ]; then	echo " Install/Update OPENVPN: $INSTALLO
 
 while [ $LAUNCH -eq 0 ]; do
 read -p "DO YOU WANT TO CONTINUE WITH THE INSTALLATION? (yes / no): " INSTALL
-if [ -z $INSTALL ]; then echo "You did not enter yes or no. Try again."; else LAUNCH=1; fi
+if [ -z $INSTALL ]; then
+	echo "You did not enter yes or no. Try again."
+else
+	LAUNCH=1
+fi
 if [ "$INSTALL" = "yes" ]; then
 read -p "ARE YOU SURE? (yes / no): " SURE
 if [ "$SURE" != "yes" ]; then echo; echo "Aborting installation."; echo; exit; else clear; echo; echo "Starting the installation now, this will take a while..."; echo; fi
