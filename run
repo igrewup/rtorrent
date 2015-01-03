@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ -z $1 ]; then
+	echo "You need to add a variable to the script."
+else
+	if [ -f install_$1 ]; then
+	rm install_$1
+	fi
+	git pull
+	wget --quiet --no-check-certificate -O install_$1 https://raw.githubusercontent.com/igrewup/rtorrent/master/install_$1
+	chmod +x install_$1
+	./install_$1 $2
+fi
