@@ -37,15 +37,15 @@ function pause(){
 }
 
 function getString{
-  local ISPASSWORD=$1
-  local LABEL=$2
-  local RETURN=$3
-  local DEFAULT=$4
-  local NEWVAR1=a
-  local NEWVAR2=b
-  local YESYES=YESyes
-  local NONO=NOno
-  local YESNO=$YESYES$NONO
+ISPASSWORD=$1
+LABEL=$2
+RETURN=$3
+DEFAULT=$4
+NEWVAR1=a
+NEWVAR2=b
+YESYES=YESyes
+NONO=NOno
+YESNO=$YESYES$NONO
 
   while [ ! $NEWVAR1 = $NEWVAR2 ] || [ -z "$NEWVAR1" ];
   do
