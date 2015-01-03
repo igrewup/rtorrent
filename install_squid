@@ -66,7 +66,8 @@ while :
               fi
               ;;
               3)
-                echo " List of PROXY users."
+              echo " List of PROXY users."
+              cat /etc/squid3/passwords
               ;;
               4) read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
               if [ $PORT == "y" ]; then
