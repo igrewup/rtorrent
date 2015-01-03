@@ -31,8 +31,23 @@ while :
             echo 
             read -p "Select an option [1-5]: " updates
             case $updates in
-              1) echo "Add a user"
-              #htdigest /etc/squid3/passwords proxy
+              1) while [ $check -eq 0 ]; do
+                # Script to see if user exists
+                echo
+                read -p " Add new PROXY user: " newuser
+                echo
+                  if [ grep "$newuser" /etc/squid3/passwords > /dev/null ]; then
+                  echo "User doesn't already exist. Creating $newuser."
+                  htdigest /etc/squid3/passwords proxy $newuser
+                  echo "$newuser created sucessfully." | tee -a $OUTPUTFILE
+                  check=1
+                  else
+                  echo "User $newuser already exist. This will overwrite the user's password."
+                  htdigest /etc/squid3/passwords proxy $newuser
+                  check=1
+                  echo "$newuser created sucessfully." | tee -a $OUTPUTFILE
+                  fi
+              done
               ;;
               2) echo "Remove a user" ;;
               3) read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
