@@ -105,7 +105,7 @@ YESNO=$YESYES$NONO
         fi
       fi
     fi
-    echo "---> $NEWVAR2"
+    #echo "---> $NEWVAR2"
 
   done
   eval $RETURN=\$NEWVAR1
