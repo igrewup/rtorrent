@@ -4,7 +4,6 @@ source $(dirname $0)/incl.sh
 
 NEWPROXYPORT1=$1
 
-# Start the PROXY setup script.
 while :
   do
   if [[ -f /etc/init.d/squid3 ]]; then
