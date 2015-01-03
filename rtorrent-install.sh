@@ -220,7 +220,7 @@ echo
 if [ -f $OUTPUTFILE ]; then
 	grep -v 'https://' $OUTPUTFILE 
 fi
-#fi
+fi
 rm $OUTPUTFILE
 echo
 echo -e "\033[0;32;148mTo exit the script, type: exit\033[39m"
