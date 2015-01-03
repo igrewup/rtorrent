@@ -109,73 +109,36 @@ getString NO  "Webmin port (default: 10000)?: " WEBMINPORT1 10000
 fi
 
 clear
-
 echo "Your settings:"
 echo
 echo "USERNAME: $user |  HOMEDIR: $homedir"
 echo
 
-if [ "$INSTALLRTORRENT1" = "YES" ]; then
-echo "Install/Update RTORRENT: $INSTALLRTORRENT1"
-echo
-fi
-
+if [ "$INSTALLRTORRENT1" = "YES" ]; then echo "Install/Update RTORRENT: $INSTALLRTORRENT1"; echo; fi
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then
-echo "Install/Update RUTORRENT: $INSTALLRUTORRENT1"
-	if [ "$INSTALLPLUGINS1" = "YES" ]; then
-	echo "Install/Update PLUGINS: $INSTALLPLUGINS1"
-	fi
-echo
-fi
-
-if [ "$INSTALLSSH1" = "YES" ]; then
-	echo "Install/Update SSH: $INSTALLSSH1"
-	echo "SSH port: $NEWSSHPORT1"
-	echo
-fi
-if [ "$INSTALLVSFTPD1" = "YES" ]; then
-	echo "Install/Update VSFTPD: $INSTALLVSFTPD1"
-	echo "VSFTPD port: $NEWFTPPORT1"
-	echo
-fi
+	echo "Install/Update RUTORRENT: $INSTALLRUTORRENT1"
+	if [ "$INSTALLPLUGINS1" = "YES" ]; then	echo "Install/Update PLUGINS: $INSTALLPLUGINS1"; fi
+	echo; fi
+if [ "$INSTALLSSH1" = "YES" ]; then echo "Install/Update SSH: $INSTALLSSH1"; echo "SSH port: $NEWSSHPORT1"; echo; fi
+if [ "$INSTALLVSFTPD1" = "YES" ]; then echo "Install/Update VSFTPD: $INSTALLVSFTPD1"; echo "VSFTPD port: $NEWFTPPORT1"; echo; fi
+if [ "$INSTALLSQUID1" = "YES" ]; then echo "Install/Update Proxy Server: $INSTALLSQUID1"; echo "Proxy Server port: $SQUIDPORT1"; echo; fi
+if [ "$INSTALLWEBMIN1" = "YES" ]; then echo "Install/Update WEBMIN: $INSTALLWEBMIN1"; echo "WEBMIN port: $WEBMINPORT1"; echo; fi
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
 	echo "Install/Update OPENVPN: $INSTALLOPENVPN1"
 	echo "OPENVPN main port: 1194"
 	echo "OPENVPN alternate port: $OPENVPNPORT1"
 	echo
 fi
-if [ "$INSTALLSQUID1" = "YES" ]; then
-	echo "Install/Update Proxy Server: $INSTALLSQUID1"
-	echo "Proxy Server port: $SQUIDPORT1"
-	echo
-fi
-if [ "$INSTALLWEBMIN1" = "YES" ]; then
-	echo "Install/Update WEBMIN: $INSTALLWEBMIN1"
-	echo "WEBMIN port: $WEBMINPORT1"
-	echo
-fi
 
 read -p "DO YOU WANT TO CONTINUE WITH THE INSTALLATION? (yes / no): " INSTALL
 if [ "$INSTALL" = "yes" ]; then
 read -p "ARE YOU SURE? (yes / no): " SURE
-	if [ "$SURE" != "yes" ]; then
-		echo
-		echo "Aborting installation."
-		echo
-		exit
-	else
-		clear
-		echo
-		echo "Starting the installation now, this will take a while..."
-		echo
-	fi
+if [ "$SURE" != "yes" ]; then echo; echo "Aborting installation."; echo; exit; else; clear; echo; echo "Starting the installation now, this will take a while..."; echo; fi
 
 # Installing dependencies
-apt-get update > /dev/null
-apt-get -y install openssl git subversion zip unzip rar unrar-free
+apt-get update > /dev/null && apt-get -y install openssl git subversion zip unzip rar unrar-free
 
 clear
-
 if [ "$INSTALLRTORRENT1" = "YES" ]; then bash ./install_rtorrent "$homedir" "$user"; fi
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then bash ./install_rutorrent "$homedir" "$user"; fi
 if [ "$INSTALLSSH1" = "YES" ]; then bash ./install_ssh "$NEWSSHPORT1"; fi
@@ -184,9 +147,7 @@ if [ "$INSTALLOPENVPN1" = "YES" ]; then bash ./install_openvpn "$user" "$OPENVPN
 if [ "$INSTALLSQUID1" = "YES" ]; then bash ./install_squid "$user" "$SQUIDPORT1"; fi
 if [ "$INSTALLWEBMIN1" = "YES" ]; then bash ./install_webmin "$WEBMINPORT1"; fi
 if [ "$INSTALLPLUGINS1" = "YES" ]; then bash ./install_plugins "$homedir"; fi
-
 clear
-
 echo -e "\033[0;32;148mInstallation is complete..\033[39m"
 tput sgr0
 echo
