@@ -203,7 +203,9 @@ else
 fi
 
 # ruTorrent WebGUI
-if [ "$INSTALLRUTORRENT1" = "YES" ]; then echo "ruTorrent WebGUI: https://$ip/rutor/" fi
+if [ "$INSTALLRUTORRENT1" = "YES" ]; then
+echo "ruTorrent WebGUI: https://$ip/rutor/"
+fi
 # Webmin
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
 	if [ $detectnet = 0 ]; then
