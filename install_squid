@@ -31,10 +31,9 @@ while :
             echo 
             read -p "Select an option [1-5]: " updates
             case $updates in
-            check=0
-              1) while [ $check == 0 ]; do
+              1) echo
+              while [ $check == 0 ]; do
                 # Script to see if user exists
-                echo
                 read -p " Add new PROXY user: " newuser
                 echo
                   if [ grep "$newuser" /etc/squid3/passwords > /dev/null ]; then
