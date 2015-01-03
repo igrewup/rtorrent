@@ -33,7 +33,9 @@ while :
             case $updates in
               1) clear;
               read -p " Add new PROXY user: " user
-              touch /etc/squid3/passwords
+              if [ ! -f /etc/squid3/passwords ]; then
+                touch /etc/squid3/passwords
+              fi
               if grep -wF "$user" /etc/squid3/passwords > /dev/null ; then
                 echo " User $user already exist. NOTE: This will overwrite the user's current password."
                 $HITENTER
@@ -44,7 +46,6 @@ while :
               if grep -wF "$user" /etc/squid3/passwords > /dev/null ; then
                 echo " User '$user' created sucessfully." | tee -a $OUTPUTFILE
                 check=1
-                service squid3 reload
               else
                 echo " Error creating '$user'"
               fi
@@ -59,7 +60,6 @@ while :
                     echo " Error removing '$user'"
                   else
                     echo " User '$user' removed sucessfully." | tee -a $OUTPUTFILE
-                    service squid3 reload
                   fi
                 fi
               else
@@ -91,7 +91,7 @@ while :
                 cp install_squid_default /etc/squid3/squid.conf
                 sed -i "s/http_port.*/http_port $NEWPORT/g" /etc/squid3/squid.conf
                 echo " Proxy Server updated and using port: $NEWPORT" | tee -a $OUTPUTFILE
-                service squid3 restart
+                service squid3 reload
               fi
               ;;
               5) clear;
