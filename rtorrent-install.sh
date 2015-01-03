@@ -10,19 +10,9 @@ if [[ $1 == "update" ]]; then
   echo
   echo "Now continuing with the installation."
   echo
-elif [[ $1 == "noupdate" ]]; then
-	echo
-	echo "Skipping script update checker"
-	echo
-else
-	echo
-	read -p "Run script updater (y/n)? " UPDATE1
-	if [[ $UPDATE1 = "y" ]]; then
-  		source $(dirname $0)/check_version.sh
-  		echo
-  		echo "Now continuing with the installation."
-  		echo
-  	fi
+elif [[ $1 == "noupdate" ]]; then echo; echo "Skipping script update checker"; echo;
+else echo; read -p "Run script updater (y/n)? " UPDATE1;
+	if [[ $UPDATE1 = "y" ]]; then source $(dirname $0)/check_version.sh; echo; echo "Now continuing with the installation."; echo; fi
 fi
 
 # Welcome screen
@@ -50,29 +40,19 @@ sed -i "/$DIR/d" /tmp/users.list
 done
 
 check=0
-user=nobody
+user="nobody"
 while [ $check -eq 0 ]; do
 
 # Script to see if User exists
-echo
-echo -n "Check if username is valid: "
-read user
-
-if grep -wF "$user" /tmp/users.list > /dev/null; then
-   echo
-   echo "You can't use '$user' as a user!"
-elif id -u $user >/dev/null 2>&1; then
-#elif [ id $user ]; then
-	echo "ID=$user"
-	check=1
-else
-	echo
-	echo "This user does not exist, try a different user."
+echo; read -p " Check if username is valid: " user;
+if $user == "nobody"; then echo "You did not enter a username";  
+	if grep -wF "$user" /tmp/users.list > /dev/null; then echo; echo "You can't use '$user' as a user!";
+	elif id -u $user >/dev/null 2>&1; then echo "ID=$user"; check=1;
+	else echo; echo "This user does not exist, try a different user."; fi
 fi
-
 done
 
-rm /tmp/users.list
+#rm /tmp/users.list
 
 homedir=$(cat /etc/passwd | grep "$user": | cut -d: -f6)
 
