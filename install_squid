@@ -54,11 +54,13 @@ while :
                 if [ $REMOVE == "y" ]; then
                   sed -i '/\<$user\>/d' /etc/squid3/passwords
                   if grep -wF "$user" /etc/squid3/passwords > /dev/null ; then
-                    echo " Error creating '$user'"
+                    echo " Error removing '$user'"
                   else
                     echo " User '$user' removed sucessfully." | tee -a $OUTPUTFILE
                   fi
                 fi
+              else
+                echo "User does not exist."
               fi
               ;;
               3) read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
