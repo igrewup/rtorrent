@@ -35,13 +35,13 @@ while :
               1) read -p " Add new PROXY user: " newuser
               echo
               touch /etc/squid3/passwords
-              if grep "$newuser" /etc/squid3/passwords > /dev/null ; then
-                echo "User doesn't already exist. Creating $newuser."
-              else
+              if [ grep -wF "$newuser" /etc/squid3/passwords > /dev/null ]; then
                 echo "User $newuser already exist. This will overwrite the user's password."
+              else
+                echo "User doesn't exist. Creating $newuser."
               fi
               htdigest /etc/squid3/passwords proxy $newuser
-              if grep "$newuser" /etc/squid3/passwords ; then
+              if [ grep -wF "$newuser" /etc/squid3/passwords > /dev/null ]; then
                 echo "$newuser created sucessfully." | tee -a $OUTPUTFILE
                 check=1
               else
