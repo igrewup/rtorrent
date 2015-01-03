@@ -36,16 +36,16 @@ while :
               echo
               touch /etc/squid3/passwords
               if grep -wF "$newuser" /etc/squid3/passwords > /dev/null ; then
-                echo " User $newuser already exist. This will overwrite the user's password."
+                echo " User $newuser already exist. NOTE: This will overwrite the user's current password."
               else
-                echo " User doesn't exist. Creating new user: $newuser."
+                echo " User doesn't exist."
               fi
               htdigest /etc/squid3/passwords proxy $newuser
               if grep -wF "$newuser" /etc/squid3/passwords > /dev/null ; then
                 echo " User '$newuser' created sucessfully." | tee -a $OUTPUTFILE
                 check=1
               else
-                echo " Error creating $newuser"
+                echo " Error creating '$newuser'"
               fi
               ;;
               2) echo " Remove a user" ;;
