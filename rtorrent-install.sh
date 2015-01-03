@@ -93,18 +93,15 @@ getString NO  " Webmin port (default: 10000)?: " WEBMINPORT1 10000
 fi
 
 clear
-echo "Your settings:"
+echo "                          S  E  T  T  I  N  G  S                             "
+echo "============================================================================="
+echo " USERNAME: $user    |     HOMEDIR: $homedir"
 echo
-echo "USERNAME: $user |  HOMEDIR: $homedir"
-echo
-
 if [ "$INSTALLRTORRENT1" = "YES" ]; then echo " Install/Update RTORRENT: $INSTALLRTORRENT1"; echo; fi
 if [ "$INSTALLRUTORRENT1" = "YES" ] && [ "$INSTALLPLUGINS1" = "YES" ]; then
-	echo " Install/Update RUTORRENT: $INSTALLRUTORRENT1 and PLUGINS: $INSTALLPLUGINS1"
-	echo
+	echo " Install/Update RUTORRENT: $INSTALLRUTORRENT1 and PLUGINS: $INSTALLPLUGINS1"; echo;
 else
-	echo " Install/Update RUTORRENT: $INSTALLRUTORRENT1"
-	echo
+	echo " Install/Update RUTORRENT: $INSTALLRUTORRENT1"; echo;
 fi
 if [ "$INSTALLSSH1" = "YES" ]; then echo " Install/Update SSH: $INSTALLSSH1 on PORT: $NEWSSHPORT1"; echo; fi
 if [ "$INSTALLVSFTPD1" = "YES" ]; then echo " Install/Update VSFTPD: $INSTALLVSFTPD1 on PORT: $NEWFTPPORT1"; echo; fi
