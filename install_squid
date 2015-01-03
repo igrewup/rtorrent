@@ -29,7 +29,7 @@ while :
             echo "4) Update PROXY server settings"
             echo "5) Back to main menu"
             echo 
-            read -p " Select an option [1-6]: " updates
+            read -p " Select an option [1-5]: " updates
             case $updates in
               1) read -p " Add new PROXY user: " user
               echo
