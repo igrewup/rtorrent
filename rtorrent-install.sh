@@ -177,15 +177,14 @@ apt-get -y install openssl git subversion zip unzip rar unrar-free
 clear
 
 if [ "$INSTALLRTORRENT1" = "YES" ]; then bash ./install_rtorrent "$homedir" "$user"; fi
-: <<'COMMENT'
-if [ "$INSTALLRUTORRENT1" = "YES" ]; then bash ./install_rutorrent "$homedir" "$user" fi
-if [ "$INSTALLSSH1" = "YES" ]; then bash ./install_ssh "$NEWSSHPORT1" fi
-if [ "$INSTALLVSFTPD1" = "YES" ]; then bash ./install_vsftpd "$NEWFTPPORT1" fi
-if [ "$INSTALLOPENVPN1" = "YES" ]; then bash ./install_openvpn "$user" "$OPENVPNPORT1" fi
-if [ "$INSTALLSQUID1" = "YES" ]; then bash ./install_squid "$user" "$SQUIDPORT1" fi
-if [ "$INSTALLWEBMIN1" = "YES" ]; then bash ./install_webmin "$WEBMINPORT1" fi
-if [ "$INSTALLPLUGINS1" = "YES" ]; then bash ./install_plugins "$homedir" fi
-COMMENT
+if [ "$INSTALLRUTORRENT1" = "YES" ]; then bash ./install_rutorrent "$homedir" "$user"; fi
+if [ "$INSTALLSSH1" = "YES" ]; then bash ./install_ssh "$NEWSSHPORT1"; fi
+if [ "$INSTALLVSFTPD1" = "YES" ]; then bash ./install_vsftpd "$NEWFTPPORT1"; fi
+if [ "$INSTALLOPENVPN1" = "YES" ]; then bash ./install_openvpn "$user" "$OPENVPNPORT1"; fi
+if [ "$INSTALLSQUID1" = "YES" ]; then bash ./install_squid "$user" "$SQUIDPORT1"; fi
+if [ "$INSTALLWEBMIN1" = "YES" ]; then bash ./install_webmin "$WEBMINPORT1"; fi
+if [ "$INSTALLPLUGINS1" = "YES" ]; then bash ./install_plugins "$homedir"; fi
+
 clear
 
 echo -e "\033[0;32;148mInstallation is complete..\033[39m"
@@ -202,16 +201,10 @@ else
 fi
 
 # ruTorrent WebGUI
-if [ "$INSTALLRUTORRENT1" = "YES" ]; then
-echo "ruTorrent WebGUI: https://$ip/rutor/"
-fi
+if [ "$INSTALLRUTORRENT1" = "YES" ]; then echo "ruTorrent WebGUI: https://$ip/rutor/"; fi
 # Webmin
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
-	if [ $detectnet = 0 ]; then
-		echo "Webmin: https://<IP.ADDRESS>:10000 (unless port was changed)"
-	else
-		echo "Webmin: https://$ip:$WEBMINPORT1"
-	fi	
+	if [ $detectnet = 0 ]; then echo "Webmin: https://<IP.ADDRESS>:10000 (unless port was changed)"; else echo "Webmin: https://$ip:$WEBMINPORT1"; fi	
 fi
 # Proxy Server
 if [ "$INSTALLSQUID1" = "YES" ]; then
@@ -219,19 +212,11 @@ if [ "$INSTALLSQUID1" = "YES" ]; then
 	echo "Proxy Server: http://$ip/ - Port: $SQUIDPORT"
 fi
 echo
-if [ -f $OUTPUTFILE ]; then
-	grep -v 'https://' $OUTPUTFILE 
-fi
-rm $OUTPUTFILE
+if [ -f $OUTPUTFILE ]; then grep -v 'https://' $OUTPUTFILE; rm $OUTPUTFILE; fi
 echo
 echo -e "\033[0;32;148mTo exit the script, type: exit\033[39m"
 
 exec sh
-
-else # Installation Start
-	echo
-	echo "Aborting installation."
-	echo
-	exit 1
-fi # Installation Start
-### END INSTALLATION ###
+# ELSE Installation Start
+else echo; echo "Aborting installation."; echo;	exit 1; fi
+# END Installation Start
