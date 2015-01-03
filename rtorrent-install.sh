@@ -214,10 +214,6 @@ if [ "$INSTALLWEBMIN1" = "YES" ]; then
 		echo "Webmin: https://$ip:$WEBMINPORT1"
 	fi	
 fi
-# OpenVPN
-if [ "$INSTALLOPENVPN1" = "YES" ]; then
-echo "OpenVPN certificate: https://$ip/rutor/vpn/"
-fi
 # Proxy Server
 if [ "$INSTALLSQUID1" = "YES" ]; then
 	SQUIDPORT=$(grep "http_port" /etc/squid3/squid.conf | cut -d' ' -f2)
