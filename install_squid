@@ -64,11 +64,12 @@ while :
                 echo " User does not exist."
               fi
               ;;
-              3) if cat /etc/squid3/passwords > /dev/null ; then
+          
+              3) if [[ -s /etc/squid3/passwords ]] ; then
               echo " List of all PROXY users."
               cut -d':' -f1 /etc/squid3/passwords
               else
-              echo "There's currently no PROXY users."
+              echo " There's currently no PROXY users."
               fi
               ;;
               4) read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
