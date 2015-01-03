@@ -73,7 +73,7 @@ while :
               echo " There's currently no PROXY users."
               fi
               ;;
-              4) currentport=$(grep "http_port" /etc/squid3/squid.conf)
+              4) currentport=$(cut -d' ' -f2 /etc/squid3/squid.conf)
               echo "Current port: $currentport"
               read -p " Keep current port? (y/n): " KEEP
               if [ $KEEP != "y" ]; then
