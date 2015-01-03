@@ -8,21 +8,21 @@ clear
 if [[ $1 == "update" ]]; then
   source $(dirname $0)/check_version.sh
   echo
-  echo "Now continuing with the installation."
+  echo " Now continuing with the installation."
   echo
-elif [[ $1 == "noupdate" ]]; then echo; echo "Skipping script update checker"; echo;
-else echo; read -p "Run script updater (y/n)? " UPDATE1;
-	if [[ $UPDATE1 = "y" ]]; then source $(dirname $0)/check_version.sh; echo; echo "Now continuing with the installation."; echo; fi
+elif [[ $1 == "noupdate" ]]; then echo; echo " Skipping script update checker"; echo;
+else echo; read -p " Run script updater (y/n)? " UPDATE1;
+	if [[ $UPDATE1 = "y" ]]; then source $(dirname $0)/check_version.sh; echo; echo " Now continuing with the installation."; echo; fi
 fi
 
 # Welcome screen
 echo
-echo "NOTE: Options when launching ./rtorrent-install.sh [ update | noupdate ]"
-echo "By default, if no variable is given, it will ask you to update (y/n)."
+echo " NOTE: Options when launching ./rtorrent-install.sh [ update | noupdate ]"
+echo " By default, if no variable is given, it will ask you to update (y/n)."
 echo
-echo "Your system is running $OS1 ($OS2) which is supported by this script."
+echo " Your system is running $OS1 ($OS2) which is supported by this script."
 echo
-read -p "Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
+read -p " Press [Enter] to start the installation... Press [CTRL+C] to abort." -n 1
 echo
 echo
 # Remove temp files
@@ -45,15 +45,15 @@ check=0
 while [ $check -eq 0 ]; do
 echo; read -p " Check if username is valid: " user;
 if [ -z $user ]; then
-	echo "You did not enter a username"
+	echo " You did not enter a username."
 else	
-	if grep -wF "$user" /tmp/users.list > /dev/null; then echo; echo "You can't use '$user' as a user!";
+	if grep -wF "$user" /tmp/users.list > /dev/null; then echo; echo " You can't use '$user' as a user!";
 	elif id -u $user >/dev/null 2>&1; then echo "ID=$user"; check=1;
-	else echo; echo "This user does not exist, try a different user."; fi
+	else echo; echo " This user does not exist, try a different user."; fi
 fi
 done
 
-echo "The username name '$user' is valid."
+echo " The username name '$user' is valid."
 rm /tmp/users.list
 homedir=$(cat /etc/passwd | grep "$user": | cut -d: -f6)
 
@@ -61,30 +61,34 @@ homedir=$(cat /etc/passwd | grep "$user": | cut -d: -f6)
 PASSWORD1=a
 PASSWORD2=b
 
+# Custom Install
+read -p " Install everything using default settings (y/n)? " YESORNO1;
+if [[ $YESORNO1 = "y" ]]; then ANSWER="YES";	else ANSWER="NO";	fi
+
 # Install other software & services
 #getString NO  "Set password for $user: " PASSWORD1
-getString NO "Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 YES
-getString NO "Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 YES
+getString NO "Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 $ANSWER
+getString NO "Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 $ANSWER
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then
 getString NO "Install/Update RUTORRENT PLUGINS (yes/no)?: " INSTALLPLUGINS1 YES
 fi
-getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 YES
+getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 $ANSWER
 if [ "$INSTALLSSH1" = "YES" ]; then
 getString NO  "SSH port (usually 22): " NEWSSHPORT1 22
 fi
-getString NO  "Install/Update VSFTPD (yes/no)?: " INSTALLVSFTPD1 YES
+getString NO  "Install/Update VSFTPD (yes/no)?: " INSTALLVSFTPD1 $ANSWER
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
 getString NO  "VSFTPD port (usually 21): " NEWFTPPORT1 21
 fi
-getString NO  "Install/Update OpenVPN (yes/no)?: " INSTALLOPENVPN1 YES
+getString NO  "Install/Update OpenVPN (yes/no)?: " INSTALLOPENVPN1 $ANSWER
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
 getString NO  "Port 1194 is already set but you can add another port (usually 53): " OPENVPNPORT1 53
 fi
-getString NO  "Install/Update Proxy Server (yes/no)?: " INSTALLSQUID1 YES
+getString NO  "Install/Update Proxy Server (yes/no)?: " INSTALLSQUID1 $ANSWER
 if [ "$INSTALLSQUID1" = "YES" ]; then
 getString NO  "VSFTPD port (usually 3128): " SQUIDPORT1 3128
 fi
-getString NO  "Install/Update Webmin (yes/no)?: " INSTALLWEBMIN1 YES
+getString NO  "Install/Update Webmin (yes/no)?: " INSTALLWEBMIN1 $ANSWER
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
 getString NO  "Webmin port (default: 10000)?: " WEBMINPORT1 10000
 fi
