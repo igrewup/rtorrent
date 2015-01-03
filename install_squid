@@ -32,7 +32,6 @@ while :
             case $updates in
               1) clear;
               read -p " Add new PROXY user: " user
-              echo
               touch /etc/squid3/passwords
               if grep -wF "$user" /etc/squid3/passwords > /dev/null ; then
                 echo " User $user already exist. NOTE: This will overwrite the user's current password."
@@ -70,15 +69,16 @@ while :
               3) clear;
               if [[ -s /etc/squid3/passwords ]] ; then
               echo " List of all PROXY users."
+              echo "=========================="
               cut -d':' -f1 /etc/squid3/passwords
               else
               echo " There's currently no PROXY users."
+              echo
               fi
               ;;
               4) clear;
               currentport=$(grep "http_port" /etc/squid3/squid.conf | cut -d' ' -f2)
-              echo " Update PROXY server settings."
-              echo "==============================="
+              echo " Update PROXY server settings..."
               read -p " Keep current port '$currentport'? (y/n): " KEEP
               if [ $KEEP != "y" ]; then
                 read -p " Change port to (default: 3128): " NEWPORT
