@@ -74,9 +74,6 @@ done
 
 rm /tmp/users.list
 
-echo
-echo "$user is a valid and available username"
-
 homedir=$(cat /etc/passwd | grep "$user": | cut -d: -f6)
 
 # those passwords will be changed in the next steps
@@ -102,6 +99,10 @@ getString NO  "Install/Update OpenVPN (yes/no)?: " INSTALLOPENVPN1 NO
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
 getString NO  "Port 1194 is already set but you can add another port (usually 53): " OPENVPNPORT1 53
 fi
+getString NO  "Install/Update Proxy Server (yes/no)?: " INSTALLSQUID1 NO
+if [ "$INSTALLSQUID1" = "YES" ]; then
+getString NO  "VSFTPD port (usually 3128): " SQUIDPORT1 3128
+fi
 getString NO  "Install/Update Webmin (yes/no)?: " INSTALLWEBMIN1 NO
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
 getString NO  "Webmin port (default: 10000)?: " WEBMINPORT1 10000
@@ -111,7 +112,7 @@ clear
 
 	echo "Your settings:"
 	echo
-	echo "USERNAME: $user |  PASSWORD: $PASSWORD1  |  HOMEDIR: $homedir"
+	echo "USERNAME: $user |  HOMEDIR: $homedir"
 	echo
 if [ "$INSTALLRTORRENT1" = "YES" ]; then
 	echo "Install/Update RTORRENT: $INSTALLRTORRENT1"
@@ -122,7 +123,7 @@ if [ "$INSTALLRUTORRENT1" = "YES" ]; then
 echo "Install/Update RUTORRENT: $INSTALLRUTORRENT1"
 	if [ "$INSTALLPLUGINS1" = "YES" ]; then
 	echo "Install/Update PLUGINS: $INSTALLPLUGINS1"
-fi
+	fi
 echo
 fi
 
@@ -140,6 +141,11 @@ if [ "$INSTALLOPENVPN1" = "YES" ]; then
 	echo "Install/Update OPENVPN: $INSTALLOPENVPN1"
 	echo "OPENVPN main port: 1194"
 	echo "OPENVPN alternate port: $OPENVPNPORT1"
+	echo
+fi
+if [ "$INSTALLSQUID1" = "YES" ]; then
+	echo "Install/Update Proxy Server: $INSTALLSQUID1"
+	echo "Proxy Server port: $SQUIDPORT1"
 	echo
 fi
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
@@ -190,6 +196,10 @@ if [ "$INSTALLOPENVPN1" = "YES" ]; then
   bash ./install_openvpn "$user" "$OPENVPNPORT1"
 fi
 
+if [ "$INSTALLSQUID1" = "YES" ]; then
+  bash ./install_openvpn "$user" "$SQUIDPORT1"
+fi
+
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
   bash ./install_webmin "$WEBMINPORT1"
 fi
@@ -206,27 +216,32 @@ echo
 
 if [ -z "$(ip addr | grep eth0)" ]; then
 	echo "Unable to find your IP Address."
-	echo "ruTorrent WebGUI: https://IP.ADDRESS/rutor"
-	echo "Webmin: https://<IP.ADDRESS>:10000 (unless port was changed)"
-	echo "OpenVPN certificate: https://<IP.ADDRESS>/rutor/vpn/" 
+	ip="<IP.ADDRESS>"
+	detectnet=0
 else
 	ip=$(ip addr | grep eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
-	if [ "$INSTALLRUTORRENT1" = "YES" ]; then
-		echo "ruTorrent WebGUI: https://$ip/rutor/"
-	fi
-	if [ "$INSTALLWEBMIN1" = "YES" ]; then
-		echo "Webmin: https://$ip:$WEBMINPORT1"
-	fi
-	if [ "$INSTALLOPENVPN1" = "YES" ]; then
-		if [ -f $OUTPUTFILE ]; then
-			grep 'https://' $OUTPUTFILE
-		fi
-	fi
-	echo
-	if [ -f $OUTPUTFILE ]; then
-		grep -v 'https://' $OUTPUTFILE 
-	fi
+	detectnet=1
 fi
+
+# ruTorrent WebGUI
+if [ "$INSTALLRUTORRENT1" = "YES" ]; then echo "ruTorrent WebGUI: https://$ip/rutor/"	fi
+# Webmin
+if [ "$INSTALLWEBMIN1" = "YES" ]; then
+	if [ $detectnet = 0 ]; then echo "Webmin: https://<IP.ADDRESS>:10000 (unless port was changed)"
+	else echo "Webmin: https://$ip:$WEBMINPORT1" fi	
+fi
+# OpenVPN
+if [ "$INSTALLOPENVPN1" = "YES" ]; then echo "OpenVPN certificate: https://$ip/rutor/vpn/" fi
+# Proxy Server
+if [ "$INSTALLSQUID1" = "YES" ]; then
+	SQUIDPORT=$(grep "http_port" /etc/squid3/squid.conf | cut -d' ' -f2)
+	echo "Proxy Server: http://$ip/ - Port: $SQUIDPORT"
+fi
+echo
+if [ -f $OUTPUTFILE ]; then
+	grep -v 'https://' $OUTPUTFILE 
+fi
+#fi
 rm $OUTPUTFILE
 echo
 echo -e "\033[0;32;148mTo exit the script, type: exit\033[39m"
