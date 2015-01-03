@@ -99,25 +99,26 @@ echo "==========================================================================
 echo
 echo " USERNAME: $user    |     HOMEDIR: $homedir"
 echo
-if [ "$INSTALLRTORRENT1" = "YES" ]; then echo " Install/Update RTORRENT: $INSTALLRTORRENT1"; echo; fi
-if [ "$INSTALLRUTORRENT1" = "YES" ]; then echo " Install/Update RUTORRENT: $INSTALLRUTORRENT1 and PLUGINS: $INSTALLPLUGINS1"; echo; fi
-if [ "$INSTALLSSH1" = "YES" ]; then echo " Install/Update SSH: $INSTALLSSH1 on PORT: $NEWSSHPORT1"; echo; fi
-if [ "$INSTALLVSFTPD1" = "YES" ]; then echo " Install/Update VSFTPD: $INSTALLVSFTPD1 on PORT: $NEWFTPPORT1"; echo; fi
-if [ "$INSTALLSQUID1" = "YES" ]; then echo " Install/Update Proxy Server: $INSTALLSQUID1 on PORT: $SQUIDPORT1"; echo; fi
-if [ "$INSTALLWEBMIN1" = "YES" ]; then echo " Install/Update WEBMIN: $INSTALLWEBMIN1 on PORT: $WEBMINPORT1"; echo; fi
-if [ "$INSTALLOPENVPN1" = "YES" ]; then	echo " Install/Update OPENVPN: $INSTALLOPENVPN1 on MAIN PORT: 1194 and ALTERNATE PORT: $OPENVPNPORT1"; echo; fi
+if [[ "$INSTALLRTORRENT1" = "YES" ]]; then echo " Install/Update RTORRENT: $INSTALLRTORRENT1"; echo; fi
+if [[ "$INSTALLRUTORRENT1" = "YES" ]]; then echo " Install/Update RUTORRENT: $INSTALLRUTORRENT1 and PLUGINS: $INSTALLPLUGINS1"; echo; fi
+if [[ "$INSTALLSSH1" = "YES" ]]; then echo " Install/Update SSH: $INSTALLSSH1 on PORT: $NEWSSHPORT1"; echo; fi
+if [[ "$INSTALLVSFTPD1" = "YES" ]]; then echo " Install/Update VSFTPD: $INSTALLVSFTPD1 on PORT: $NEWFTPPORT1"; echo; fi
+if [[ "$INSTALLSQUID1" = "YES" ]]; then echo " Install/Update Proxy Server: $INSTALLSQUID1 on PORT: $SQUIDPORT1"; echo; fi
+if [[ "$INSTALLWEBMIN1" = "YES" ]]; then echo " Install/Update WEBMIN: $INSTALLWEBMIN1 on PORT: $WEBMINPORT1"; echo; fi
+if [[ "$INSTALLOPENVPN1" = "YES" ]]; then	echo " Install/Update OPENVPN: $INSTALLOPENVPN1 on MAIN PORT: 1194 and ALTERNATE PORT: $OPENVPNPORT1"; echo; fi
 
-while [ $LAUNCH -eq 0 ]; do
+LAUNCH=0
+while [[ $LAUNCH = 0 ]]; do
 read -p "DO YOU WANT TO CONTINUE WITH THE INSTALLATION? (yes / no): " INSTALL
-	if [ -z $INSTALL ]; then
+	if [[ -z $INSTALL ]]; then
 		echo "You did not enter yes or no. Try again."
 	else
 		LAUNCH=1
 	fi
 done
-if [ "$INSTALL" = "yes" ]; then
+if [[ "$INSTALL" = "yes" ]]; then
 read -p "ARE YOU SURE? (yes / no): " SURE
-if [ "$SURE" != "yes" ]; then echo; echo "Aborting installation."; echo; exit; else clear; echo; echo "Starting the installation now, this will take a while..."; echo; fi
+if [[ "$SURE" != "yes" ]]; then echo; echo "Aborting installation."; echo; exit; else clear; echo; echo "Starting the installation now, this will take a while..."; echo; fi
 
 # Installing dependencies
 apt-get update > /dev/null && apt-get -y install openssl git subversion zip unzip rar unrar-free
