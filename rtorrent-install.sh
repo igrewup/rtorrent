@@ -51,11 +51,10 @@ else
 	elif id -u $user >/dev/null 2>&1; then echo "ID=$user"; check=1;
 	else echo; echo "This user does not exist, try a different user."; fi
 fi
-echo "The username name '$user' is valid."
 done
 
-#rm /tmp/users.list
-
+echo "The username name '$user' is valid."
+rm /tmp/users.list
 homedir=$(cat /etc/passwd | grep "$user": | cut -d: -f6)
 
 # those passwords will be changed in the next steps
