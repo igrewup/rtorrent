@@ -36,7 +36,8 @@ function pause(){
    read -p "$*"
 }
 
-function getString{
+function getString
+{
 ISPASSWORD=$1
 LABEL=$2
 RETURN=$3
