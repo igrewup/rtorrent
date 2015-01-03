@@ -95,6 +95,7 @@ fi
 clear
 echo "                          S  E  T  T  I  N  G  S                             "
 echo "============================================================================="
+echo
 echo " USERNAME: $user    |     HOMEDIR: $homedir"
 echo
 if [ "$INSTALLRTORRENT1" = "YES" ]; then echo " Install/Update RTORRENT: $INSTALLRTORRENT1"; echo; fi
