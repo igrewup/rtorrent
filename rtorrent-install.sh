@@ -45,7 +45,7 @@ while [ $check -eq 0 ]; do
 
 # Script to see if User exists
 echo; read -p " Check if username is valid: " user;
-if $user == "nobody"; then echo "You did not enter a username";  
+if [[ $user == "nobody"]]; then echo "You did not enter a username";  
 	if grep -wF "$user" /tmp/users.list > /dev/null; then echo; echo "You can't use '$user' as a user!";
 	elif id -u $user >/dev/null 2>&1; then echo "ID=$user"; check=1;
 	else echo; echo "This user does not exist, try a different user."; fi
