@@ -84,7 +84,7 @@ while :
               read -p " Updating server settings and using port '$PORT' (y/n): " SURE
               if [ $SURE == "y" ]; then
                 cp install_squid_default /etc/squid3/squid.conf
-                sed -i "s/http_port 3148/http_port $PORT/g" /etc/squid3/squid.conf
+                sed -i "s/http_port.*/http_port $PORT/g" /etc/squid3/squid.conf
                 echo " Proxy Server updated and using port: $PORT" | tee -a $OUTPUTFILE
                 service squid3 restart
               fi
