@@ -45,6 +45,7 @@ while :
               if grep -wF "$user" /etc/squid3/passwords > /dev/null ; then
                 echo " User '$user' created sucessfully." | tee -a $OUTPUTFILE
                 check=1
+                service squid3 reload
               else
                 echo " Error creating '$user'"
               fi
@@ -58,6 +59,7 @@ while :
                     echo " Error removing '$user'"
                   else
                     echo " User '$user' removed sucessfully." | tee -a $OUTPUTFILE
+                    service squid3 reload
                   fi
                 fi
               else
@@ -80,7 +82,12 @@ while :
                 service squid3 restart
               fi
               ;;
-              5) echo " Update PROXY server config settings" ;;
+              5) 
+              echo " Update PROXY server config settings"
+              currentport=$(grep "http_port" /etc/squid3/squid.conf)
+              echo $currentport
+              #cp install_squid_default /etc/squid3/squid.conf
+              ;;
               6) break ;;
             esac  
           done
