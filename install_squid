@@ -4,6 +4,7 @@ source $(dirname $0)/incl.sh
 
 NEWPROXYPORT1=$1
 
+
 while :
   do
   if [ -f /etc/init.d/squid3 ]; then
@@ -33,9 +34,7 @@ while :
             case $updates in
               1) read -p " Add new PROXY user: " newuser
               echo
-              #if [ ! -f /etc/squid3/passwords ]; then
-              #touch /etc/squid3/passwords
-              #fi
+              touch /etc/squid3/passwords
               if [ grep "$newuser" /etc/squid3/passwords > /dev/null ]; then
                 echo "User doesn't already exist. Creating $newuser."
                 htdigest /etc/squid3/passwords proxy $newuser
