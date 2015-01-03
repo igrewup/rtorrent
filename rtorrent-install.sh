@@ -98,13 +98,13 @@ echo
 echo "USERNAME: $user |  HOMEDIR: $homedir"
 echo
 
-if [ "$INSTALLRTORRENT1" = "YES" ]; then echo " Install/Update RTORRENT: $INSTALLRTORRENT1"; echo; fi
-if [ "$INSTALLRUTORRENT1" = "YES" ] && [ "$INSTALLPLUGINS1" = "YES" ]; then echo "Install/Update RUTORRENT: $INSTALLRUTORRENT1 and PLUGINS: $INSTALLPLUGINS1"; else echo "Install/Update RUTORRENT: $INSTALLRUTORRENT1"; fi
+if [ "$INSTALLRTORRENT1" = "YES" ]; then echo " Install/Update RTORRENT: $INSTALLRTORRENT1";echo fi
+if [ "$INSTALLRUTORRENT1" = "YES" ] && [ "$INSTALLPLUGINS1" = "YES" ]; then echo " Install/Update RUTORRENT: $INSTALLRUTORRENT1 and PLUGINS: $INSTALLPLUGINS1"; echo; else echo "Install/Update RUTORRENT: $INSTALLRUTORRENT1"; echo; fi
 if [ "$INSTALLSSH1" = "YES" ]; then echo " Install/Update SSH: $INSTALLSSH1 on PORT: $NEWSSHPORT1"; echo; fi
 if [ "$INSTALLVSFTPD1" = "YES" ]; then echo " Install/Update VSFTPD: $INSTALLVSFTPD1 on PORT: $NEWFTPPORT1"; echo; fi
 if [ "$INSTALLSQUID1" = "YES" ]; then echo " Install/Update Proxy Server: $INSTALLSQUID1 on PORT: $SQUIDPORT1"; echo; fi
 if [ "$INSTALLWEBMIN1" = "YES" ]; then echo " Install/Update WEBMIN: $INSTALLWEBMIN1 on PORT: $WEBMINPORT1"; echo; fi
-if [ "$INSTALLOPENVPN1" = "YES" ]; then	echo " Install/Update OPENVPN: $INSTALLOPENVPN1 on MAIN PORT: 1194 and ALTERNATE PORT: $OPENVPNPORT1"
+if [ "$INSTALLOPENVPN1" = "YES" ]; then	echo " Install/Update OPENVPN: $INSTALLOPENVPN1 on MAIN PORT: 1194 and ALTERNATE PORT: $OPENVPNPORT1"; echo; fi
 
 read -p "DO YOU WANT TO CONTINUE WITH THE INSTALLATION? (yes / no): " INSTALL
 if [ "$INSTALL" = "yes" ]; then
