@@ -176,23 +176,16 @@ apt-get update > /dev/null
 apt-get -y install openssl git subversion zip unzip rar unrar-free
 
 clear
-: '
+: <<'COMMENT'
 if [ "$INSTALLRTORRENT1" = "YES" ]; then bash ./install_rtorrent "$homedir" "$user" fi
-
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then bash ./install_rutorrent "$homedir" "$user" fi
-
 if [ "$INSTALLSSH1" = "YES" ]; then bash ./install_ssh "$NEWSSHPORT1" fi
-
 if [ "$INSTALLVSFTPD1" = "YES" ]; then bash ./install_vsftpd "$NEWFTPPORT1" fi
-
 if [ "$INSTALLOPENVPN1" = "YES" ]; then bash ./install_openvpn "$user" "$OPENVPNPORT1" fi
-
 if [ "$INSTALLSQUID1" = "YES" ]; then bash ./install_squid "$user" "$SQUIDPORT1" fi
-
 if [ "$INSTALLWEBMIN1" = "YES" ]; then bash ./install_webmin "$WEBMINPORT1" fi
-
 if [ "$INSTALLPLUGINS1" = "YES" ]; then bash ./install_plugins "$homedir" fi
-'
+COMMENT
 clear
 
 echo -e "\033[0;32;148mInstallation is complete..\033[39m"
