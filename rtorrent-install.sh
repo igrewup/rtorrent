@@ -203,14 +203,21 @@ else
 fi
 
 # ruTorrent WebGUI
-if [ "$INSTALLRUTORRENT1" = "YES" ]; then echo "ruTorrent WebGUI: https://$ip/rutor/"	fi
+if [ "$INSTALLRUTORRENT1" = "YES" ]; then
+echo "ruTorrent WebGUI: https://$ip/rutor/"
+fi
 # Webmin
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
-	if [ $detectnet = 0 ]; then echo "Webmin: https://<IP.ADDRESS>:10000 (unless port was changed)"
-	else echo "Webmin: https://$ip:$WEBMINPORT1" fi	
+	if [ $detectnet = 0 ]; then
+		echo "Webmin: https://<IP.ADDRESS>:10000 (unless port was changed)"
+	else
+		echo "Webmin: https://$ip:$WEBMINPORT1"
+	fi	
 fi
 # OpenVPN
-if [ "$INSTALLOPENVPN1" = "YES" ]; then echo "OpenVPN certificate: https://$ip/rutor/vpn/" fi
+if [ "$INSTALLOPENVPN1" = "YES" ]; then
+echo "OpenVPN certificate: https://$ip/rutor/vpn/"
+fi
 # Proxy Server
 if [ "$INSTALLSQUID1" = "YES" ]; then
 	SQUIDPORT=$(grep "http_port" /etc/squid3/squid.conf | cut -d' ' -f2)
@@ -219,7 +226,6 @@ fi
 echo
 if [ -f $OUTPUTFILE ]; then
 	grep -v 'https://' $OUTPUTFILE 
-fi
 fi
 rm $OUTPUTFILE
 echo
