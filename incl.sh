@@ -50,7 +50,7 @@ YESNO=$YESYES$NONO
 
   while [ ! $NEWVAR1 = $NEWVAR2 ] || [ -z "$NEWVAR1" ];
   do
-    clear
+    #clear
 
     if [ "$ISPASSWORD" == "YES" ]; then
       read -s -p "$DEFAULT" -p "$LABEL" NEWVAR1
