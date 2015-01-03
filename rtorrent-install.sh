@@ -82,41 +82,42 @@ PASSWORD2=b
 
 # Install other software & services
 #getString NO  "Set password for $user: " PASSWORD1
-getString NO "Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 NO
-getString NO "Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 NO
+getString NO "Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 YES
+getString NO "Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 YES
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then
 getString NO "Install/Update RUTORRENT PLUGINS (yes/no)?: " INSTALLPLUGINS1 YES
 fi
-getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 NO
+getString NO  "Install/Update SSH (yes/no)?: " INSTALLSSH1 YES
 if [ "$INSTALLSSH1" = "YES" ]; then
 getString NO  "SSH port (usually 22): " NEWSSHPORT1 22
 fi
-getString NO  "Install/Update VSFTPD (yes/no)?: " INSTALLVSFTPD1 NO
+getString NO  "Install/Update VSFTPD (yes/no)?: " INSTALLVSFTPD1 YES
 if [ "$INSTALLVSFTPD1" = "YES" ]; then
 getString NO  "VSFTPD port (usually 21): " NEWFTPPORT1 21
 fi
-getString NO  "Install/Update OpenVPN (yes/no)?: " INSTALLOPENVPN1 NO
+getString NO  "Install/Update OpenVPN (yes/no)?: " INSTALLOPENVPN1 YES
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
 getString NO  "Port 1194 is already set but you can add another port (usually 53): " OPENVPNPORT1 53
 fi
-getString NO  "Install/Update Proxy Server (yes/no)?: " INSTALLSQUID1 NO
+getString NO  "Install/Update Proxy Server (yes/no)?: " INSTALLSQUID1 YES
 if [ "$INSTALLSQUID1" = "YES" ]; then
 getString NO  "VSFTPD port (usually 3128): " SQUIDPORT1 3128
 fi
-getString NO  "Install/Update Webmin (yes/no)?: " INSTALLWEBMIN1 NO
+getString NO  "Install/Update Webmin (yes/no)?: " INSTALLWEBMIN1 YES
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
 getString NO  "Webmin port (default: 10000)?: " WEBMINPORT1 10000
 fi
 
 clear
 
-	echo "Your settings:"
-	echo
-	echo "USERNAME: $user |  HOMEDIR: $homedir"
-	echo
+echo "Your settings:"
+echo
+echo "USERNAME: $user |  HOMEDIR: $homedir"
+echo
+
 if [ "$INSTALLRTORRENT1" = "YES" ]; then
-	echo "Install/Update RTORRENT: $INSTALLRTORRENT1"
-	echo
+echo "Install/Update RTORRENT: $INSTALLRTORRENT1"
+echo
 fi
 
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then
