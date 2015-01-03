@@ -53,7 +53,7 @@ else
 fi
 done
 
-echo " The username name '$user' is valid."
+echo " The username name '$user' is valid."; echo "Continuing with installation..."; echo;
 rm /tmp/users.list
 homedir=$(cat /etc/passwd | grep "$user": | cut -d: -f6)
 
