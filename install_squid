@@ -26,9 +26,10 @@ while :
             echo " Options available for PROXY SERVER"
             echo "1) Add a new user"
             echo "2) Remove a user"
-            echo "3) Update port to $NEWPROXYPORT1"
-            echo "4) Update PROXY server config settings"
-            echo "5) Back to main menu"
+            echo "3) List current PROXY users"
+            echo "4) Update port to $NEWPROXYPORT1"
+            echo "5) Update PROXY server config settings"
+            echo "6) Back to main menu"
             echo 
             read -p " Select an option [1-5]: " updates
             case $updates in
@@ -61,10 +62,13 @@ while :
                   fi
                 fi
               else
-                echo "User does not exist."
+                echo " User does not exist."
               fi
               ;;
-              3) read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
+              3)
+                echo " List of PROXY users."
+              ;;
+              4) read -p " Change port to $NEWPROXYPORT1? (y/n): " PORT
               if [ $PORT == "y" ]; then
                 cp install_squid_default /etc/squid3/squid.conf
                 sed -i "s/http_port.*/http_port $NEWPROXYPORT1/g" /etc/squid3/squid.conf
@@ -72,8 +76,8 @@ while :
                 service squid3 restart
               fi
               ;;
-              4) echo " Update PROXY server config settings" ;;
-              5) break ;;
+              5) echo " Update PROXY server config settings" ;;
+              6) break ;;
             esac  
           done
       ;;
