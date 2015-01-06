@@ -16,13 +16,13 @@ fi
 if [ -z $1 ]; then
 	NEWPORT="53"
 else
-	NEWPORT=$2
+	NEWPORT=$1
 fi
 
 if [ -z $2 ]; then
 	clientname="vpnuser"
 else
-	clientname=$1
+	clientname=$2
 fi
 
 LOCATION=/var/www/vpn
