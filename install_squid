@@ -131,6 +131,7 @@ else # Proxy Server is not installed.
       else
         echo " Aborting Proxy Server installation" | tee -a $OUTPUTFILE
         $HITENTER
+        exit 0
       fi
     fi
     
