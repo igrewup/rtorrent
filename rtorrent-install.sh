@@ -86,7 +86,7 @@ getString NO  " Port 1194 is already set but you can add another port (usually 5
 fi
 getString NO  " Install/Update Proxy Server (yes/no)?: " INSTALLSQUID1 $ANSWER
 if [ "$INSTALLSQUID1" = "YES" ]; then
-getString NO  " VSFTPD port (usually 3128): " SQUIDPORT1 3128
+getString NO  " Proxy Server port (usually 3128): " SQUIDPORT1 3128
 fi
 getString NO  " Install/Update Webmin (yes/no)?: " INSTALLWEBMIN1 $ANSWER
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
