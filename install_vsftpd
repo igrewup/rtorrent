@@ -35,6 +35,7 @@ dirmessage_enable=YES
 use_localtime=YES
 xferlog_enable=NO
 ftpd_banner=Welcome to FTP service.
+chroot_local_user=YES
 secure_chroot_dir=/var/run/vsftpd/empty
 pam_service_name=vsftpd
 rsa_cert_file=/etc/ssl/private/vsftpd.pem
@@ -47,7 +48,8 @@ force_local_logins_ssl=YES
 ssl_tlsv1=YES
 ssl_sslv2=NO
 ssl_sslv3=NO
-ssl_ciphers=HIGH" > /etc/vsftpd.conf
+ssl_ciphers=HIGH
+require_ssl_reuse=NO" > /etc/vsftpd.conf
 service vsftpd restart
 echo "VSFTPD Port: $NEWFTPPORT1" >> $OUTPUTFILE
 fi
