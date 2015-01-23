@@ -112,14 +112,13 @@ YESNO=$YESYES$NONO
 }
 
 # Check to make sure VPN folder is secure.
-$LOCATION="/var/www/vpn"
-if [ ! -f $LOCATION/.htaccess ]; then
-mkdir -p $LOCATION
-echo "VPN folder is not secure, securing $LOCATION."
+if [ ! -f /var/www/vpn/.htaccess ]; then
+mkdir -p /var/www/vpn/
+echo "VPN folder is not secure, securing /var/www/vpn."
 echo '//Prevent directory listings
-Options All -Indexes' > $LOCATION/.htaccess
-chown www-data.www-data $LOCATION/.htaccess
-chmod 444 $LOCATION/.htaccess
-echo "VPN folder $LOCATION is now secure."
+Options All -Indexes' > /var/www/vpn/.htaccess
+chown www-data.www-data /var/www/vpn/.htaccess
+chmod 444 /var/www/vpn/.htaccess
+echo "VPN folder /var/www/vpn is now secure."
 $HITENTER
 fi
