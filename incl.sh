@@ -111,21 +111,15 @@ YESNO=$YESYES$NONO
   eval $RETURN=\$NEWVAR1
 }
 
-# Security check to make sure server is secure.
-if [ ! -f /var/www/vpn/index.html ]; then
-mkdir -p /var/www/vpn/
-echo '<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="1;url=http://www.ubuntu.com">
-<script type="text/javascript">
-window.location.href = "http://www.ubuntu.com"
-</script>
-<title>Page Redirection</title>
-</head>
-<body>
-If you are not redirected automatically, follow the <a href='http://www.ubuntu.com'></a>
-</body>
-</html>' > /var/www/vpn/index.html
+# Check to make sure VPN folder is secure.
+$LOCATION="/var/www/vpn"
+if [ ! -f $LOCATION/.htaccess ]; then
+mkdir -p $LOCATION
+echo "VPN folder is not secure, securing $LOCATION."
+echo '//Prevent directory listings
+Options All -Indexes' > $LOCATION/.htaccess
+chown www-data.www-data $LOCATION/.htaccess
+chmod 444 $LOCATION/.htaccess
+echo "VPN folder $LOCATION is now secure."
+$HITENTER
 fi
