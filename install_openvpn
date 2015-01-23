@@ -29,12 +29,16 @@ LOCATION=/var/www/vpn
 NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 32);
 
 if [ ! -f $LOCATION/.htaccess ]; then
+	echo "VPN folder is not secure, securing $LOCATION."
 	echo "//Prevent directory listings
 Options All -Indexes" > $LOCATION/.htaccess
 chown www-data.www-data $LOCATION/.htaccess
 chmod 444 $LOCATION/.htaccess
+	echo "VPN folder is now secure."
+	$HITENTER
 else
 	echo "VPN folder is secure."
+	$HITENTER
 fi
 
 # Try to get our IP from the system and fallback to the Internet.
