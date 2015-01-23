@@ -119,7 +119,7 @@ echo '<html><body><h1>It works!</h1>
 <p>The web server software is running but no content has been added, yet.</p>
 </body></html>' > /var/www/index.html
 chown root.root /var/www/index.html
-chmod 444 /var/www/vpn/index.html
+chmod 444 /var/www/index.html
 echo "Webserver root folder /var/www/ is now secure."
 $HITENTER
 fi
