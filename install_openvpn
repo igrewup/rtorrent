@@ -46,10 +46,11 @@ if [ -e /etc/openvpn/server.conf ]; then
 		echo ""
 		echo "1) Add a cert for a new user"
 		echo "2) Revoke existing user cert"
-		echo "3) Remove OpenVPN"
-		echo "4) Exit"
+		echo "3) List VPN users"
+		echo "4) Remove OpenVPN"
+		echo "5) Exit"
 		echo ""
-		read -p "Select an option [1-4]: " option
+		read -p "Select an option [1-5]: " option
 		case $option in
 			1) 
 			echo ""
@@ -142,7 +143,11 @@ if [ -e /etc/openvpn/server.conf ]; then
 			fi
 			exit
 			;;
-			3) 
+			3)
+			ls /var/www/vpn/
+			$HITENTER
+			;;
+			4) 
 			apt-get -y purge openvpn openvpn-blacklist
 			apt-get -y autoremove
 			rm -rf /etc/openvpn/
@@ -155,7 +160,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			echo "OpenVPN removed!"
 			exit
 			;;
-			4) exit;;
+			5) exit;;
 		esac
 	done
 else
