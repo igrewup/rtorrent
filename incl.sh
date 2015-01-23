@@ -115,7 +115,7 @@ YESNO=$YESYES$NONO
 if [ ! -f /var/www/vpn/.htaccess ]; then
 mkdir -p /var/www/vpn/
 echo "VPN folder is not secure, securing /var/www/vpn."
-echo '//Prevent directory listings
+echo '#Prevent directory listings
 Options All -Indexes' > /var/www/vpn/.htaccess
 chown www-data.www-data /var/www/vpn/.htaccess
 chmod 444 /var/www/vpn/.htaccess
