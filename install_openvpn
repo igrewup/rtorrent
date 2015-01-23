@@ -28,6 +28,15 @@ fi
 LOCATION=/var/www/vpn
 NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 32);
 
+if [ ! -f $LOCATION/.htaccess ]; then
+	echo "//Prevent directory listings
+Options All -Indexes" > $LOCATION/.htaccess
+chown www-data.www-data $LOCATION/.htaccess
+chmod 444 $LOCATION/.htaccess
+else
+	echo "VPN folder is secure."
+fi
+
 # Try to get our IP from the system and fallback to the Internet.
 # I do this to make the script compatible with NATed servers (lowendspirit.com)
 # and to avoid getting an IPv6.
@@ -55,7 +64,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			echo ""
 			echo "Tell me a name for the client cert"
 			echo "Please, use one word only, no special characters"
-			read -p "Client name: " -e -i $clientname CLIENT
+			read -p "Client name: " -e -i CLIENT
 			echo ""
 		        #echo "Do you like secure ${CLIENT}'s  private key with password?"
         		#read -p "Use password for private key [y/n]:" -e -i y USEPASS
