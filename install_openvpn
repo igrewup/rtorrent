@@ -121,9 +121,10 @@ if [ -e /etc/openvpn/server.conf ]; then
 			exit
 			;;
 			2)
+			ls -1 /var/www/vpn/
 			echo ""
 			echo "Tell me the existing client name"
-			read -p "Client name: " -e -i $clientname CLIENT
+			read -p "Client name: " CLIENT
 			cd /etc/openvpn/easy-rsa/2.0/
 			. /etc/openvpn/easy-rsa/2.0/vars
 			. /etc/openvpn/easy-rsa/2.0/revoke-full $CLIENT
