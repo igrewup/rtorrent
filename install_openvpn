@@ -56,7 +56,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			echo ""
 			echo "Tell me a name for the client cert"
 			echo "Please, use one word only, no special characters"
-			read -p "Client name: " -e -i CLIENT
+			read -p "Client name: " CLIENT
 			echo ""
 		        #echo "Do you like secure ${CLIENT}'s  private key with password?"
         		#read -p "Use password for private key [y/n]:" -e -i y USEPASS
