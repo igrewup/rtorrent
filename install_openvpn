@@ -144,7 +144,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			exit
 			;;
 			3)
-			ls -l /var/www/vpn/
+			ls -1 /var/www/vpn/
 			$HITENTER
 			;;
 			4) 
