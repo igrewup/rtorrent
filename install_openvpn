@@ -28,17 +28,6 @@ fi
 LOCATION=/var/www/vpn
 NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 32);
 
-# Check to make sure VPN folder is secure.
-if [ ! -f $LOCATION/.htaccess ]; then
-	echo "VPN folder is not secure, securing $LOCATION."
-	echo "//Prevent directory listings
-Options All -Indexes" > $LOCATION/.htaccess
-chown www-data.www-data $LOCATION/.htaccess
-chmod 444 $LOCATION/.htaccess
-	echo "VPN folder $LOCATION is now secure."
-	$HITENTER
-fi
-
 # Try to get our IP from the system and fallback to the Internet.
 # I do this to make the script compatible with NATed servers (lowendspirit.com)
 # and to avoid getting an IPv6.
