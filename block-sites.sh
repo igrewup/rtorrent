@@ -30,10 +30,10 @@ echo "iptables -A FORWARD -p all -d 199.182.216.166 -j REJECT" >> $blocked
 echo "# End Blocking POF" >> $blocked
 
 # Blocking YouTube on eth0:1
-echo "iptables -A OUTPUT --src eth0:1 -d youtube.com -j REJECT" >> $blocked
-echo "iptables -A OUTPUT --src eth0:1 -d www.youtube.com -j REJECT" >> $blocked
-echo "iptables -A OUTPUT --src eth0:1 -d googlevideo.com -j REJECT" >> $blocked
-echo "iptables -A OUTPUT --src eth0:1 -d www.googlevideo.com -j REJECT" >> $blocked
+echo "iptables -A FORWARD -p all -i eth0:1 -d youtube.com -j REJECT" >> $blocked
+echo "iptables -A FORWARD -p all -i eth0:1 -d www.youtube.com -j REJECT" >> $blocked
+echo "iptables -A FORWARD -p all -i eth0:1 -d googlevideo.com -j REJECT" >> $blocked
+echo "iptables -A FORWARD -p all -i eth0:1 -d www.googlevideo.com -j REJECT" >> $blocked
 
 chmod 755 $blocked
 
