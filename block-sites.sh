@@ -4,6 +4,7 @@ sudo apt-get -y install whois
 
 blocked="/root/blocked-sites-list.txt"
 rm $blocked && touch $blocked
+echo "#!/bin/bash" >> $blocked
 
 # Allow SSH
 echo "# Start Allow SSH" >> $blocked
