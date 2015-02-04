@@ -12,6 +12,8 @@ echo "# End Allow SSH" >> $blocked
 
 # Block Facebook
 echo "# Start Blocking Facebook" >> $blocked
+iptables -A FORWARD -d facebook.com -j REJECT
+iptables -A FORWARD -d www.facebook.com -j REJECT
 for ip in `whois -h whois.radb.net '!gAS32934' | grep /`
 do
 echo "iptables -A FORWARD -p all -d $ip -j REJECT" >> $blocked
