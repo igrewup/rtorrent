@@ -27,5 +27,7 @@ echo "# Start Blocking POF" >> $blocked
 echo "iptables -A FORWARD -p all -d 199.182.216.166 -j REJECT" >> $blocked
 echo "# End Blocking POF" >> $blocked
 
+chmod 755 $blocked
+
 clear
 cat $blocked
