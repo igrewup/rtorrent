@@ -1,0 +1,16 @@
+Fortunately the Git command line supports this (under Linux without problems).
+
+git clone https://vogella@github.com/vogella/de.vogella.rcp.example.git
+// do some changes
+git push https://vogella@github.com/vogella/de.vogella.rcp.example.git
+
+If you are on Windows and if you are using msysGit then you may receive the following error:
+
+error: error setting certificate verify locations:
+CAfile: /bin/curl-ca-bundle.crt
+CApath: none
+while accessing your_repo
+
+If you have this error you can disable ssl verification to solve it.
+
+git config --global http.sslverify "false"
