@@ -1,5 +1,2 @@
 #!/bin/bash
-su - rtor
-script /dev/null
-screen -r rtorrent
-exit
+sudo -u rtor script -q -c 'screen -dr rtorrent' /dev/null
