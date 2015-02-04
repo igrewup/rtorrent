@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Install whois
 sudo apt-get -y install whois
 
 # Block facebook using IPTABLES
