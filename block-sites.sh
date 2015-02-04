@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt-get -y install whois
+
 # Block facebook using IPTABLES
 blocked="/root/blocked-sites-list.txt"
 for ip in `whois -h whois.radb.net '!gAS32934' | grep /`
