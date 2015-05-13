@@ -3,7 +3,8 @@
 # Use command: crontab -e
 # Add the line below to crontab (without the # at the begining)
 # */10 * * * * /path/to/script
-df -h /home/freeman | tail -n+2 | while read fs size used avail rest ; do
+# change the location where df will check for free space.
+df -h /change/me | tail -n+2 | while read fs size used avail rest ; do
     if [[ $used ]] ; then
 	rmdir 0o.DISKFREE*
 	mkdir 0o.DISKFREE-$avail.o0
