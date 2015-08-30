@@ -16,43 +16,52 @@ if [ $2 != $user ]; then
 fi
 
 # Installing dependencies
-apt-get -y install subversion build-essential automake libtool screen curl libcppunit-dev libcurl3-dev libsigc++-2.0-dev libncurses-dev libcurl4-openssl-dev libcppunit-dev libncurses5-dev libsigc++-2.0-dev
-
+	apt-get -y install subversion openssl git apache2 apache2-utils build-essential libsigc++-2.0-dev \
+	libcurl4-openssl-dev automake libtool libcppunit-dev libncurses5-dev libapache2-mod-scgi \
+	php5 php5-curl php5-cli libapache2-mod-php5 screen unzip libssl-dev curl
+	
 if [ ! -f /usr/local/bin/rtorrent ]; then # Is rtorrent already installed (START)
-# Installing xmlrpc-c
-svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
-cd xmlrpc-c
-./configure --disable-cplusplus
-make
-make install
-cd ..
-rm -rf xmlrpc-c
 
-mkdir rtorrent
-cd rtorrent
+	# Download and install xmlrpc-c super-stable
+	curl -L http://sourceforge.net/projects/xmlrpc-c/files/latest/download -o xmlrpc-c-latest.tgz
+	tar zxvf xmlrpc-c-latest.tgz
+	mv xmlrpc-c-1.* xmlrpc
+	cd xmlrpc
+	./configure --disable-cplusplus
+	make
+	make install
 
-# Installing libtorrent.
-wget --quiet http://rtorrent.net/downloads/libtorrent-0.13.4.tar.gz
-tar -zxvf libtorrent-0.13.4.tar.gz
-cd libtorrent-0.13.4
-./autogen.sh
-./configure
-make
-make install
-cd ..
+	cd ..
+	rm -rv xmlrpc*
 
-# Installing rtorrent.
-wget --quiet http://rtorrent.net/downloads/rtorrent-0.9.4.tar.gz
-tar -zxvf rtorrent-0.9.4.tar.gz
-cd rtorrent-0.9.4
-./autogen.sh
-./configure --with-xmlrpc-c
-make
-make install
-cd ../..
-rm -rf rtorrent
+	mkdir rtorrent
+	cd rtorrent
 
-ldconfig
+	# Download and install libtorrent
+	curl -L https://github.com/rakshasa/libtorrent/archive/0.13.4.tar.gz -o libtorrent-0.13.4.tar.gz
+	tar -zxvf libtorrent-0.13.4.tar.gz
+	cd libtorrent-0.13.4
+	./autogen.sh
+	./configure
+	make
+	make install
+
+	cd ..
+
+	# Download and install rtorrent
+	curl -L https://github.com/rakshasa/rtorrent/archive/0.9.4.tar.gz -o rtorrent-0.9.4.tar.gz
+	tar -zxvf rtorrent-0.9.4.tar.gz
+	cd rtorrent-0.9.4
+	./autogen.sh
+	./configure --with-xmlrpc-c
+	make
+	make install
+
+	cd ../..
+	rm -rv rtorrent
+
+	ldconfig
+
 	echo "rTorrent installed successfully." >> $OUTPUTFILE
 else
 	echo "rTorrent is already installed." >> $OUTPUTFILE
