@@ -18,7 +18,7 @@ fi
 # Installing dependencies
 	apt-get -y install subversion openssl git apache2 apache2-utils build-essential libsigc++-2.0-dev \
 	libcurl4-openssl-dev automake libtool libcppunit-dev libncurses5-dev libapache2-mod-scgi \
-	php5 php5-curl php5-cli libapache2-mod-php5 screen unzip libssl-dev curl
+	php5 php5-curl php5-cli libapache2-mod-php5 screen unzip unrar-free libssl-dev curl
 	
 if [ ! -f /usr/local/bin/rtorrent ]; then # Is rtorrent already installed (START)
 
@@ -89,6 +89,14 @@ if [ ! -d "$homedir"/watch ]; then
 	chown "$user"."$user" "$homedir"/watch
 else
 	chown "$user"."$user" "$homedir"/watch
+fi
+
+# Creating incomplete folder
+if [ ! -d "$homedir"/incomplete ]; then
+	mkdir "$homedir"/incomplete
+	chown "$user"."$user" "$homedir"/incomplete
+else
+	chown "$user"."$user" "$homedir"/incomplete
 fi
 
 # Downloading rtorrent.rc file.
