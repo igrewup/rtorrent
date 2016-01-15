@@ -22,20 +22,15 @@ fi
 	
 if [ ! -f /usr/local/bin/rtorrent ]; then # Is rtorrent already installed (START)
 
+	mkdir install && cd install
 	# Download and install xmlrpc-c super-stable
-	curl -L http://sourceforge.net/projects/xmlrpc-c/files/latest/download -o xmlrpc-c-latest.tgz
-	tar zxvf xmlrpc-c-latest.tgz
-	mv xmlrpc-c-1.* xmlrpc
-	cd xmlrpc
+	sudo svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
+	cd xmlrpc-c
 	./configure --disable-cplusplus
 	make
 	make install
-
+	
 	cd ..
-	rm -rv xmlrpc*
-
-	mkdir rtorrent
-	cd rtorrent
 
 	# Download and install libtorrent
 	curl -L https://github.com/rakshasa/libtorrent/archive/0.13.4.tar.gz -o libtorrent-0.13.4.tar.gz
@@ -58,7 +53,7 @@ if [ ! -f /usr/local/bin/rtorrent ]; then # Is rtorrent already installed (START
 	make install
 
 	cd ../..
-	rm -rv rtorrent
+	#rm -rv rtorrent
 
 	ldconfig
 
