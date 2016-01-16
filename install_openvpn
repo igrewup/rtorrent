@@ -84,7 +84,7 @@ if [ -e /etc/openvpn/server.conf ]; then
 			sed -i "s|key client.key|key $CLIENT.key|" $CLIENT.conf
 			echo "remote-cert-tls server" >> $CLIENT.conf
 			
-			cp $CLIENT.conf $CLIENT.ovpn
+			cp $CLIENT.conf $CLIENT-android.ovpn
 			
 			sed -i "s|ca ca.crt|ca [inline]|" $CLIENT.ovpn
 			sed -i "s|cert $CLIENT.crt|cert [inline]|" $CLIENT.ovpn
