@@ -103,6 +103,6 @@ dht_port = 6881
 #hash_max_tries = 10
 
 #MOVE COMPLETE
-system.method.set_key = event.download.finished,move_complete,"execute=mv,-u,$d.get_base_path=,~/Downloads/;d.set_directory=~/Downloads/"
+system.method.set_key = event.download.finished,move_complete,"d.set_directory=~/Downloads/;execute=mv,-u,$d.get_base_path=,~/Downloads/"
 
 scgi_port = 127.0.0.1:5000
