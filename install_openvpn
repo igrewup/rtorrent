@@ -107,7 +107,8 @@ if [ -e /etc/openvpn/server.conf ]; then
 			cat $CLIENT.key >> $CLIENT.ovpn
 			echo -e "</key>\n" >> $CLIENT.ovpn
 			
-			zip ../ovpn-$CLIENT.zip $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT*.ovpn
+			md5sum * > md5sum
+			zip ../ovpn-$CLIENT.zip md5sum $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT*.ovpn
 			cd ~/
 			rm -rf ovpn-$CLIENT
 			mkdir -p $LOCATION && mkdir -p /root/openvpn-users/
@@ -320,7 +321,8 @@ else
 	cat $CLIENT.key >> $CLIENT.ovpn
 	echo -e "</key>\n" >> $CLIENT.ovpn
 
-	zip ../ovpn-$CLIENT.zip $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT*.ovpn
+	md5sum * > md5sum
+	zip ../ovpn-$CLIENT.zip md5sum $CLIENT.conf ca.crt $CLIENT.crt $CLIENT.key $CLIENT*.ovpn
 	cd ~/
 	rm -rf ovpn-$CLIENT
 	mkdir -p $LOCATION && mkdir -p /root/openvpn-users/
