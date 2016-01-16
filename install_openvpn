@@ -84,17 +84,17 @@ if [ -e /etc/openvpn/server.conf ]; then
 			sed -i "s|key client.key|key $CLIENT.key|" $CLIENT.conf
 			echo "remote-cert-tls server" >> $CLIENT.conf
 			
-			cp $CLIENT.conf $CLIENT.ovpn
-			
-			sed -i "s|ca ca.crt|ca [inline]|" $CLIENT.ovpn
-			sed -i "s|cert $CLIENT.crt|cert [inline]|" $CLIENT.ovpn
-			sed -i "s|key $CLIENT.key|key [inline]|" $CLIENT.ovpn
-			echo -e "keepalive 10 60\n" >> $CLIENT.ovpn
-			
+			# Create OVPN file for Android
+			cp $CLIENT.conf $CLIENT-android.ovpn
 			# For some reason in Ubuntu, you need to select the .key manually for it to work with network-manager-openvpn-gnome.
 			cp $CLIENT.conf $CLIENT-ubuntu.ovpn
 			sed -i "s|key $CLIENT.key|;key $CLIENT.key|" $CLIENT-ubuntu.ovpn
 			
+			cp $CLIENT.conf $CLIENT.ovpn
+			sed -i "s|ca ca.crt|ca [inline]|" $CLIENT.ovpn
+			sed -i "s|cert $CLIENT.crt|cert [inline]|" $CLIENT.ovpn
+			sed -i "s|key $CLIENT.key|key [inline]|" $CLIENT.ovpn
+			echo -e "keepalive 10 60\n" >> $CLIENT.ovpn
 			echo "<ca>" >> $CLIENT.ovpn
 			cat ca.crt >> $CLIENT.ovpn
 			echo -e "</ca>\n" >> $CLIENT.ovpn
@@ -295,15 +295,18 @@ else
 	sed -i "s|key client.key|key $CLIENT.key|" $CLIENT.conf
 	echo "remote-cert-tls server" >> $CLIENT.conf
 	
+	# Android OVPN file
+	cp $CLIENT.conf $CLIENT-android.ovpn
+	# For some reason in Ubuntu, you need to select the .key manually for it to work with network-manager-openvpn-gnome.
+	cp $CLIENT.conf $CLIENT-ubuntu.ovpn
+	sed -i "s|key $CLIENT.key|;key $CLIENT.key|" $CLIENT-ubuntu.ovpn
+	
+	# Create inline file
 	cp $CLIENT.conf $CLIENT.ovpn
 	sed -i "s|ca ca.crt|ca [inline]|" $CLIENT.ovpn
 	sed -i "s|cert $CLIENT.crt|cert [inline]|" $CLIENT.ovpn
 	sed -i "s|key $CLIENT.key|key [inline]|" $CLIENT.ovpn
 	echo -e "keepalive 10 60\n" >> $CLIENT.ovpn
-	
-	# For some reason in Ubuntu, you need to select the .key manually for it to work with network-manager-openvpn-gnome.
-	cp $CLIENT.conf $CLIENT-ubuntu.ovpn
-	sed -i "s|key $CLIENT.key|;key $CLIENT.key|" $CLIENT-ubuntu.ovpn
 	
 	echo "<ca>" >> $CLIENT.ovpn
 	cat ca.crt >> $CLIENT.ovpn
