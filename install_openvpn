@@ -249,6 +249,9 @@ else
 	cp ca.crt ca.key dh2048.pem server.crt server.key /etc/openvpn
 	cd /etc/openvpn/
 	# Set the server configuration
+	sed -i '/;log-append/d' server.conf
+	sed -i 's|;log.*|log /dev/null|' server.conf
+	sed -i 's|status.*|status /dev/null|' server.conf
 	sed -i 's|dh dh1024.pem|dh dh2048.pem|' server.conf
 	sed -i 's|;push "redirect-gateway def1 bypass-dhcp"|push "redirect-gateway def1 bypass-dhcp"|' server.conf
 	sed -i 's|;push "dhcp-option DNS 208.67.222.222"|push "dhcp-option DNS 8.8.8.8"|' server.conf
