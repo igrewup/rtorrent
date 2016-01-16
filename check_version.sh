@@ -3,6 +3,8 @@ source $(dirname $0)/incl.sh
 
 dir=$(dirname $0)
 
+rm /tmp/LATESTVERSION
+
 if [[ ! -f $dir/VERSION ]]; then
 	echo "Unable to locate local VERSION file."
 	echo "Make sure you have a $dir/VERSION file."
@@ -19,10 +21,6 @@ if [[ ! -f $dir/VERSION ]]; then
 	else
 		exit 0
 	fi
-fi
-
-if [[ -f /tmp/LATESTVERSION ]]; then
-rm /tmp/LATESTVERSION
 fi
 
 # Download latest VERSION from GITHUB and check it against the current VERSION file.
