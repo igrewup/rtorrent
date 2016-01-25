@@ -16,51 +16,7 @@ if [ $2 != $user ]; then
 fi
 
 # Installing dependencies
-	apt-get -y install subversion openssl git apache2 apache2-utils build-essential libsigc++-2.0-dev \
-	libcurl4-openssl-dev automake libtool libcppunit-dev libncurses5-dev libapache2-mod-scgi \
-	php5 php5-curl php5-cli libapache2-mod-php5 screen unzip unrar-free libssl-dev curl
-	
-if [ ! -f /usr/local/bin/rtorrent ]; then # Is rtorrent already installed (START)
-
-	mkdir install && cd install
-	# Download and install xmlrpc-c super-stable
-	sudo svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
-	cd xmlrpc-c
-	./configure --disable-cplusplus
-	make
-	make install
-	
-	cd ..
-
-	# Download and install libtorrent
-	curl -L https://github.com/rakshasa/libtorrent/archive/0.13.4.tar.gz -o libtorrent-0.13.4.tar.gz
-	tar -zxvf libtorrent-0.13.4.tar.gz
-	cd libtorrent-0.13.4
-	./autogen.sh
-	./configure
-	make
-	make install
-
-	cd ..
-
-	# Download and install rtorrent
-	curl -L https://github.com/rakshasa/rtorrent/archive/0.9.4.tar.gz -o rtorrent-0.9.4.tar.gz
-	tar -zxvf rtorrent-0.9.4.tar.gz
-	cd rtorrent-0.9.4
-	./autogen.sh
-	./configure --with-xmlrpc-c
-	make
-	make install
-
-	cd ../..
-	#rm -rv rtorrent
-
-	ldconfig
-
-	echo "rTorrent installed successfully." >> $OUTPUTFILE
-else
-	echo "rTorrent is already installed." >> $OUTPUTFILE
-fi # Is rtorrent already installed (END)
+apt-get -y install rtorrent
 
 # Creating session directory
 if [ ! -d "$homedir"/.rtorrent-session ]; then
