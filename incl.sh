@@ -121,7 +121,6 @@ echo '<html><body><h1>It works!</h1>
 chown root.root /var/www/index.html
 chmod 444 /var/www/index.html
 echo "Webserver root folder /var/www/ is now secure."
-$HITENTER
 fi
 
 if [ ! -f /var/www/.htaccess ]; then
@@ -130,7 +129,6 @@ echo 'Redirect 301 /index.html http://www.torproject.org' > /var/www/.htaccess
 chown root.root /var/www/.htaccess
 chmod 444 /var/www/.htaccess
 echo "Redirect now setup."
-$HITENTER
 fi
 
 # Check to make sure VPN folder is secure.
@@ -142,5 +140,4 @@ Options All -Indexes' > /var/www/vpn/.htaccess
 chown www-data.www-data /var/www/vpn/.htaccess
 chmod 444 /var/www/vpn/.htaccess
 echo "VPN folder /var/www/vpn is now secure."
-$HITENTER
 fi
