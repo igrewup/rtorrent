@@ -3,17 +3,15 @@ source $(dirname $0)/check.sh
 source $(dirname $0)/incl.sh
 
 # Installing dependencies
-apt-get -y install openssl apache2 apache2-utils libapache2-mod-scgi php5 php5-curl php5-cli libapache2-mod-php5
+apt-get -y install subversion openssl git-core apache2 apache2-utils build-essential libsigc++-2.0-dev \
+libcurl4-openssl-dev automake libtool libcppunit-dev libncurses5-dev libapache2-mod-scgi \
+php5 php5-curl php5-cli libapache2-mod-php5 screen unzip unrar-free libssl-dev curl ffmpeg mediainfo
 
 # Installing rutorrent.
-if [ ! -d /var/www/rutor ]; then
-  tar -zxvf rutorrent-3.6.tar.gz
-  mv -f rutorrent /var/www/rutor
-  sed -i 's/newTitle+=".*;/newTitle+="ruTor";/' /var/www/rutor/js/webui.js
-  echo "ruTorrent installed successfully." >> $OUTPUTFILE
-else
-  echo "ruTorrent already installed." >> $OUTPUTFILE
-fi
+cd /var/www
+git clone git://github.com/Novik/ruTorrent.git
+
+sed -i 's/newTitle+=".*;/newTitle+="ruTor";/' /var/www/rutor/js/webui.js
 
 # Changeing permissions for rutorrent and plugins.
 chown -R www-data.www-data /var/www/rutor
@@ -36,7 +34,7 @@ fi
 chmod 444 /etc/apache2/.htpasswd
 
 # Creating Apache virtual host
-#if [ ! -f /etc/apache2/sites-available/rutor ]; then
+rm /etc/apache2/sites-available/rutor
 echo '<VirtualHost *:80>
 	ServerName *
 	ServerAlias *
@@ -52,7 +50,6 @@ echo '<VirtualHost *:80>
                 AuthUserFile /etc/apache2/.htpasswd
         </location>
 </VirtualHost>' > /etc/apache2/sites-available/rutor
-#fi
 
 # Creating Apache SSL certificates
 if [ ! -f /etc/ssl/private/apache.crt ]; then
@@ -124,4 +121,4 @@ a2ensite rutor
 
 service apache2 restart
 
-echo "ruTorrent settings updated successfully." >> $OUTPUTFILE
+echo "ruTorrent installed successfully." >> $OUTPUTFILE
