@@ -2,10 +2,6 @@
 source $(dirname $0)/check.sh
 source $(dirname $0)/incl.sh
 
-echo $3
-echo $4
-htpasswd -c -b /etc/apache2/.htpasswd $3 $4
-$HITENTER
 # Installing dependencies
 apt-get -y install subversion openssl git-core apache2 apache2-utils build-essential libsigc++-2.0-dev \
 libcurl4-openssl-dev automake libtool libcppunit-dev libncurses5-dev libapache2-mod-scgi \
@@ -24,25 +20,18 @@ git clone git://github.com/Novik/ruTorrent.git
 mv ruTorrent rutor
 sed -i 's/newTitle+=".*;/newTitle+="ruTor";/' /var/www/rutor/js/webui.js
 
+# Creating user for webinterface.
+if [ -z "$3" ]; then
+echo "Unable to continue, missing variable."
+else
+htpasswd -c -b /etc/apache2/.htpasswd $3 $4
+fi
+
 # Changeing permissions for rutorrent and plugins.
 chown -R www-data.www-data /var/www/rutor
 chmod -R 775 /var/www/rutor/
 cp .htaccess /var/www/rutor/
-chmod 444 /var/www/rutor/.htaccess
-
-#if [ ! -f /etc/apache2/.htpasswd ]; then
-# Creating user for webinterface.
-#echo -n "Please type the username for the webinterface, system user not required: "
-#read -e htauser
-
-#while true; do
-htpasswd -c -b /etc/apache2/.htpasswd "$3 $4"
-#	if [ $? = 0 ]; then
-#		break
-#	fi
-#done
-#fi
-chmod 444 /etc/apache2/.htpasswd
+chmod 444 /var/www/rutor/.htaccess /etc/apache2/.htpasswd
 
 # Creating Apache virtual host
 rm /etc/apache2/sites-available/rutor
