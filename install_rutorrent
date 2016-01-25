@@ -124,6 +124,7 @@ chmod 644 /etc/apache2/sites-available/*
 wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
 gunzip GeoLiteCity.dat.gz
 mkdir -v /usr/share/GeoIP
+rm -rf /usr/share/GeoIP/*
 mv -v GeoLiteCity.dat /usr/share/GeoIP/GeoIPCity.dat
 ln -s /usr/share/GeoIP/GeoIPCity.dat /usr/share/GeoIP/GeoIP.dat
 #remove hashtag in file
