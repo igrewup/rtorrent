@@ -8,13 +8,15 @@ libcurl4-openssl-dev automake libtool libcppunit-dev libncurses5-dev libapache2-
 php5 php5-curl php5-cli libapache2-mod-php5 screen unzip unrar-free libssl-dev curl ffmpeg mediainfo \
 libapache2-mod-geoip
 
+if [ ! -f rar_4.0.b3-1_amd64.deb ]; then
 wget http://ftp.debian.org/debian/pool/non-free/r/rar/rar_4.0.b3-1_amd64.deb
+fi
 dpkg -i rar_4.0.b3-1_amd64.deb
 
 # Installing rutorrent.
 cd /var/www
 git clone git://github.com/Novik/ruTorrent.git
-
+mv ruTorrent rutor
 sed -i 's/newTitle+=".*;/newTitle+="ruTor";/' /var/www/rutor/js/webui.js
 
 # Changeing permissions for rutorrent and plugins.
@@ -128,7 +130,7 @@ ln -s /usr/share/GeoIP/GeoIPCity.dat /usr/share/GeoIP/GeoIP.dat
 rm -f -R /var/www/rutor/plugins/filemanager
 cd /var/www/rutor/plugins/
 svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
-sed -i "$ i\$topDirectory = '$1/';" /var/www/rutor/plugins/filemanager/conf.php
+#sed -i "$ i\$topDirectory = '$1/';" /var/www/rutor/plugins/filemanager/conf.php
 
 echo "Plugins are installed/updated."  >> $OUTPUTFILE
 
