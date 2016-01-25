@@ -125,7 +125,10 @@ gunzip GeoLiteCity.dat.gz
 mkdir -v /usr/share/GeoIP
 mv -v GeoLiteCity.dat /usr/share/GeoIP/GeoIPCity.dat
 ln -s /usr/share/GeoIP/GeoIPCity.dat /usr/share/GeoIP/GeoIP.dat
-sed -i 's/#GeoIPDBFile/GeoIPDBFile/' /usr/share/GeoIP/GeoIP.dat
+#remove blank spaces in file
+sed -i "s/ //g" /etc/apache2/mods-available/geoip.conf
+#remove hashtag in file
+sed -i "s/#//g" /etc/apache2/mods-available/geoip.conf
 
 
 # INSTALL FILEMANAGER PLUGIN
