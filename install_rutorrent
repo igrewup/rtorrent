@@ -4,7 +4,7 @@ source $(dirname $0)/incl.sh
 
 echo $3
 echo $4
-htpasswd -c -b /etc/apache2/.htpasswd "$3 $4"
+htpasswd -c -b /etc/apache2/.htpasswd $3 $4
 $HITENTER
 # Installing dependencies
 apt-get -y install subversion openssl git-core apache2 apache2-utils build-essential libsigc++-2.0-dev \
