@@ -60,10 +60,10 @@ if [[ $YESORNO1 = "y" ]]; then ANSWER="YES";	else ANSWER="NO";	fi
 #getString NO  "Set password for $user: " PASSWORD1
 getString NO " Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 $ANSWER
 getString NO " Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 $ANSWER
-#if [ "$INSTALLRUTORRENT1" = "YES" ]; then
-#INSTALLPLUGINS1=NO
-#getString NO " Install/Update RUTORRENT PLUGINS (yes/no)?: " INSTALLPLUGINS1 YES
-#fi
+if [ "$INSTALLRUTORRENT1" = "YES" ]; then
+getString NO  " ruTorrent admin username: " RUTORRENTUSER1
+getString NO  " ruTorrent admin password: " RUTORRENTPASS1
+fi
 getString NO  " Install/Update SSH (yes/no)?: " INSTALLSSH1 $ANSWER
 if [ "$INSTALLSSH1" = "YES" ]; then
 getString NO  " SSH port (usually 22): " NEWSSHPORT1 22
@@ -122,7 +122,7 @@ if [ "$INSTALLVSFTPD1" = "YES" ]; then bash ./install_vsftpd "$NEWFTPPORT1"; fi
 if [ "$INSTALLOPENVPN1" = "YES" ]; then bash ./install_openvpn "$OPENVPNPORT1" "$user"; fi
 if [ "$INSTALLSQUID1" = "YES" ]; then bash ./install_squid "$SQUIDPORT1" "$user"; fi
 if [ "$INSTALLRTORRENT1" = "YES" ]; then bash ./install_rtorrent "$homedir" "$user"; fi
-if [ "$INSTALLRUTORRENT1" = "YES" ]; then bash ./install_rutorrent "$homedir" "$user"; fi
+if [ "$INSTALLRUTORRENT1" = "YES" ]; then bash ./install_rutorrent "$homedir" "$user" "$RUTORRENTUSER1" "$RUTORRENTPASS1"; fi
 #if [ "$INSTALLPLUGINS1" = "YES" ]; then bash ./install_plugins "$homedir"; fi
 if [ "$INSTALLWEBMIN1" = "YES" ]; then bash ./install_webmin "$WEBMINPORT1"; fi
 
