@@ -1,8 +1,8 @@
 #!/bin/bash
+rm /tmp/LATESTVERSION
 apt-get install -y lsb-release
 
 source $(dirname $0)/incl.sh
-
 ####################### EVERYTHING LOOKS GOOD, START THE SCRIPT ###############################
 clear
 
