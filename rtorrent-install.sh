@@ -72,10 +72,10 @@ if [[ $YESORNO1 = "y" ]]; then ANSWER="YES";	else ANSWER="NO";	fi
 #getString NO  "Set password for $user: " PASSWORD1
 getString NO " Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 $ANSWER
 getString NO " Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 $ANSWER
-if [ "$INSTALLRUTORRENT1" = "YES" ]; then
-INSTALLPLUGINS1=NO
-getString NO " Install/Update RUTORRENT PLUGINS (yes/no)?: " INSTALLPLUGINS1 YES
-fi
+#if [ "$INSTALLRUTORRENT1" = "YES" ]; then
+#INSTALLPLUGINS1=NO
+#getString NO " Install/Update RUTORRENT PLUGINS (yes/no)?: " INSTALLPLUGINS1 YES
+#fi
 getString NO  " Install/Update SSH (yes/no)?: " INSTALLSSH1 $ANSWER
 if [ "$INSTALLSSH1" = "YES" ]; then
 getString NO  " SSH port (usually 22): " NEWSSHPORT1 22
@@ -108,7 +108,7 @@ if [[ "$INSTALLVSFTPD1" = "YES" ]]; then echo " Install/Update VSFTPD: $INSTALLV
 if [[ "$INSTALLOPENVPN1" = "YES" ]]; then	echo " Install/Update OPENVPN: $INSTALLOPENVPN1 on MAIN PORT: 1194 and ALTERNATE PORT: $OPENVPNPORT1"; echo; fi
 if [[ "$INSTALLSQUID1" = "YES" ]]; then echo " Install/Update Proxy Server: $INSTALLSQUID1 on PORT: $SQUIDPORT1"; echo; fi
 if [[ "$INSTALLRTORRENT1" = "YES" ]]; then echo " Install/Update RTORRENT: $INSTALLRTORRENT1"; echo; fi
-if [[ "$INSTALLRUTORRENT1" = "YES" ]]; then echo " Install/Update RUTORRENT: $INSTALLRUTORRENT1 and PLUGINS: $INSTALLPLUGINS1"; echo; fi
+if [[ "$INSTALLRUTORRENT1" = "YES" ]]; then echo " Install/Update RUTORRENT: $INSTALLRUTORRENT1"; echo; fi
 if [[ "$INSTALLWEBMIN1" = "YES" ]]; then echo " Install/Update WEBMIN: $INSTALLWEBMIN1 on PORT: $WEBMINPORT1"; echo; fi
 
 LAUNCH=0
@@ -125,7 +125,8 @@ read -p "ARE YOU SURE? (yes / no): " SURE
 if [[ "$SURE" != "yes" ]]; then echo; echo "Aborting installation."; echo; exit; else clear; echo; echo "Starting the installation now, this will take a while..."; echo; fi
 
 # Installing dependencies
-apt-get update > /dev/null && apt-get -y install openssl git subversion zip unzip rar unrar-free
+apt-get update
+apt-get -y install openssl git-core subversion zip unzip unrar-free
 
 clear
 
@@ -135,7 +136,7 @@ if [ "$INSTALLOPENVPN1" = "YES" ]; then bash ./install_openvpn "$OPENVPNPORT1" "
 if [ "$INSTALLSQUID1" = "YES" ]; then bash ./install_squid "$SQUIDPORT1" "$user"; fi
 if [ "$INSTALLRTORRENT1" = "YES" ]; then bash ./install_rtorrent "$homedir" "$user"; fi
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then bash ./install_rutorrent "$homedir" "$user"; fi
-if [ "$INSTALLPLUGINS1" = "YES" ]; then bash ./install_plugins "$homedir"; fi
+#if [ "$INSTALLPLUGINS1" = "YES" ]; then bash ./install_plugins "$homedir"; fi
 if [ "$INSTALLWEBMIN1" = "YES" ]; then bash ./install_webmin "$WEBMINPORT1"; fi
 
 clear
