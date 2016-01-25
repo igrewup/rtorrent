@@ -7,20 +7,9 @@ source $(dirname $0)/incl.sh
 clear
 
 # Check to see if this script is up-to-date
-if [[ $1 == "update" ]]; then
-  source $(dirname $0)/check_version.sh
-  echo
-  echo " Now continuing with the installation."
-  echo
-elif [[ $1 == "noupdate" ]]; then echo; echo " Skipping script update checker"; echo;
-else echo; read -p " Run script updater (y/n)? " UPDATE1;
-	if [[ $UPDATE1 = "y" ]]; then source $(dirname $0)/check_version.sh; echo; echo " Now continuing with the installation."; echo; fi
-fi
+source $(dirname $0)/check_version.sh
 
 # Welcome screen
-echo
-echo " NOTE: Options when launching ./rtorrent-install.sh [ update | noupdate ]"
-echo " By default, if no variable is given, it will ask you to update (y/n)."
 echo
 echo " Your system is running $OS1 ($OS2) which is supported by this script."
 echo
