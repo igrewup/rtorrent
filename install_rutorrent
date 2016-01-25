@@ -6,7 +6,7 @@ source $(dirname $0)/incl.sh
 apt-get -y install subversion openssl git-core apache2 apache2-utils build-essential libsigc++-2.0-dev \
 libcurl4-openssl-dev automake libtool libcppunit-dev libncurses5-dev libapache2-mod-scgi \
 php5 php5-curl php5-cli libapache2-mod-php5 screen unzip unrar-free libssl-dev curl ffmpeg mediainfo \
-libapache2-mod-geoip
+libapache2-mod-geoip php5-geoip
 
 if [ ! -f rar_4.0.b3-1_amd64.deb ]; then
 wget http://ftp.debian.org/debian/pool/non-free/r/rar/rar_4.0.b3-1_amd64.deb
