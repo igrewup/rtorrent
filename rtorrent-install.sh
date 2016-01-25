@@ -1,5 +1,5 @@
 #!/bin/bash
-rm /tmp/LATESTVERSION
+rm -f /tmp/LATESTVERSION
 
 apt-get install -y lsb-release
 
