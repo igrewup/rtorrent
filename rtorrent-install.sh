@@ -61,8 +61,10 @@ if [[ $YESORNO1 = "y" ]]; then ANSWER="YES";	else ANSWER="NO";	fi
 getString NO " Install/Update rTorrent (yes/no)?: " INSTALLRTORRENT1 $ANSWER
 getString NO " Install/Update ruTorrent WebGUI (yes/no)?: " INSTALLRUTORRENT1 $ANSWER
 if [ "$INSTALLRUTORRENT1" = "YES" ]; then
-getString NO  " ruTorrent admin username: " RUTORRENTUSER1
-getString NO  " ruTorrent admin password: " RUTORRENTPASS1
+#getString NO  " ruTorrent admin username: " RUTORRENTUSER1
+#getString NO  " ruTorrent admin password: " RUTORRENTPASS1
+read -p " ruTorrent webui username: " RUTORRENTUSER1;
+read -p " ruTorrent webui password: " RUTORRENTPASS1;
 fi
 getString NO  " Install/Update SSH (yes/no)?: " INSTALLSSH1 $ANSWER
 if [ "$INSTALLSSH1" = "YES" ]; then
