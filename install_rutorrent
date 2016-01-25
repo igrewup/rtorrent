@@ -2,16 +2,31 @@
 source $(dirname $0)/check.sh
 source $(dirname $0)/incl.sh
 
+# Check to make sure the username/password are set.
+if [ -z "$3" ]; then
+echo "Unable to continue, missing USERNAME variable."
+echo "Hit ENTER to exit."
+$HITENTER
+exit 0;
+elif [ -z "$4" ]; then
+echo "Unable to continue, missing PASSWORD variable."
+echo "Hit ENTER to exit."
+$HITENTER
+exit 0;
+else
+echo "User and Password set, Good to go!" 
+fi
+
 # Installing dependencies
 apt-get -y install subversion openssl git-core apache2 apache2-utils build-essential libsigc++-2.0-dev \
 libcurl4-openssl-dev automake libtool libcppunit-dev libncurses5-dev libapache2-mod-scgi \
 php5 php5-curl php5-cli libapache2-mod-php5 screen unzip unrar-free libssl-dev curl ffmpeg mediainfo \
 libapache2-mod-geoip php5-geoip
 
-if [ ! -f rar_4.0.b3-1_amd64.deb ]; then
-wget http://ftp.debian.org/debian/pool/non-free/r/rar/rar_4.0.b3-1_amd64.deb
+if [ ! -f $(dirname $0)/rar_4.0.b3-1_amd64.deb ]; then
+wget http://ftp.debian.org/debian/pool/non-free/r/rar/rar_4.0.b3-1_amd64.deb -P $(dirname $0)/
 fi
-dpkg -i rar_4.0.b3-1_amd64.deb
+dpkg -i $(dirname $0)/rar_4.0.b3-1_amd64.deb
 
 # Installing rutorrent.
 cd /var/www
@@ -21,11 +36,7 @@ mv ruTorrent rutor
 sed -i 's/newTitle+=".*;/newTitle+="ruTor";/' /var/www/rutor/js/webui.js
 
 # Creating user for webinterface.
-if [ -z "$3" ]; then
-echo "Unable to continue, missing variable."
-else
 htpasswd -c -b /etc/apache2/.htpasswd $3 $4
-fi
 
 # Changeing permissions for rutorrent and plugins.
 chown -R www-data.www-data /var/www/rutor
