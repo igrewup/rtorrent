@@ -165,9 +165,9 @@ fi
 echo
 if [ -f $OUTPUTFILE ]; then grep -v 'https://' $OUTPUTFILE; rm $OUTPUTFILE; fi
 echo
-echo -e "\033[0;32;148mTo exit the script, type: exit\033[39m"
+echo -e "\033[0;32;148mHit enter to exit this script\033[39m"
+read
 
-exec sh
 # ELSE Installation Start
 else echo; echo "Aborting installation."; echo;	exit 1; fi
 # END Installation Start
