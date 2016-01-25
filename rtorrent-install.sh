@@ -1,8 +1,6 @@
 #!/bin/bash
 apt-get install -y lsb-release
 
-$HITENTER
-
 source $(dirname $0)/incl.sh
 
 ####################### EVERYTHING LOOKS GOOD, START THE SCRIPT ###############################
