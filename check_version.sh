@@ -3,7 +3,7 @@ source $(dirname $0)/incl.sh
 
 dir=$(dirname $0)
 
-if [[ -f $ /tmp/LASTESTVERSION ]]; then
+if [[ -f /tmp/LASTESTVERSION ]]; then
 rm /tmp/LATESTVERSION
 fi
 
