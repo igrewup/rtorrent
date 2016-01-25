@@ -1,5 +1,8 @@
 #!/bin/bash
+if [[ -f /tmp/LASTESTVERSION ]]; then
 rm /tmp/LATESTVERSION
+fi
+
 apt-get install -y lsb-release
 
 source $(dirname $0)/incl.sh
