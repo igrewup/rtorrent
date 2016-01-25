@@ -42,9 +42,9 @@ if [[ ! -f /tmp/LATESTVERSION ]]; then
 	echo "[ Latest version : $LATESTVERSION ]"
 	echo
 	if [[ $CURRENTVERSION == $LATESTVERSION ]]; then
-		echo "Your system is up-to-date."
+		echo "This script is up-to-date."
 	elif [[ $CURRENTVERSION < $LATESTVERSION ]]; then
-		echo "Your system is outdated."
+		echo "This script is outdated."
 	        read -p "Run 'git pull' to update your folder. (y/n)? " RUNGITPULL
         	if [[ "$RUNGITPULL" = "y" ]]; then
                 	git pull
