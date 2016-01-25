@@ -97,6 +97,7 @@ if [[ "$INSTALLOPENVPN1" = "YES" ]]; then	echo " Install/Update OPENVPN: $INSTAL
 if [[ "$INSTALLSQUID1" = "YES" ]]; then echo " Install/Update Proxy Server: $INSTALLSQUID1 on PORT: $SQUIDPORT1"; echo; fi
 if [[ "$INSTALLRTORRENT1" = "YES" ]]; then echo " Install/Update RTORRENT: $INSTALLRTORRENT1"; echo; fi
 if [[ "$INSTALLRUTORRENT1" = "YES" ]]; then echo " Install/Update RUTORRENT: $INSTALLRUTORRENT1"; echo; fi
+if [[ "$INSTALLRUTORRENT1" = "YES" ]]; then echo " User: $RUTORRENTUSER1 - Pass: $RUTORRENTPASS1"; echo; fi
 if [[ "$INSTALLWEBMIN1" = "YES" ]]; then echo " Install/Update WEBMIN: $INSTALLWEBMIN1 on PORT: $WEBMINPORT1"; echo; fi
 
 LAUNCH=0
