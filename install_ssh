@@ -6,7 +6,7 @@ NEWSSHPORT1=$1
 
 if [ ! -f /etc/init.d/ssh ]; then
   apt-get -y install openssh-server
-  echo "SSH installed successfully"  >> $OUTPUTFILE
+  echo "SSH Server installed successfully"  >> $OUTPUTFILE
 else
   echo "SSH Server is already installed."  >> $OUTPUTFILE
 fi
