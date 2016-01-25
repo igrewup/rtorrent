@@ -5,7 +5,8 @@ source $(dirname $0)/incl.sh
 # Installing dependencies
 apt-get -y install subversion openssl git-core apache2 apache2-utils build-essential libsigc++-2.0-dev \
 libcurl4-openssl-dev automake libtool libcppunit-dev libncurses5-dev libapache2-mod-scgi \
-php5 php5-curl php5-cli libapache2-mod-php5 screen unzip unrar-free libssl-dev curl ffmpeg mediainfo
+php5 php5-curl php5-cli libapache2-mod-php5 screen unzip unrar-free libssl-dev curl ffmpeg mediainfo \
+libapache2-mod-geoip
 
 wget http://ftp.debian.org/debian/pool/non-free/r/rar/rar_4.0.b3-1_amd64.deb
 dpkg -i rar_4.0.b3-1_amd64.deb
@@ -121,6 +122,7 @@ wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
 gunzip GeoLiteCity.dat.gz
 mkdir -v /usr/share/GeoIP
 mv -v GeoLiteCity.dat /usr/share/GeoIP/GeoIPCity.dat
+ln -s /usr/share/GeoIP/GeoIPCity.dat /usr/share/GeoIP/GeoIP.dat
 
 # INSTALL FILEMANAGER PLUGIN
 rm -f -R /var/www/rutor/plugins/filemanager
@@ -132,6 +134,7 @@ echo "Plugins are installed/updated."  >> $OUTPUTFILE
 
 a2enmod ssl
 a2enmod scgi
+a2enmod geoip
 a2enmod rewrite
 a2ensite default-ssl
 a2ensite rutor
