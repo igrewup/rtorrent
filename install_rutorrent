@@ -15,6 +15,7 @@ dpkg -i rar_4.0.b3-1_amd64.deb
 
 # Installing rutorrent.
 cd /var/www
+rm -rf /var/www/rutor/
 git clone git://github.com/Novik/ruTorrent.git
 mv ruTorrent rutor
 sed -i 's/newTitle+=".*;/newTitle+="ruTor";/' /var/www/rutor/js/webui.js
