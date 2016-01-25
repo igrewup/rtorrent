@@ -3,7 +3,9 @@ source $(dirname $0)/incl.sh
 
 dir=$(dirname $0)
 
+if [[ -f $ /tmp/LASTESTVERSION ]]; then
 rm /tmp/LATESTVERSION
+fi
 
 if [[ ! -f $dir/VERSION ]]; then
 	echo "Unable to locate local VERSION file."
