@@ -113,6 +113,20 @@ echo '<IfModule mod_ssl.c>
 </IfModule>' > /etc/apache2/sites-available/default-ssl
 chmod 644 /etc/apache2/sites-available/*
 
+# UPDATE GEOIP WITH CITIES
+wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+gunzip GeoLiteCity.dat.gz
+mkdir -v /usr/share/GeoIP
+mv -v GeoLiteCity.dat /usr/share/GeoIP/GeoIPCity.dat
+
+# INSTALL FILEMANAGER PLUGIN
+rm -f -R /var/www/rutor/plugins/filemanager
+cd /var/www/rutor/plugins/
+svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
+sed -i "$ i\$topDirectory = '$1/';" /var/www/rutor/plugins/filemanager/conf.php
+
+echo "Plugins are installed/updated."  >> $OUTPUTFILE
+
 a2enmod ssl
 a2enmod scgi
 a2enmod rewrite
