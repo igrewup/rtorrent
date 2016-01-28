@@ -4,17 +4,10 @@ auth_param digest realm proxy
 acl authenticated proxy_auth REQUIRED
 http_access allow authenticated
 http_access deny all
-
-#To disable access log
-access_log none 
-
-#To disable store log
-cache_store none 
-
-#To disable cache log
-cache_log /dev/null 
+access_log none
+cache_store_log none
+cache_log /dev/null
 logfile_rotate 0
-
 via off
 forwarded_for off
 
