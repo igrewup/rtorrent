@@ -2,11 +2,18 @@
 
 # To access this file via http use following redirection:
 # http://preseed.panticz.de/ipxe/menu.ipxe
+######################################################################
+# How to use this file
+# 1. Boot into iPXE
+# 2. type: "dhcp" and hit Enter.
+# 3. type: "chain http://IP-OF-SERVER/install.ipxe" and hit Enter.
+######################################################################
 
-# choose cpu architecture
+# Auto-detect the CPU architecture
 cpuid --ext 29 && set arch amd64 || set arch i386
 
-set mainmenu http://192.168.0.2/a.ipxe
+# Set script location for future reference
+set mainmenu http://192.168.0.2/install.ipxe
 
 :start
 # choose boot image
