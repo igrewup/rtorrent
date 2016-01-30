@@ -16,17 +16,17 @@ item --gap URL: ${mainmenu}
 item --gap MAC: ${mac}
 item --gap CPU: ${arch}
 item
-item localboot  Boot from first harddisk
+item localboot  Boot from first hard-disk
 item
 item --gap Images:
 item livecd     + LiveCD...
-item install    + NetInstal...
+item install    + NetInstall...
 item memtest    Memtest86+
 item hdt        Hardware Detection Tool
 item live       Tiny Core Linux
 item intelflash Intel BootUtil
-item debian7	Install Debian7
-item debian8	Install Debian8
+item debian7	Install Debian 7 (wheezy)
+item debian8	Install Debian 8 (jessie)
 item dosboot    dosboot
 item
 item config     iPXE config menu
@@ -81,12 +81,10 @@ boot
 
 :debian7
 set release wheezy
-set arch amd64
 goto debian-install
 
 :debian8
 set release jessie
-set arch amd64
 goto debian-install
 
 :debian-install
