@@ -1,205 +1,96 @@
 #!ipxe
 
 # To access this file via http use following redirection:
-# http://preseed.panticz.de/ipxe/menu.netinstall.ipxe
+# http://preseed.panticz.de/ipxe/menu.ipxe
 
 # choose cpu architecture
 cpuid --ext 29 && set arch amd64 || set arch i386
 
-menu NetInstall
-item --gap NetInstall Ubuntu Preseed (user: ubuntu, password: t00r):
-item install_ubuntu_15.10           Ubuntu 15.10 Wily
-item install_ubuntu_15.04           Ubuntu 15.04 Vivid
-item install_ubuntu_15.010_autopart Ubuntu 15.04 Vivid autopart
-item install_ubuntu_14.10           Ubuntu 14.10 Utopic
-item install_ubuntu_14.10_autopart  Ubuntu 14.10 Utopic autopart
-item install_ubuntu_14.04           Ubuntu 14.04 LTS Trusty
-item install_ubuntu_14.04_autopart  Ubuntu 14.04 LTS Trusty autopart
-item install_ubuntu_14.04_forcepae  Ubuntu 14.04 LTS Trusty (32 bit)
-item install_ubuntu_12.04           Ubuntu 12.04.3 LTS Precise
+set mainmenu http://192.168.0.2/a.ipxe
+
+:start
+# choose boot image
+menu Please choose an operating system to boot
 item
-item --gap NetInstall Debian
-item install_debian_8_not_preseed   Debian 8 Jessie
-item install_debian_7_not_preseed   Debian 7 Wheezy
-item install_debian_7_backports     Debian 7 Wheezy (wheezy-backports kernel)
-item install_debian_6_not_preseed   Debian 6 Squeeze
+item --gap URL: ${mainmenu}
+item --gap MAC: ${mac}
+item --gap CPU: ${arch}
 item
-item --gap NetInstall Debian Preseed (user: root, password: t00r):
-item install_debian_8               Debian 8 Jessie
-item install_debian_7               Debian 7 Wheezy
-item install_debian_7_autopart      Debian 7 Wheezy autopart
-item install_debian_7_backports_autopart      Debian 7 Wheezy backports autopart
-item install_debian_6               Debian 6 Squeeze
-item install_debian_6_autopart      Debian 6 Squeeze autopart
+item localboot  Boot from first harddisk
 item
-item --gap NetInstall Fedora:  
-item install_fedora_20              Fedora 20
-item install_fedora_19              Fedora 19
+item --gap Images:
+item livecd     + LiveCD...
+item install    + NetInstal...
+item memtest    Memtest86+
+item hdt        Hardware Detection Tool
+item live       Tiny Core Linux
+item intelflash Intel BootUtil
+item debian7	Install Debian7
+item debian8	Install Debian8
+item dosboot    dosboot
 item
-item --gap NetInstall CentOS:  
-item install_centos_7             CentOS 7.1
-item install_centos_7_kickstart   CentOS 7.1 (kickstart)
-item
-item --gap NetInstall Arch Linux:  
-item install_arch_linux             Arch Linux Netboot
-item
-item --gap Other
-item install_ipfire                 IpFire
-item back   < Back to main menu
-choose target && goto ${target}
+item config     iPXE config menu
+choose --default exit --timeout 10000 target && goto ${target}
 
-:back
-chain ${mainmenu}
+:shell
+echo Type 'exit' to get the back to the menu
+shell
+set menu-timeout 0
+set submenu-timeout 0
+goto start
 
+:failed
+echo Booting failed, dropping to shell
 
-#
-# Ubuntu
-#
-:install_ubuntu_15.10
-set release wily
-goto install_ubuntu
+:config
+config
 
-:install_ubuntu_15.04
-set release vivid
-goto install_ubuntu
+:livecd
+chain http://preseed.panticz.de/ipxe/menu.livecd.ipxe
 
-:install_ubuntu_15.04_autopart
-set autopart autopart
-set release vivid
-goto install_ubuntu
+:install
+chain http://preseed.panticz.de/ipxe/menu.netinstall.ipxe
 
-:install_ubuntu_14.10
-set release utopic-updates
-goto install_ubuntu
+:localboot
+sanboot --no-describe --drive 0x80
 
-:install_ubuntu_14.10_autopart
-set autopart autopart
-set release utopic-updates
-goto install_ubuntu
+:memtest
+chain http://www.memtest.org/download/5.01/memtest86+-5.01.bin
 
-:install_ubuntu_14.04
-set release trusty-updates
-goto install_ubuntu
+:hdt
+set 209:string ipxe/hdt/hdt_052.conf
+set 210:string http://preseed.panticz.de/
+chain ipxe/pxelinux.0
+#imgfetch http://www.hdt-project.org/raw-attachment/wiki/hdt-0.5.0/hdt-0.5.2.img.gz
+#chain http://preseed.panticz.de/ipxe/memdisk
 
-:install_ubuntu_14.04_autopart
-set autopart autopart
-set release trusty-updates
-goto install_ubuntu
+:intelflash
+imgfetch http://preseed.panticz.de/ipxe/intelflash.img
+chain http://preseed.panticz.de/ipxe/memdisk
 
-:install_ubuntu_12.04
-set release precise-updates
-goto install_ubuntu
+:dosboot
+imgfetch http://preseed.panticz.de/ipxe/dosboot.img
+chain http://preseed.panticz.de/ipxe/memdisk
 
-:install_ubuntu_14.04_forcepae
-set release trusty-updates
-set arch i386
-set options forcepae
-goto install_ubuntu
+:live
+#imgfetch http://ftp-stud.hs-esslingen.de/pub/Mirrors/releases.ubuntu.com/12.10/ubuntu-12.10-desktop-amd64.iso
+# chain http://preseed.panticz.de/ipxe/memdisk iso
+initrd http://distro.ibiblio.org/tinycorelinux/4.x/x86/release/distribution_files/core.gz
+chain http://distro.ibiblio.org/tinycorelinux/4.x/x86/release/distribution_files/vmlinuz
+boot
 
-:install_ubuntu
-initrd http://de.archive.ubuntu.com/ubuntu/dists/${release}/main/installer-${arch}/current/images/netboot/ubuntu-installer/${arch}/initrd.gz
-chain http://de.archive.ubuntu.com/ubuntu/dists/${release}/main/installer-${arch}/current/images/netboot/ubuntu-installer/${arch}/linux url=http://preseed.panticz.de/preseed/ubuntu-minimal.seed auto=true netcfg/choose_interface=${net0/mac} locale=en_US.UTF-8 priority=critical biosdevname=0 ${autopart} ${options}
-
-#
-# Debian
-#
-:install_debian_6_autopart
-set autopart autopart
-goto install_debian_6
-
-:install_debian_6
-set release squeeze
-goto install_debian
-
-:install_debian_7_autopart
-set autopart autopart
-goto install_debian_7
-
-:install_debian_7_backports_autopart
-set autopart autopart
-goto install_debian_backports
-
-:install_debian_7
+:debian7
 set release wheezy
-goto install_debian
+set arch amd64
+goto debian-install
 
-:install_debian_8
+:debian8
 set release jessie
-goto install_debian
+set arch amd64
+goto debian-install
 
-:install_debian_6_not_preseed
-set release squeeze
-initrd http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/initrd.gz
-chain http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/linux
-
-:install_debian_7_not_preseed
-set release wheezy
-initrd http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/initrd.gz
-chain http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/linux
-
-:install_debian_7_backports
-set release unstable
-initrd http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/initrd.gz
-chain http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/linux url=http://preseed.panticz.de/preseed/debian-wheezy-backports.seed
-
-:install_debian_8_not_preseed
-set release jessie
-initrd http://cdn.debian.net/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/initrd.gz
-chain http://cdn.debian.net/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/linux
-
-#initrd http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/initrd.gz
-#chain http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/linux url=http://preseed.panticz.de/preseed/debian-minimal.seed auto=true netcfg/choose_interface=${net0/mac} priority=critical ${autopart}
-
-:install_debian
-initrd http://192.168.0.2/debian-7.9.0-amd64-netinst/initrd.gz
-chain http://192.168.0.2/debian-7.9.0-amd64-netinst/vmlinuz url=https://raw.githubusercontent.com/igrewup/rtorrent/master/preseed/wheezy-preseed.cfg
-
-:install_debian_backports
-set release unstable
-initrd http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/initrd.gz
-chain http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/linux url=http://preseed.panticz.de/preseed/debian-wheezy-backports-minimal-preseed.seed auto=true netcfg/choose_interface=${net0/mac} locale=en_US.UTF-8 priority=critical ${autopart}
-
-
-#
-# Fedora
-#
-# TODO: auto 32/64 bit
-:install_fedora_20
-set release 20
-goto install_fedora
-
-:install_fedora_19
-set release 19
-goto install_fedora
-
-:install_fedora
-initrd http://ftp.uni-kl.de/pub/linux/fedora/linux/releases/${release}/Fedora/x86_64/os/images/pxeboot/initrd.img
-chain http://ftp.uni-kl.de/pub/linux/fedora/linux/releases/${release}/Fedora/x86_64/os/images/pxeboot/vmlinuz inst.repo=http://ftp.uni-kl.de/pub/linux/fedora/linux/releases/${release}/Fedora/x86_64/os/
-
-
-
-#
-# CentOS
-#
-# TODO: auto 32/64 bit
-:install_centos_7
-initrd http://mirror.netcologne.de/centos/7/os/x86_64/isolinux/initrd.img
-chain http://mirror.netcologne.de/centos/7/os/x86_64/isolinux/vmlinuz
-
-:install_centos_7_kickstart
-initrd http://mirror.netcologne.de/centos/7/os/x86_64/isolinux/initrd.img
-chain http://mirror.netcologne.de/centos/7/os/x86_64/isolinux/vmlinuz ksdevice=link edd=off ks=http://preseed.panticz.de/kickstart/centos7-minimal.cfg net.ifnames=0 biosdevname=0
-
-#
-# Arch Linux
-#
-:install_arch_linux
-cpuid --ext 29 && set arch x86_64 || set arch i686
-initrd http://mirror.netcologne.de/archlinux/iso/latest/arch/boot/${arch}/archiso.img
-chain http://mirror.netcologne.de/archlinux/iso/latest/arch/boot/${arch}/vmlinuz autopartarchiso_http_srv=http://mirror.netcologne.de/archlinux/iso/latest/ archisobasedir=arch checksum=y ip=dhcp
-
-#
-# IpFire
-#
-:install_ipfire
-chain http://boot.ipfire.org/menu.gpxe
+:debian-install
+prompt Installing Debian ${release} ${arch} via Network
+initrd http://192.168.0.2/netboot/${arch}/${release}/initrd.gz
+chain http://192.168.0.2/netboot/${arch}/${release}/linux locale=en_US.UTF-8 keymap=us hostname=${release}-${arch}-seed domain=unassigned-domain url=http://192.168.0.2/${release}.seed || goto failed
+goto start
