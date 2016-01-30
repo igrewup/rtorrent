@@ -147,9 +147,12 @@ set release jessie
 initrd http://cdn.debian.net/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/initrd.gz
 chain http://cdn.debian.net/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/linux
 
+#initrd http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/initrd.gz
+#chain http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/linux url=http://preseed.panticz.de/preseed/debian-minimal.seed auto=true netcfg/choose_interface=${net0/mac} priority=critical ${autopart}
+
 :install_debian
-initrd http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/initrd.gz
-chain http://ftp2.de.debian.org/debian/dists/${release}/main/installer-${arch}/current/images/netboot/debian-installer/${arch}/linux url=http://preseed.panticz.de/preseed/debian-minimal.seed auto=true netcfg/choose_interface=${net0/mac} priority=critical ${autopart}
+initrd http://192.168.0.2/debian-7.9.0-amd64-netinst/initrd.gz
+chain http://192.168.0.2/debian-7.9.0-amd64-netinst/vmlinuz url=http://github.com/igrewup/rtorrent/preseed/wheezy-preseed.cfg
 
 :install_debian_backports
 set release unstable
