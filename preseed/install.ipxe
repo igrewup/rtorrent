@@ -152,7 +152,7 @@ chain http://cdn.debian.net/debian/dists/${release}/main/installer-${arch}/curre
 
 :install_debian
 initrd http://192.168.0.2/debian-7.9.0-amd64-netinst/initrd.gz
-chain http://192.168.0.2/debian-7.9.0-amd64-netinst/vmlinuz url=http://github.com/igrewup/rtorrent/preseed/wheezy-preseed.cfg
+chain http://192.168.0.2/debian-7.9.0-amd64-netinst/vmlinuz url=https://raw.githubusercontent.com/igrewup/rtorrent/master/preseed/wheezy-preseed.cfg
 
 :install_debian_backports
 set release unstable
