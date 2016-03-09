@@ -10,6 +10,7 @@ df -h $diskcheck | tail -n+2 | while read fs size used avail rest ; do
     if [[ $used ]] ; then
 	rmdir $diskcheck/0o.DISKFREE*
 	mkdir $diskcheck/0o.DISKFREE-$avail.o0
+	chmod 000 $diskcheck/0o.DISKFREE*
     fi
 done
 
