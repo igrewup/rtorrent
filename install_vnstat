@@ -1,0 +1,20 @@
+#!/bin/bash
+source $(dirname $0)/check.sh
+source $(dirname $0)/incl.sh
+
+echo $(dirname $0)
+
+# Check if VnStat is already installed.
+if [ -d /var/www/vnstat/ ]; then
+  # Control will enter here if /var/www/vnstat/ exists.
+  echo "VnStat is already installed. Skipping installation."
+else
+  apt-get -y install vnstat
+  vnstat -i eth0
+  echo "*/5 * * * * root /usr/bin/vnstat -u >/dev/null 2>&1" >> /etc/crontab
+  apt-get -y install apache2 php5 php5-gd
+  service apache2 start
+  tar zxf $(dirname $0)/vnstat_php_frontend-1.5.1.tar.gz
+  cp -fr $(dirname $0)/vnstat_php_frontend-1.5.1/ /var/www/vnstat
+fi
+
