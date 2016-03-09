@@ -1,14 +1,16 @@
 #!/bin/bash
-rm -f /tmp/LATESTVERSION
-
-apt-get install -y lsb-release
-
 source $(dirname $0)/incl.sh
+
+rm -f /tmp/LATESTVERSION
+apt-get install -y lsb-release
 ####################### EVERYTHING LOOKS GOOD, START THE SCRIPT ###############################
 clear
 
 # Check to see if this script is up-to-date
 source $(dirname $0)/check_version.sh
+
+# Check if server is secure
+source $(dirname $0)/secure.sh
 
 # Welcome screen
 echo
