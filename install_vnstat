@@ -16,5 +16,8 @@ else
   cp -fr $(dirname $0)/vnstat_php_frontend-1.5.1/ /var/www/vnstat
   sed -i "s#\$language.*#\$language = 'en';#g" /var/www/vnstat/config.php
   sed -i "s#\$iface_list.*#\$iface_list = array('eth0');#g" /var/www/vnstat/config.php
+  # Secure /var/www/vnstat/ folder.
+  cp $(dirname $0)/.htaccess /var/www/vnstat/.htaccess
+	chown www-data.www-data /var/www/vnstat/.htaccess && chmod 444 /var/www/vnstat/.htaccess
 fi
 
